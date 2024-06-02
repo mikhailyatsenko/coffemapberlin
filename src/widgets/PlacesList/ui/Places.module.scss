@@ -3,16 +3,17 @@
   width: 480px;
   top: 50px;
   left: 0;
+  @media (width <= 768px) {
+    display: none;
+  }
 }
 
 .placeCard {
+  display: flex;
+  overflow: hidden;
   background: #fff;
-  background-size: 140px auto;
-  background-position: left center;
-  background-repeat: no-repeat;
   width: 480px;
   min-height: 80px;
-  padding-left: 140px;
   border-radius: 10px;
   margin-left: 14px;
   transition: all 0.2s;
@@ -21,6 +22,14 @@
   }
   &:hover {
     transform: translateX(4px);
+  }
+  .image {
+    flex-shrink: 0;
+    width: 140px;
+    height: auto;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
   .content {
     padding: 10px;
