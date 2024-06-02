@@ -10,25 +10,42 @@
   background-size: 140px auto;
   background-position: left center;
   background-repeat: no-repeat;
-  width: 420px;
-  padding: 10px 15px;
+  width: 480px;
+  min-height: 80px;
+  padding-left: 140px;
   border-radius: 10px;
-}
-
-.name {
-}
-.description {
-}
-.image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 140px;
-  height: 100%;
-  min-height: 125px;
-  object-fit: cover;
-  overflow: hidden;
+  margin-left: 14px;
+  transition: all 0.2s;
+  @media (width <= 1280px) {
+    width: 420px;
+  }
   &:hover {
-    transform: scale(1.2);
+    transform: translateX(4px);
+  }
+  .content {
+    padding: 10px;
+    cursor: default;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    .header {
+      display: flex;
+      gap: 8px;
+      padding-left: 2px;
+      .instagram {
+        height: 20px;
+        width: 20px;
+      }
+    }
+    .description {
+    }
+    .adress {
+      font-weight: 300;
+      font-size: 14px;
+      padding-left: 2px;
+      &::before {
+        content: '📍';
+      }
+    }
   }
 }
