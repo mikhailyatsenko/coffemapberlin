@@ -4,8 +4,10 @@ import { Map, Source, Layer, Popup } from 'react-map-gl';
 import { clusterLayer, clusterCountLayer, unclusteredPointLayer } from '../model/layers/layers';
 
 import type { MapRef, GeoJSONSource, MapLayerMouseEvent, LngLatLike } from 'react-map-gl';
+import { type Place } from 'shared/types';
 
 import places from '../../../../places.json';
+import { PlaceCard } from 'entities/PlaceCard';
 const typedPlaces: GeoJSON.FeatureCollection<GeoJSON.Geometry> = places as GeoJSON.FeatureCollection<GeoJSON.Geometry>;
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoicGV0cmFrb3YiLCJhIjoiY2tuMGRxZXNqMG1xZzJ0cGZvb2h0emN1ayJ9.CsROju7EJW9j76c6bEsyYw';
@@ -90,8 +92,11 @@ export const LoadMap = () => {
           <Layer {...clusterCountLayer} />
           <Layer {...unclusteredPointLayer} />
         </Source>
-        {popupInfo && (
+        {popupInfo?.properties && (
           <Popup
+            // style={{ padding: '0' }}
+            className="popup"
+            closeButton={false}
             closeOnClick={false}
             anchor="top"
             longitude={Number((popupInfo.geometry as GeoJSON.Point).coordinates[0])}
@@ -100,27 +105,7 @@ export const LoadMap = () => {
               setPopupInfo(null);
             }}
           >
-            <div className="place">
-              <div>
-                <img src={popupInfo?.properties?.image} alt="" className="thumb" />
-              </div>
-              <div>
-                <a href={popupInfo?.properties?.instagram} target="_blank" rel="noreferrer">
-                  <h3>
-                    {popupInfo?.properties?.name}
-                    <img src="/images/instagram.svg" alt="" className="inst" />
-                  </h3>
-                </a>
-                <p>{popupInfo?.properties?.description}</p>
-                <p className="adress">{popupInfo?.properties?.adress}</p>
-              </div>
-              <div
-                className="close"
-                onClick={() => {
-                  setPopupInfo(null);
-                }}
-              ></div>
-            </div>
+            <PlaceCard place={popupInfo.properties as Place} />
           </Popup>
         )}
       </Map>

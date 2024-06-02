@@ -11,11 +11,29 @@
         ]
       },
       "properties": {
-        "name": "19grams Alex",
+        "name": "19grams Alex – Roastery & Lab",
         "description": "Café & Roastery & Event Space, offering freshly roasted beans and Australian-inspired brunch, breakfast, and lunch. Free Wi-Fi, indoor/outdoor seating. Perfect for coffee enthusiasts and events. Open daily.",
         "adress": "Karl-Liebknecht-Str. 13, 10178",
-        "image": "https://goodcoffeebox.click/mapImages/IMAGE 2023-03-06 18:28:11.jpg",
-        "instagram": "https://instagram.com/bakery.babka"
+        "image": "19grams-alex.jpg",
+        "instagram": "https://www.instagram.com/19grams.coffee/"
+      }
+    },
+
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.409063,
+          52.515313
+        ]
+      },
+      "properties": {
+        "name": "The Greens - Coffee & Plants",
+        "description": "A cozy spot to relax, offering indoor and outdoor seating (plus a charming garden across the street for weekends). Delicious coffee and pastries. Not laptop-friendly; laptops allowed only outdoors.",
+        "adress": "Am Krögel 2, 10179",
+        "image": "the-greens.jpg",
+        "instagram": "https://www.instagram.com/thegreensberlin/"
       }
     }
   ]

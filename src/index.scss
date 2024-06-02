@@ -35,3 +35,11 @@ h3 {
 h3 {
   font-size: 16px;
 }
+
+.mapboxgl-popup-content {
+  padding: 0;
+  background: transparent;
+  @media (width <= 575px) {
+    max-width: 100%;
+  }
+}
