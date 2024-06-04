@@ -1,13 +1,11 @@
 import { useRef, useState } from 'react';
 import { Map, Source, Layer, Popup } from 'react-map-gl';
-
+import { PlaceCard } from 'entities/PlaceCard';
 import { clusterLayer, clusterCountLayer, unclusteredPointLayer } from '../model/layers/layers';
-
 import type { MapRef, GeoJSONSource, MapLayerMouseEvent, LngLatLike } from 'react-map-gl';
 import { type Place } from 'shared/types';
-
+import cls from './LoadMap.module.scss';
 import places from '../../../../places.json';
-import { PlaceCard } from 'entities/PlaceCard';
 const typedPlaces: GeoJSON.FeatureCollection<GeoJSON.Geometry> = places as GeoJSON.FeatureCollection<GeoJSON.Geometry>;
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoicGV0cmFrb3YiLCJhIjoiY2tuMGRxZXNqMG1xZzJ0cGZvb2h0emN1ayJ9.CsROju7EJW9j76c6bEsyYw';
@@ -94,8 +92,7 @@ export const LoadMap = () => {
         </Source>
         {popupInfo?.properties && (
           <Popup
-            // style={{ padding: '0' }}
-            className="popup"
+            className={cls.popup}
             closeButton={false}
             closeOnClick={false}
             anchor="top"
@@ -105,7 +102,7 @@ export const LoadMap = () => {
               setPopupInfo(null);
             }}
           >
-            <PlaceCard place={popupInfo.properties as Place} />
+            <PlaceCard place={popupInfo.properties as Place} isPopup={true} />
           </Popup>
         )}
       </Map>

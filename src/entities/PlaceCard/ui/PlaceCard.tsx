@@ -9,7 +9,7 @@ interface PlaceCardProps {
 
 export const PlaceCard = ({ place, isPopup = false }: PlaceCardProps) => {
   return (
-    <div className={cls.placeCard}>
+    <div className={`${cls.placeCard} ${isPopup ? cls.popupCard : ''}`}>
       <div
         className={cls.image}
         style={{

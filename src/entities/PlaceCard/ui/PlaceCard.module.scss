@@ -9,6 +9,7 @@
   transition: all 0.2s;
   @media (width <= 1279px) {
     width: 420px;
+    max-width: 100%;
   }
 
   &:hover {
@@ -47,5 +48,11 @@
         content: '📍';
       }
     }
+  }
+}
+
+.popupCard {
+  &:hover {
+    transform: none;
   }
 }

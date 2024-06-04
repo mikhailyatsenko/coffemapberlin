@@ -43,3 +43,9 @@ h3 {
     max-width: 100%;
   }
 }
+
+.mapboxgl-popup-tip {
+  @media (width <= 460px) {
+    display: none;
+  }
+}
