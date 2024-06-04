@@ -1,0 +1,21 @@
+.Logo {
+  display: flex;
+  align-items: center;
+  .logoText {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-left: 4px;
+    .primaryText {
+      font-size: 18px;
+      color: #ff4b34;
+      font-weight: 700;
+    }
+    .secondaryText {
+      font-size: 12px;
+      color: #8c4c17;
+      align-self: center;
+    }
+  }
+}

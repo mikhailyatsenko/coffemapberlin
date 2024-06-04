@@ -1,10 +1,14 @@
 import AppRouter from './providers/router/ui/AppRouter';
+import { Navbar } from 'widgets/Navbar';
 
 const App = () => {
   return (
-    <main>
-      <AppRouter />
-    </main>
+    <>
+      <Navbar />
+      <main>
+        <AppRouter />
+      </main>
+    </>
   );
 };
 
