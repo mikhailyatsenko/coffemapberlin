@@ -1,12 +1,15 @@
 .Places {
   position: absolute;
   display: flex;
-  flex-direction: column;
   gap: 10px;
-  width: 480px;
+  flex-direction: column;
+  height: calc(100dvh - 50px);
+  overflow-y: scroll;
+  overflow-x: hidden;
   top: 50px;
-  left: 14px;
-  padding-top: 8px;
+  left: 8px;
+
+  z-index: 2;
   @media (width <= 768px) {
     display: none;
   }

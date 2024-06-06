@@ -29,7 +29,7 @@ export const LoadMap = () => {
       case 'clusters': {
         const clusterId: number = feature.properties?.cluster_id;
 
-        const mapboxSource = mapRef.current!.getSource('earthquakes') as GeoJSONSource;
+        const mapboxSource = mapRef.current!.getSource('places') as GeoJSONSource;
         mapboxSource.getClusterExpansionZoom(clusterId, (err: Error | null, zoom) => {
           if (!err) {
             mapRef?.current?.easeTo({
@@ -78,14 +78,7 @@ export const LoadMap = () => {
           }
         }}
       >
-        <Source
-          id="earthquakes"
-          type="geojson"
-          data={typedPlaces}
-          cluster={true}
-          clusterMaxZoom={14}
-          clusterRadius={50}
-        >
+        <Source id="places" type="geojson" data={typedPlaces} cluster={true} clusterMaxZoom={14} clusterRadius={50}>
           <Layer {...clusterLayer} />
           <Layer {...clusterCountLayer} />
           <Layer {...unclusteredPointLayer} />

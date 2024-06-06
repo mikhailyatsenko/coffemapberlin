@@ -17,7 +17,7 @@ export const PlaceCard = ({ place, isPopup = false }: PlaceCardProps) => {
         }}
       ></div>
       <div className={cls.content}>
-        <a className={cls.header} href={place.instagram}>
+        <a className={cls.header} href={place.instagram} target="_blank" rel="noreferrer">
           <h3 className={cls.name}>{place.name}</h3>
           <img className={cls.instagram} src={instagram} alt="" />
         </a>

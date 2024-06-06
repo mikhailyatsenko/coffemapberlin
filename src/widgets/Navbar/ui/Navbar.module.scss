@@ -1,4 +1,7 @@
 nav {
+  position: fixed;
+  left: 0;
+  top: 0;
   background-color: #fafafa;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   z-index: 2;
@@ -21,13 +24,12 @@ li {
   list-style: none;
 }
 .navbar {
-  position: relative;
   height: 50px;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 5%;
+  padding: 0 4%;
 }
 .navMenu {
   display: flex;

@@ -35,6 +35,60 @@
         "image": "the-greens.jpg",
         "instagram": "https://www.instagram.com/thegreensberlin/"
       }
+    },
+
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Feature",
+        "coordinates": [
+          13.397438,
+          52.529063
+        ]
+      },
+      "properties": {
+        "name": "Röststätte",
+        "description": "Good coffee with plenty of outdoor seating. A relatively quiet corner of Berlin, perfect for relaxing and enjoying a cup after a long walk. They roast their own beans, so you can also buy their coffee to take home.",
+        "adress": "Ackerstraße 173, 10115",
+        "image": "roststaette-ackerstrasse.jpg",
+        "instagram": "https://www.instagram.com/roeststaetteberlin/"
+      }
+    },
+    
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Feature",
+        "coordinates": [
+          13.410312,
+          52.525312
+        ]
+      },
+      "properties": {
+        "name": "Coffee Circle",
+        "description": "A charming and stylish café with delicious coffee, matcha, and desserts. There are spaces to work with your laptop and cozy spots to chat with friends. When it's warm, you can sit outside. Card payments only. They roast their own beans, so you can buy their coffee to take home.",
+        "adress": "Rosa-Luxemburg-Straße 19, 10178",
+        "image": "coffeecircle-rosa.jpg",
+        "instagram": "https://www.instagram.com/coffeecircle/"
+      }
+    },
+
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Feature",
+        "coordinates": [
+          13.410312,
+          52.525312
+        ]
+      },
+      "properties": {
+        "name": "The Barn Café",
+        "description": "The first The Barn, opened in 2010, marked Germany's intro to the third wave coffee movement. Lovingly called \"Baby Barn\", it's perfect for cozying up with a book or chatting with friends. Skilled baristas offer weekly rotating filter choices for fresh coffee.",
+        "adress": "Auguststraße 58, 10119",
+        "image": "the-little-barn.jpg",
+        "instagram": "https://www.instagram.com/thebarnberlin/"
+      }
     }
   ]
 }

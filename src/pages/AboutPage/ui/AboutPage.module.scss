@@ -1,0 +1,15 @@
+.AboutPage {
+  padding-top: 60px;
+}
+
+.text {
+  padding-top: 20px;
+  line-height: 1.5;
+}
+
+.link {
+  font-weight: 700;
+  &:hover {
+    text-decoration: underline;
+  }
+}

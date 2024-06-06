@@ -6,7 +6,7 @@ import { LoadMap } from 'features/LoadMap';
 
 export const MainMap = () => {
   return (
-    <div style={{ width: '100dvw', height: '100dvh' }}>
+    <div style={{ width: '100dvw', height: 'calc(100dvh - 50px)' }}>
       <LoadMap />
       <PlacesList />
     </div>
