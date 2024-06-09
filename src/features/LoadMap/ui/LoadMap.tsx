@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { Map, Source, Layer, Popup } from 'react-map-gl';
 import { PlaceCard } from 'entities/PlaceCard';
 import { clusterLayer, clusterCountLayer, unclusteredPointLayer } from '../model/layers/layers';
@@ -6,6 +6,7 @@ import type { MapRef, GeoJSONSource, MapLayerMouseEvent, LngLatLike } from 'reac
 import { type Place } from 'shared/types';
 import cls from './LoadMap.module.scss';
 import places from '../../../../places.json';
+import { LocationContext } from 'app/providers/LocationProvider/lib/ThemeContext';
 const typedPlaces: GeoJSON.FeatureCollection<GeoJSON.Geometry> = places as GeoJSON.FeatureCollection<GeoJSON.Geometry>;
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoicGV0cmFrb3YiLCJhIjoiY2tuMGRxZXNqMG1xZzJ0cGZvb2h0emN1ayJ9.CsROju7EJW9j76c6bEsyYw';
@@ -14,6 +15,18 @@ const MAPBOX_TOKEN = 'pk.eyJ1IjoicGV0cmFrb3YiLCJhIjoiY2tuMGRxZXNqMG1xZzJ0cGZvb2h
 export const LoadMap = () => {
   const mapRef = useRef<MapRef>(null);
   const [popupInfo, setPopupInfo] = useState<GeoJSON.Feature | null>(null);
+
+  const { location } = useContext(LocationContext);
+
+  useEffect(() => {
+    if (location) {
+      mapRef?.current?.easeTo({
+        center: location,
+        zoom: 15,
+        duration: 500,
+      });
+    }
+  }, [location]);
 
   const onClick = (event: MapLayerMouseEvent) => {
     event.originalEvent.stopPropagation();
@@ -30,6 +43,7 @@ export const LoadMap = () => {
         const clusterId: number = feature.properties?.cluster_id;
 
         const mapboxSource = mapRef.current!.getSource('places') as GeoJSONSource;
+
         mapboxSource.getClusterExpansionZoom(clusterId, (err: Error | null, zoom) => {
           if (!err) {
             mapRef?.current?.easeTo({

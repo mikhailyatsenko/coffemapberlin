@@ -1,13 +1,13 @@
 .Places {
   position: absolute;
   display: flex;
-  gap: 10px;
+  gap: 8px;
   flex-direction: column;
   height: calc(100dvh - 50px);
   overflow-y: scroll;
   overflow-x: hidden;
   top: 50px;
-  left: 8px;
+  padding: 8px 5px 5px;
 
   z-index: 2;
   @media (width <= 768px) {

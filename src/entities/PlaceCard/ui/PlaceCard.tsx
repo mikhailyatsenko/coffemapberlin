@@ -1,15 +1,24 @@
 import cls from './PlaceCard.module.scss';
 import instagram from '../../../shared/assets/instagram.svg';
 import { type Place } from 'shared/types';
+import { useContext } from 'react';
+import { LocationContext, type LocationPoint } from 'app/providers/LocationProvider/lib/ThemeContext';
 
 interface PlaceCardProps {
   place: Place;
+  coordinates?: LocationPoint;
   isPopup?: boolean;
 }
 
-export const PlaceCard = ({ place, isPopup = false }: PlaceCardProps) => {
+export const PlaceCard = ({ place, coordinates, isPopup = false }: PlaceCardProps) => {
+  const { setLocation } = useContext(LocationContext);
+  const handleClick = () => {
+    if (coordinates && setLocation) {
+      setLocation(coordinates);
+    }
+  };
   return (
-    <div className={`${cls.placeCard} ${isPopup ? cls.popupCard : ''}`}>
+    <div onClick={handleClick} className={`${cls.placeCard} ${isPopup ? cls.popupCard : ''}`}>
       <div
         className={cls.image}
         style={{
