@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import { Map, Source, Layer, Popup } from 'react-map-gl';
 import { PlaceCard } from 'entities/PlaceCard';
-import { clusterLayer, clusterCountLayer, unclusteredPointLayer } from '../model/layers/layers';
+import { clusterLayer, clusterCountLayer, unclusteredPointLayer, namesLayer } from '../model/layers/layers';
 import type { MapRef, GeoJSONSource, MapLayerMouseEvent, LngLatLike } from 'react-map-gl';
 import { type Place } from 'shared/types';
 import cls from './LoadMap.module.scss';
@@ -61,6 +61,11 @@ export const LoadMap = () => {
           setPopupInfo(feature);
         }
         break;
+      case 'place_title':
+        if (feature.geometry.type === 'Point') {
+          setPopupInfo(feature);
+        }
+        break;
       default:
         break;
     }
@@ -76,7 +81,7 @@ export const LoadMap = () => {
         }}
         mapStyle="mapbox://styles/mapbox/light-v9"
         mapboxAccessToken={MAPBOX_TOKEN}
-        interactiveLayerIds={[unclusteredPointLayer.id!, clusterLayer.id!]}
+        interactiveLayerIds={[unclusteredPointLayer.id!, clusterLayer.id!, namesLayer.id!]}
         onClick={onClick}
         ref={mapRef}
         onMouseEnter={() => {
@@ -96,6 +101,7 @@ export const LoadMap = () => {
           <Layer {...clusterLayer} />
           <Layer {...clusterCountLayer} />
           <Layer {...unclusteredPointLayer} />
+          <Layer {...namesLayer} />
         </Source>
         {popupInfo?.properties && (
           <Popup
