@@ -34,6 +34,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    font-family: 'Lato', sans-serif;
     .header {
       display: flex;
       color: #ff4b34;
@@ -46,6 +47,9 @@
     }
     .description {
       font-size: 14px;
+      font-weight: 400;
+      font-style: normal;
+      line-height: 1.2;
     }
     .adress {
       font-size: 12px;

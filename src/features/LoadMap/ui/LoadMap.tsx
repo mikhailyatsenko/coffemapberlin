@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from 'react';
-import { Map, Source, Layer, Popup } from 'react-map-gl';
+import { Map, Source, Layer, Popup, GeolocateControl } from 'react-map-gl';
 import { PlaceCard } from 'entities/PlaceCard';
 import { clusterLayer, clusterCountLayer, unclusteredPointLayer, namesLayer } from '../model/layers/layers';
 import type { MapRef, GeoJSONSource, MapLayerMouseEvent, LngLatLike } from 'react-map-gl';
@@ -118,6 +118,7 @@ export const LoadMap = () => {
             <PlaceCard place={popupInfo.properties as Place} isPopup={true} />
           </Popup>
         )}
+        <GeolocateControl position="top-right" />
       </Map>
     </>
   );

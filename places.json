@@ -89,6 +89,60 @@
         "image": "the-little-barn.jpg",
         "instagram": "https://www.instagram.com/thebarnberlin/"
       }
+    },
+
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Feature",
+        "coordinates": [
+          13.394938,
+          52.49281
+        ]
+      },
+      "properties": {
+        "name": "Cabana Coffee Roasters",
+        "description": "A small family-run coffee shop and roastery in a cozy spot. Buy coffee beans to take home or enjoy a cup on-site. Friendly staff and a welcoming atmosphere. Open to visitors Friday to Sunday from 12 PM.",
+        "adress": "Zossener Str. 44, 10961",
+        "image": "cabanacoffee.jpg",
+        "instagram": "https://www.instagram.com/cabanacoffeeroasters/"
+      }
+    },
+
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Feature",
+        "coordinates": [
+          13.291062,
+          52.503812
+        ]
+      },
+      "properties": {
+        "name": "Kuno15",
+        "description": "A cozy specialty coffee shop in picturesque Charlottenburg with the \"Weroastcoffee\" roastery on-site. Buy high-quality beans to take home or enjoy a fresh cup on the spot.",
+        "adress": "Kuno-Fischer-Straße 15, 14057",
+        "image": "kuno15.jpg",
+        "instagram": "https://www.instagram.com/weroastcoffeeberlin/"
+      }
+    },
+
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Feature",
+        "coordinates": [
+          13.387812,
+          52.517562
+        ]
+      },
+      "properties": {
+        "name": "Coffee Lab",
+        "description": "A very cozy spot in the heart of Berlin, tucked away in a courtyard. It's the perfect place to sit and relax after a long day of exploring the city. The staff is also very friendly!",
+        "adress": "Unter den Linden 28a, 10117",
+        "image": "coffeelab.jpg",
+        "instagram": "https://www.instagram.com/coffee_lab_firstone/"
+      }
     }
   ]
 }
