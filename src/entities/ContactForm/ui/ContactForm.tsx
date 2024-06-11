@@ -1,7 +1,7 @@
 import { FormProvider, useForm, type SubmitHandler } from 'react-hook-form';
 import { FormField } from 'shared/ui/FormField';
 import ReCAPTCHA from 'react-google-recaptcha';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export interface ContactFormData {
   name: string | undefined;
@@ -16,21 +16,24 @@ interface ContactFormProps {
 
 export const ContactForm = ({ onSubmit }: ContactFormProps) => {
   const [captchaValue, setCaptchaValue] = useState<string | null>(null);
-  const form = useForm<ContactFormData>({ mode: 'all' });
+  const form = useForm<ContactFormData>({ mode: 'onChange' });
 
   const {
     handleSubmit,
     formState: { errors, isValid },
     setValue,
-    watch,
+    trigger,
   } = form;
 
   const handleCaptchaChange = (value: string | null) => {
     setCaptchaValue(value);
     setValue('recaptcha', value ?? '');
+    trigger('recaptcha');
   };
 
-  const recaptcha = watch('recaptcha');
+  // useEffect(() => {
+  //   setValue('recaptcha', captchaValue || '');
+  // }, [captchaValue, setValue]);
 
   return (
     <div className="form-container">
@@ -47,7 +50,7 @@ export const ContactForm = ({ onSubmit }: ContactFormProps) => {
 
           <FormField name="recaptcha" type="hidden" error={errors.recaptcha?.message} value={captchaValue ?? ''} />
 
-          <button disabled={!captchaValue && !recaptcha} className="submit-button">
+          <button disabled={!isValid || !recaptcha} className="submit-button">
             Submit
           </button>
           <p className="disable-button-text">{isValid ? '' : 'all fields are required'}</p>
