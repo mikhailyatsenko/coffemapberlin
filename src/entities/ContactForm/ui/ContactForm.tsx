@@ -1,7 +1,8 @@
 import { FormProvider, useForm, type SubmitHandler } from 'react-hook-form';
 import { FormField } from 'shared/ui/FormField';
 import ReCAPTCHA from 'react-google-recaptcha';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import cls from './ContactForm.module.scss';
 
 export interface ContactFormData {
   name: string | undefined;
@@ -31,26 +32,21 @@ export const ContactForm = ({ onSubmit }: ContactFormProps) => {
     trigger('recaptcha');
   };
 
-  // useEffect(() => {
-  //   setValue('recaptcha', captchaValue || '');
-  // }, [captchaValue, setValue]);
-
   return (
-    <div className="form-container">
+    <div className={cls.ContactForm}>
       <FormProvider {...form}>
-        <form className="form" onSubmit={handleSubmit(onSubmit)}>
-          <FormField labelText={'Name'} name="name" type="text" error={errors.name?.message} />
-          <FormField labelText={'Email'} name="email" type="email" error={errors.email?.message} />
-          <FormField labelText={'Message'} name="message" type="textarea" error={errors.message?.message} />
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <FormField labelText={'Name'} fieldName="name" type="text" error={errors.name?.message} />
+          <FormField labelText={'Email'} fieldName="email" type="email" error={errors.email?.message} />
+          <FormField labelText={'Message'} fieldName="message" error={errors.message?.message} />
 
-          <div>
+          <div className={cls.recaptcha}>
             <ReCAPTCHA sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" onChange={handleCaptchaChange} />
             {errors.recaptcha && <p>{errors.recaptcha.message}</p>}
           </div>
+          <FormField fieldName="recaptcha" type="hidden" error={errors.recaptcha?.message} value={captchaValue ?? ''} />
 
-          <FormField name="recaptcha" type="hidden" error={errors.recaptcha?.message} value={captchaValue ?? ''} />
-
-          <button disabled={!isValid || !recaptcha} className="submit-button">
+          <button disabled={!isValid} className={cls.submitbutton}>
             Submit
           </button>
           <p className="disable-button-text">{isValid ? '' : 'all fields are required'}</p>

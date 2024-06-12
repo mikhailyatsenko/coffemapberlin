@@ -3,7 +3,7 @@ nav {
   left: 0;
   top: 0;
   background-color: #fafafa;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   z-index: 2;
   & a {
     cursor: pointer;
@@ -12,6 +12,7 @@ nav {
     padding: 0 12px;
 
     &.active {
+      font-weight: 400;
       color: #ff4b34;
     }
   }
@@ -35,9 +36,6 @@ li {
   display: flex;
   align-items: center;
 }
-.navBranding {
-  font-size: 2rem;
-}
 
 .hamburger {
   display: none;
@@ -53,7 +51,7 @@ li {
 }
 .navItem {
   color: #111111;
-  font-weight: 600;
+  font-weight: 100;
   margin: 0 4px;
   transition: color 0.5s ease;
   &:hover,

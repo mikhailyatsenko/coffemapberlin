@@ -1,5 +1,66 @@
-.FormField {
+.formGroup {
+  position: relative;
+  padding: 15px 0 0;
+  margin: 10px auto;
+  width: 400px;
+  @media (max-width: 576px) {
+    width: 90%;
+  }
 }
 
+.formField {
+  width: 100%;
+  border: 0;
+  border-bottom: 2px solid #000;
+  outline: 0;
+  font-size: 18px;
+  padding: 7px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+
+  &::placeholder {
+    color: transparent;
+  }
+
+  &:placeholder-shown ~ .formLabel {
+    font-size: 20px;
+    cursor: text;
+    top: 20px;
+  }
+}
+
+.formLabel {
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 14px;
+  color: #000;
+}
+
+.formField:focus {
+  ~ .formLabel {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 14px;
+    color: gray;
+    font-weight: 700;
+  }
+  padding-bottom: 6px;
+  font-weight: 700;
+  border-width: 3px;
+}
+/* reset input */
+.formField {
+  &:required,
+  &:invalid {
+    box-shadow: none;
+  }
+}
+.message {
+  font-size: 14px;
+}
 .errorContainer {
 }

@@ -1,0 +1,21 @@
+.ContactsPage {
+  display: flex;
+  max-width: 100%;
+  height: calc(100dvh - 50px);
+}
+
+.textContainer {
+  width: 50%;
+  background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.4)),
+    url('../../../shared/assets/contacts.jpg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.text {
+  z-index: 2;
+}
