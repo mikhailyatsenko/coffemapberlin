@@ -118,7 +118,7 @@ export const LoadMap = () => {
             <PlaceCard place={popupInfo.properties as Place} isPopup={true} />
           </Popup>
         )}
-        <GeolocateControl position="top-right" />
+        <GeolocateControl position="bottom-right" />
       </Map>
     </>
   );

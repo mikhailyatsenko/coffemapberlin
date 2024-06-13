@@ -1,21 +1,33 @@
 .ContactsPage {
   display: flex;
   max-width: 100%;
-  height: calc(100dvh - 50px);
+  min-height: calc(100dvh - 150px);
+  @media (width <= 767px) {
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.3)), url('../../../shared/assets/contacts.jpg');
+    background-size: cover;
+    background-position: center;
+  }
 }
 
 .textContainer {
   width: 50%;
-  background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.4)),
-    url('../../../shared/assets/contacts.jpg');
+  background: url('../../../shared/assets/contacts.jpg');
   background-size: cover;
   background-position: center;
+  padding: 20px;
+  text-align: center;
+  color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-
-.text {
-  z-index: 2;
+  .decription {
+    font-size: 18px;
+  }
+  @media (width <= 1023px) {
+    width: 30%;
+  }
+  @media (width <= 767px) {
+    display: none;
+  }
 }

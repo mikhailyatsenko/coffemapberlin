@@ -1,0 +1,15 @@
+.Footer {
+  font-size: 12px;
+  text-align: center;
+  height: 90px;
+  padding: 30px 30px 20px 30px;
+  background-color: #101010;
+  color: #818181;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footerLogo {
+  filter: grayscale(100%);
+}

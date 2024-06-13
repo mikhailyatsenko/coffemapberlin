@@ -17,7 +17,7 @@
   padding: 7px 0;
   background: transparent;
   transition: border-color 0.2s;
-
+  color: #000;
   &::placeholder {
     color: transparent;
   }
@@ -26,6 +26,11 @@
     font-size: 20px;
     cursor: text;
     top: 20px;
+  }
+
+  @media (width <= 767px) {
+    border-color: #fff;
+    color: #fff;
   }
 }
 
@@ -36,6 +41,9 @@
   transition: 0.2s;
   font-size: 14px;
   color: #000;
+  @media (width <= 767px) {
+    color: #fff;
+  }
 }
 
 .formField:focus {
@@ -47,6 +55,9 @@
     font-size: 14px;
     color: gray;
     font-weight: 700;
+    @media (width <= 767px) {
+      color: #efefef;
+    }
   }
   padding-bottom: 6px;
   font-weight: 700;

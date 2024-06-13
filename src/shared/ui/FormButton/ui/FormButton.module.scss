@@ -1,0 +1,25 @@
+.FormButton {
+  color: black;
+  font-size: 18px;
+  padding: 10px 26px;
+  margin: 6px;
+  cursor: pointer;
+  border: 1px solid #000;
+  border-radius: 4px;
+  background: transparent;
+  &:hover,
+  &:active {
+    transform: scale(0.98);
+  }
+  &:disabled {
+    color: gray;
+    border: 1px solid gray;
+    background-color: lightgray;
+    cursor: not-allowed;
+    transform: none;
+  }
+  @media (width <= 767px) {
+    border-color: #fff;
+    color: #fff;
+  }
+}
