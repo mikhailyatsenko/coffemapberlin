@@ -1,9 +1,10 @@
 .formGroup {
   position: relative;
-  padding: 15px 0 0;
+  padding: 15px 0 10px;
   margin: 10px auto;
   width: 400px;
-  @media (max-width: 576px) {
+
+  @media (max-width: 440px) {
     width: 90%;
   }
 }
@@ -21,11 +22,39 @@
   &::placeholder {
     color: transparent;
   }
+  &:required,
+  &:invalid {
+    box-shadow: none;
+  }
 
-  &:placeholder-shown ~ .formLabel {
-    font-size: 20px;
-    cursor: text;
-    top: 20px;
+  &:placeholder-shown {
+    ~ .formLabel {
+      font-size: 20px;
+      cursor: text;
+      top: 20px;
+    }
+  }
+  &:not(:placeholder-shown) {
+    ~ .formLabel {
+      font-weight: 700;
+      color: #aaaaaa;
+    }
+  }
+  &:focus {
+    padding-bottom: 6px;
+    border-width: 3px;
+    ~ .formLabel {
+      position: absolute;
+      top: 0;
+      display: block;
+      transition: 0.2s;
+      font-size: 14px;
+      color: gray;
+      font-weight: 700;
+      @media (width <= 767px) {
+        color: #efefef;
+      }
+    }
   }
 
   @media (width <= 767px) {
@@ -46,32 +75,14 @@
   }
 }
 
-.formField:focus {
-  ~ .formLabel {
-    position: absolute;
-    top: 0;
-    display: block;
-    transition: 0.2s;
-    font-size: 14px;
-    color: gray;
-    font-weight: 700;
-    @media (width <= 767px) {
-      color: #efefef;
-    }
-  }
-  padding-bottom: 6px;
-  font-weight: 700;
-  border-width: 3px;
-}
-/* reset input */
-.formField {
-  &:required,
-  &:invalid {
-    box-shadow: none;
-  }
-}
-.message {
-  font-size: 14px;
+.error {
+  border-color: #fd5353;
 }
 .errorContainer {
+}
+
+.hiddenGroup {
+  height: 0;
+  padding: 0;
+  margin: 0;
 }

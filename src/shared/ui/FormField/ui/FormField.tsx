@@ -8,7 +8,7 @@ interface FormFieldProps {
   value?: string;
   labelText?: string;
 }
-export const FormField: React.FC<FormFieldProps> = ({ fieldName, type, error, value, labelText }) => {
+export const FormField: React.FC<FormFieldProps> = ({ fieldName, type, value, error, labelText }) => {
   const { register } = useFormContext();
   const parameters = {
     placeholder: fieldName,
@@ -18,20 +18,20 @@ export const FormField: React.FC<FormFieldProps> = ({ fieldName, type, error, va
     ...register(fieldName, { required: `${labelText} is required` }),
   };
   return (
-    <div className={cls.formGroup}>
+    <div className={`${cls.formGroup} ${type === 'hidden' ? cls.hiddenGroup : ''}`}>
       {!(fieldName === 'message') ? (
-        <input className={cls.formField} {...parameters} />
+        <input className={`${cls.formField}  ${error ? cls.error : ''}`} {...parameters} />
       ) : (
-        <textarea className={`${cls.formField} ${cls.message}`} rows={3} {...parameters} />
+        <textarea className={`${cls.formField} ${error ? cls.error : ''}`} rows={3} {...parameters} />
       )}
 
       <label className={cls.formLabel} htmlFor={fieldName}>
         {labelText}
       </label>
 
-      <div className={cls.errorContainer}>
+      {/* <div className={cls.errorContainer}>
         <p className={`error-message${error ? ' show-error' : ''}`}>{error && error}</p>
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -18,7 +18,7 @@ interface ContactFormProps {
 
 export const ContactForm = ({ onSubmit }: ContactFormProps) => {
   const [captchaValue, setCaptchaValue] = useState<string | null>(null);
-  const form = useForm<ContactFormData>({ mode: 'onSubmit' });
+  const form = useForm<ContactFormData>({ mode: 'all' });
 
   const {
     handleSubmit,
@@ -44,12 +44,12 @@ export const ContactForm = ({ onSubmit }: ContactFormProps) => {
           <FormField labelText={'Message'} fieldName="message" error={errors.message?.message} />
           <div className={cls.recaptcha}>
             <ReCAPTCHA sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" onChange={handleCaptchaChange} />
-            {errors.recaptcha && <p>{errors.recaptcha.message}</p>}
+            {errors.recaptcha && <p>Please complete the reCAPTCHA</p>}
           </div>
           <FormField fieldName="recaptcha" type="hidden" error={errors.recaptcha?.message} value={captchaValue ?? ''} />
 
           <FormButton disabled={!isValid}>Send message</FormButton>
-          <p className="disable-button-text">{isValid ? '' : 'all fields are required'}</p>
+          {/* <div className="disable-button-text">{isValid ? '' : 'all fields are required'}</div> */}
         </form>
       </FormProvider>
     </div>

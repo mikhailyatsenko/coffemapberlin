@@ -1,7 +1,9 @@
 .FormButton {
+  position: relative;
   color: black;
   font-size: 18px;
   padding: 10px 26px;
+  max-width: 100%;
   margin: 6px;
   cursor: pointer;
   border: 1px solid #000;
@@ -13,10 +15,23 @@
   }
   &:disabled {
     color: gray;
-    border: 1px solid gray;
-    background-color: lightgray;
+    border-color: gray;
     cursor: not-allowed;
     transform: none;
+    &:hover,
+    &:active {
+      &::after {
+        content: 'all fields are required';
+        position: absolute;
+        top: 100%; /* Расположите текст под кнопкой */
+        left: 50%;
+        padding-top: 2px;
+        transform: translateX(-50%);
+        white-space: nowrap;
+        font-size: 12px;
+        color: #ff0505;
+      }
+    }
   }
   @media (width <= 767px) {
     border-color: #fff;
