@@ -1,11 +1,11 @@
 import { RegularButton } from 'shared/ui/RegularButton';
-import cls from './ShowSuccessSendForm.module.scss';
+import cls from './SuccessResultSendForm.module.scss';
 import { Link } from 'react-router-dom';
 import successIcon from '../../../shared/assets/successIcon.svg';
 
-export const ShowSuccessSendForm = () => {
+export const SuccessResultSendForm = () => {
   return (
-    <div className={cls.ShowSuccessSendForm}>
+    <div className={cls.SuccessResultSendForm}>
       <div className={cls.icon}>
         <img src={successIcon} alt="" />
       </div>
