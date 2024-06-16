@@ -4,8 +4,8 @@ import emailjs from 'emailjs-com';
 import { type SubmitHandler } from 'react-hook-form';
 
 import { Loader } from 'shared/ui/Loader';
-import { ShowErrorSendForm } from 'features/ShowErrorSendForm';
-import { ShowSuccessSendForm } from 'features/ShowSuccessSendForm';
+import { ErrorResultSendForm } from 'entities/ErrorResultSendForm';
+import { SuccessResultSendForm } from 'entities/SuccessResultSendForm';
 
 type FormState = 'loading' | 'success' | 'error' | null;
 
@@ -33,11 +33,11 @@ export const SendContactForm = () => {
   };
 
   if (formState === 'success') {
-    return <ShowSuccessSendForm />;
+    return <SuccessResultSendForm />;
   }
 
   if (formState === 'error') {
-    return <ShowErrorSendForm />;
+    return <ErrorResultSendForm />;
   }
 
   return (

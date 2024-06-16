@@ -1,7 +1,7 @@
-.ShowSuccessSendForm {
+.SuccessResultSendForm {
   width: 100%;
   height: 100%;
-  background: linear-gradient(to top, #e3f6eb, #e7f7ee, #ffffff, #ffffff, #ffffff);
+  background: linear-gradient(to top, #d9f4d5, #e9f7e5, #ffffff, #ffffff, #ffffff);
   background-repeat: no-repeat;
   background-position-y: 0;
   opacity: 1;
@@ -11,6 +11,15 @@
   align-items: center;
   text-align: center;
   animation: appearTransition 1.2s forwards; /* Анимация на 0.5 секунды */
+}
+
+.title {
+  color: #6bc839;
+  padding-bottom: 8px;
+}
+
+.text {
+  margin: 0 20px;
 }
 
 @keyframes appearTransition {
