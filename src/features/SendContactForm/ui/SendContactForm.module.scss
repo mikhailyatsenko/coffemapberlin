@@ -1,0 +1,17 @@
+.SendContactForm {
+  position: relative;
+}
+
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  color: #000;
+}
+
+.error {
+  color: red;
+  margin: 10px 0;
+}

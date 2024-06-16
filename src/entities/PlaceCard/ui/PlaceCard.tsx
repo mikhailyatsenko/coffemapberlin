@@ -27,7 +27,7 @@ export const PlaceCard = ({ place, coordinates, isPopup = false }: PlaceCardProp
       ></div>
       <div className={cls.content}>
         <a className={cls.header} href={place.instagram} target="_blank" rel="noreferrer">
-          <h3 className={cls.name}>{place.name}</h3>
+          <h4 className={cls.name}>{place.name}</h4>
           <img className={cls.instagram} src={instagram} alt="" />
         </a>
 

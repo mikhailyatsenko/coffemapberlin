@@ -9,7 +9,7 @@ export interface ContactFormData {
   name: string | undefined;
   email: string | undefined;
   message: string | undefined;
-  recaptcha: string;
+  recaptcha: string | undefined;
 }
 
 interface ContactFormProps {

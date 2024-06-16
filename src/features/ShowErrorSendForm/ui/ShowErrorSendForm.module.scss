@@ -1,0 +1,26 @@
+.ShowErrorSendForm {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, #e8bdbd, #f7e7e7, #ffffff, #ffffff, #ffffff);
+  background-repeat: no-repeat;
+  background-position-y: 0;
+  opacity: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  animation: appearTransition 1.2s forwards; /* Анимация на 0.5 секунды */
+}
+
+@keyframes appearTransition {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

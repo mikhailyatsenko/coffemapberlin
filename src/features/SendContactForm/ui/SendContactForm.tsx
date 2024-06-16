@@ -1,14 +1,23 @@
+import { useState } from 'react';
 import { ContactForm, type ContactFormData } from 'entities/ContactForm/ui/ContactForm';
 import emailjs from 'emailjs-com';
 import { type SubmitHandler } from 'react-hook-form';
 
-export const SendContactForm = () => {
-  const onSubmit: SubmitHandler<ContactFormData> = async (data) => {
-    if (!data.recaptcha) {
-      alert('Please complete the CAPTCHA');
-      return;
-    }
+import { Loader } from 'shared/ui/Loader';
+import { ShowErrorSendForm } from 'features/ShowErrorSendForm';
+import { ShowSuccessSendForm } from 'features/ShowSuccessSendForm';
 
+type FormState = 'loading' | 'success' | 'error' | null;
+
+export const SendContactForm = () => {
+  const [formState, setFormState] = useState<FormState>(null);
+
+  const onSubmit: SubmitHandler<ContactFormData> = async (data) => {
+    // if (!data.recaptcha) {
+    //   alert('Please complete the CAPTCHA');
+    //   return;
+    // }
+    setFormState('loading');
     try {
       await emailjs.send(
         'service_8iyv26h',
@@ -16,12 +25,25 @@ export const SendContactForm = () => {
         data as unknown as Record<string, unknown>,
         '3dF_DSrv-gfgwzoVE',
       );
-      alert('Message sent successfully');
+      setFormState('success');
     } catch (error) {
       console.error('Error sending message:', error);
-      alert('An error occurred');
+      setFormState('error');
     }
   };
 
-  return <ContactForm onSubmit={onSubmit} />;
+  if (formState === 'success') {
+    return <ShowSuccessSendForm />;
+  }
+
+  if (formState === 'error') {
+    return <ShowErrorSendForm />;
+  }
+
+  return (
+    <>
+      {formState === 'loading' ? <Loader /> : ''}
+      <ContactForm onSubmit={onSubmit} />
+    </>
+  );
 };

@@ -10,7 +10,9 @@ export const ContactsPage = () => {
           <p className={cls.decription}>We&apos;re open for any suggestion or just to have a chat</p>
         </div>
       </div>
-      <SendContactForm />
+      <div className={cls.formContainer}>
+        <SendContactForm />
+      </div>
     </div>
   );
 };

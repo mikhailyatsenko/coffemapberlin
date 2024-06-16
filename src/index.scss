@@ -10,15 +10,12 @@
 
 body {
   margin: 0;
-  background-color: #f4f4f4;
+  background-color: #fff;
   font-size: 16px;
   color: #303030;
   font-family: 'Lato', sans-serif;
-  font-weight: 400;
+  font-weight: 100;
   font-style: normal;
-  scroll-behavior: smooth;
-  overflow: auto;
-  scroll-snap-type: y mandatory;
 }
 
 a {
@@ -28,8 +25,11 @@ a {
 
 h1,
 h2,
-h3 {
+h4 {
   font-weight: 700;
+}
+h3 {
+  font-weight: 400;
 }
 
 h1 {
@@ -39,6 +39,9 @@ h2 {
   font-size: 26px;
 }
 h3 {
+  font-size: 20px;
+}
+h4 {
   font-size: 16px;
 }
 
