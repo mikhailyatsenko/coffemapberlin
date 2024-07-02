@@ -1,16 +1,17 @@
 import cls from './PlaceCard.module.scss';
 import instagram from '../../../shared/assets/instagram.svg';
-import { type Place } from 'shared/types';
+import { type PlaceProperties } from 'shared/types';
 import { useContext } from 'react';
-import { LocationContext, type LocationPoint } from 'app/providers/LocationProvider/lib/ThemeContext';
+import { LocationContext } from 'app/providers/LocationProvider/lib/ThemeContext';
+import { type Position } from 'geojson';
 
 interface PlaceCardProps {
-  place: Place;
-  coordinates?: LocationPoint;
+  placeProperties: PlaceProperties;
+  coordinates?: Position;
   isPopup?: boolean;
 }
 
-export const PlaceCard = ({ place, coordinates, isPopup = false }: PlaceCardProps) => {
+export const PlaceCard = ({ placeProperties, coordinates, isPopup = false }: PlaceCardProps) => {
   const { setLocation } = useContext(LocationContext);
   const handleClick = () => {
     if (coordinates && setLocation) {
@@ -22,18 +23,18 @@ export const PlaceCard = ({ place, coordinates, isPopup = false }: PlaceCardProp
       <div
         className={cls.image}
         style={{
-          backgroundImage: `url("${'./places-images/' + place.image}")`,
+          backgroundImage: `url("${'./places-images/' + placeProperties.image}")`,
         }}
       ></div>
       <div className={cls.content}>
-        <a className={cls.header} href={place.instagram} target="_blank" rel="noreferrer">
-          <h4 className={cls.name}>{place.name}</h4>
+        <a className={cls.header} href={placeProperties.instagram} target="_blank" rel="noreferrer">
+          <h4 className={cls.name}>{placeProperties.name}</h4>
           <img className={cls.instagram} src={instagram} alt="" />
         </a>
 
-        <div className={cls.description}>{place.description}</div>
+        <div className={cls.description}>{placeProperties.description}</div>
 
-        <div className={cls.adress}>{place.adress}</div>
+        <div className={cls.adress}>{placeProperties.address}</div>
       </div>
     </div>
   );

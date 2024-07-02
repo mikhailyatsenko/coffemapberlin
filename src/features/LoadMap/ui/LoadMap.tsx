@@ -1,27 +1,30 @@
 import { useContext, useEffect, useRef, useState } from 'react';
-import { Map, Source, Layer, Popup, GeolocateControl } from 'react-map-gl';
+import { Map, Source, Layer, Popup, GeolocateControl, NavigationControl } from 'react-map-gl';
 import { PlaceCard } from 'entities/PlaceCard';
 import { clusterLayer, clusterCountLayer, unclusteredPointLayer, namesLayer } from '../model/layers/layers';
 import type { MapRef, GeoJSONSource, MapLayerMouseEvent, LngLatLike } from 'react-map-gl';
-import { type Place } from 'shared/types';
+import { type PlaceProperties } from 'shared/types';
 import cls from './LoadMap.module.scss';
-import places from '../../../../places.json';
 import { LocationContext } from 'app/providers/LocationProvider/lib/ThemeContext';
-const typedPlaces: GeoJSON.FeatureCollection<GeoJSON.Geometry> = places as GeoJSON.FeatureCollection<GeoJSON.Geometry>;
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoicGV0cmFrb3YiLCJhIjoiY2tuMGRxZXNqMG1xZzJ0cGZvb2h0emN1ayJ9.CsROju7EJW9j76c6bEsyYw';
 // 'pk.eyJ1IjoibWlraGFpbHlhdHNlbmtvIiwiYSI6ImNsdnFwZ3F5MDBlejMybG52cW54eXZhcmYifQ.K0kaDuoAqNrXBbe2Sc1pzw';
 
-export const LoadMap = () => {
+interface LoadMapProps {
+  places: undefined | GeoJSON.FeatureCollection<GeoJSON.Geometry>;
+}
+
+export const LoadMap = ({ places }: LoadMapProps) => {
   const mapRef = useRef<MapRef>(null);
-  const [popupInfo, setPopupInfo] = useState<GeoJSON.Feature | null>(null);
 
   const { location } = useContext(LocationContext);
+
+  const [popupInfo, setPopupInfo] = useState<GeoJSON.Feature | null>(null);
 
   useEffect(() => {
     if (location) {
       mapRef?.current?.easeTo({
-        center: location,
+        center: location as LngLatLike,
         zoom: 15,
         duration: 500,
       });
@@ -97,7 +100,7 @@ export const LoadMap = () => {
           }
         }}
       >
-        <Source id="places" type="geojson" data={typedPlaces} cluster={true} clusterMaxZoom={14} clusterRadius={50}>
+        <Source id="places" type="geojson" data={places} cluster={true} clusterMaxZoom={14} clusterRadius={50}>
           <Layer {...clusterLayer} />
           <Layer {...clusterCountLayer} />
           <Layer {...unclusteredPointLayer} />
@@ -115,9 +118,10 @@ export const LoadMap = () => {
               setPopupInfo(null);
             }}
           >
-            <PlaceCard place={popupInfo.properties as Place} isPopup={true} />
+            <PlaceCard placeProperties={popupInfo.properties as PlaceProperties} isPopup={true} />
           </Popup>
         )}
+        <NavigationControl position="bottom-right" />
         <GeolocateControl position="bottom-right" />
       </Map>
     </>

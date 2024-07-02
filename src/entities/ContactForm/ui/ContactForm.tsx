@@ -33,8 +33,6 @@ export const ContactForm = ({ onSubmit }: ContactFormProps) => {
     trigger('recaptcha');
   };
 
-  console.log(errors);
-
   return (
     <div className={cls.ContactForm}>
       <FormProvider {...form}>

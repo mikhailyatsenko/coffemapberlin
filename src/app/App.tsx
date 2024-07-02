@@ -1,5 +1,5 @@
 import { Footer } from 'widgets/Footer';
-import AppRouter from './providers/router/ui/AppRouter';
+import { AppRouter } from './providers/router';
 import { Navbar } from 'widgets/Navbar';
 import { useLocation } from 'react-router-dom';
 

@@ -1,10 +1,9 @@
+import { type Position } from 'geojson';
 import { createContext } from 'react';
 
-export type LocationPoint = [number, number];
-
 export interface LocationContextProps {
-  location?: LocationPoint;
-  setLocation?: (location: LocationPoint) => void;
+  location?: Position;
+  setLocation?: (location: Position) => void;
 }
 
 export const LocationContext = createContext<LocationContextProps>({});

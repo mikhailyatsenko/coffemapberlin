@@ -1,4 +1,5 @@
 import { AboutPage } from 'pages/AboutPage';
+import { BlogPage } from 'pages/BlogPage';
 import { ContactsPage } from 'pages/ContactsPage';
 import { MainPage } from 'pages/MainPage';
 import { NotFoundPage } from 'pages/NotFoundPage';
@@ -6,6 +7,7 @@ import { type RouteProps } from 'react-router-dom';
 
 export enum AppRoutes {
   MAIN = 'main',
+  BLOG = 'blog',
   ABOUT = 'about',
   CONTACTS = 'contacts',
 
@@ -14,6 +16,7 @@ export enum AppRoutes {
 
 export const RoutePaths: Record<AppRoutes, string> = {
   [AppRoutes.MAIN]: '/',
+  [AppRoutes.BLOG]: 'blog',
   [AppRoutes.ABOUT]: 'about',
   [AppRoutes.CONTACTS]: 'contacts',
 
@@ -24,6 +27,10 @@ export const routeConfig: Record<AppRoutes, RouteProps> = {
   [AppRoutes.MAIN]: {
     path: RoutePaths.main,
     element: <MainPage />,
+  },
+  [AppRoutes.BLOG]: {
+    path: RoutePaths.blog,
+    element: <BlogPage />,
   },
   [AppRoutes.ABOUT]: {
     path: RoutePaths.about,

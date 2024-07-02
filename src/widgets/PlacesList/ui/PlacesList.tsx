@@ -1,13 +1,16 @@
 import cls from './Places.module.scss';
-import places from '../../../../places.json';
 import { PlaceCard } from 'entities/PlaceCard';
-import { type LocationPoint } from 'app/providers/LocationProvider/lib/ThemeContext';
+import { type Feature } from 'shared/types';
 
-export function PlacesList() {
+interface PlacesListProps {
+  places: Feature[];
+}
+
+export function PlacesList({ places }: PlacesListProps) {
   return (
     <div className={cls.Places}>
-      {places.features.map((feature, index) => (
-        <PlaceCard place={feature.properties} coordinates={feature.geometry.coordinates as LocationPoint} key={index} />
+      {places.map((place, index) => (
+        <PlaceCard placeProperties={place.properties} coordinates={place.geometry.coordinates} key={index} />
       ))}
     </div>
   );
