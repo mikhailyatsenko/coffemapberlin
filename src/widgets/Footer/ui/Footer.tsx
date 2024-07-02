@@ -7,7 +7,7 @@ export const Footer = () => {
       <div className={cls.footerLogo}>
         <Logo />
       </div>
-      <div className={cls.cpyright}>Copyright &copy; Mykhailo Yatsenko</div>
+      <div className={cls.copyright}>&copy; {new Date().getFullYear()} Mykhailo Yatsenko</div>
     </footer>
   );
 };

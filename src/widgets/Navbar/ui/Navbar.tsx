@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import cls from './Navbar.module.scss';
-// import { Logo } from 'shared/ui/Logo';
 import { NavLink } from 'react-router-dom';
 import { Logo } from 'shared/ui/Logo';
 
