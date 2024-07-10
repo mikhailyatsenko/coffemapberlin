@@ -1,5 +1,5 @@
 import { type Position } from 'geojson';
-import { LocationContext } from '../lib/ThemeContext';
+import { LocationContext } from '../lib/LocationContext';
 
 import { type PropsWithChildren, useState, type FC } from 'react';
 

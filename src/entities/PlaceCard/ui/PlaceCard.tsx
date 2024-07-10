@@ -2,7 +2,7 @@ import cls from './PlaceCard.module.scss';
 import instagram from '../../../shared/assets/instagram.svg';
 import { type PlaceProperties } from 'shared/types';
 import { useContext } from 'react';
-import { LocationContext } from 'app/providers/LocationProvider/lib/ThemeContext';
+import { LocationContext } from 'app/providers/LocationProvider/lib/LocationContext';
 import { type Position } from 'geojson';
 
 interface PlaceCardProps {

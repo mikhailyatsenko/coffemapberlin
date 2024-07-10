@@ -7,7 +7,7 @@ import { GET_ALL_PLACES } from 'shared/query/places';
 import { Loader } from 'shared/ui/Loader';
 import { type Feature } from 'shared/types';
 
-interface PlacesData {
+export interface PlacesData {
   places: Feature[];
 }
 
