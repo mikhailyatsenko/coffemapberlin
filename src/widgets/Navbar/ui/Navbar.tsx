@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import cls from './Navbar.module.scss';
 import { NavLink } from 'react-router-dom';
 import { Logo } from 'shared/ui/Logo';
-import { Auth } from 'widgets/Auth';
+import { Auth } from 'features/Auth';
 
 export const Navbar = () => {
   const [isBurgerActive, setIsBurgerActive] = useState(false);

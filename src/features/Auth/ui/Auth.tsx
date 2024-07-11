@@ -3,32 +3,11 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useAuth } from 'app/providers/AuthProvider';
 import { Link } from 'react-router-dom';
 import cls from './Auth.module.scss';
-import { useGoogleLogin } from '@react-oauth/google';
-import { useMutation } from '@apollo/client';
-import { LOGIN_WITH_GOOGLE } from 'shared/query/user';
 
 export const Auth: React.FC = () => {
-  const { isAuthenticated, user, logout } = useAuth();
+  const { user, logout, login } = useAuth();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const [loginWithGoogle] = useMutation(LOGIN_WITH_GOOGLE);
-  const login = useGoogleLogin({
-    flow: 'auth-code',
-    onSuccess: async (tokenResponse) => {
-      try {
-        const { data } = await loginWithGoogle({
-          variables: { code: tokenResponse.code },
-        });
-        console.log('Logged in user:', data.loginWithGoogle.user);
-        // Здесь вы можете обновить состояние приложения или перенаправить пользователя
-      } catch (err) {
-        console.error('Error logging in with Google:', err);
-      }
-    },
-    onError: (error) => {
-      console.error('Google Login Error:', error);
-    },
-  });
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -43,7 +22,7 @@ export const Auth: React.FC = () => {
     };
   }, []);
 
-  if (!isAuthenticated) {
+  if (!user) {
     return (
       <li
         onClick={() => {
