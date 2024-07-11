@@ -7,16 +7,20 @@ import { ApolloProviderWrapper } from 'app/providers/ApolloProviderWrapper';
 import { AuthProvider } from 'app/providers/AuthProvider';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
+if (!process.env.GOOGLE_CLIENT_ID) {
+  throw new Error(`Missing required environment variable: GOOGLE_CLIENT_ID`);
+}
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <AuthProvider>
-    <GoogleOAuthProvider clientId="858028409955-br8u88amk22p2gap4rhgjddsmee4hppr.apps.googleusercontent.com">
-      <BrowserRouter>
-        <LocationProvider>
-          <ApolloProviderWrapper>
+  <ApolloProviderWrapper>
+    <GoogleOAuthProvider clientId={process.env.GOOGLE_CLIENT_ID}>
+      <AuthProvider clientId={process.env.GOOGLE_CLIENT_ID}>
+        <BrowserRouter>
+          <LocationProvider>
             <App />
-          </ApolloProviderWrapper>
-        </LocationProvider>
-      </BrowserRouter>
+          </LocationProvider>
+        </BrowserRouter>
+      </AuthProvider>
     </GoogleOAuthProvider>
-  </AuthProvider>,
+  </ApolloProviderWrapper>,
 );
