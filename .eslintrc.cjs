@@ -57,10 +57,7 @@ module.exports = {
     ],
     'prefer-const': 'warn',
     '@typescript-eslint/no-floating-promises': 'off',
-    '@typescript-eslint/strict-boolean-expressions': [
-      'error',
-      { allowString: true, allowNullableString: true, allowNullableObject: true, allowNullableBoolean: true },
-    ],
+    '@typescript-eslint/strict-boolean-expressions': 'off',
     '@typescript-eslint/no-misused-promises': [
       2,
       {

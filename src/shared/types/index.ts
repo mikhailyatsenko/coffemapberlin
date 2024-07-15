@@ -1,17 +1,17 @@
-import { type Point } from 'geojson';
+import { type Position, type Point } from 'geojson';
 
 export interface PlaceProperties {
+  id: string;
   name: string;
   description: string;
   address: string;
   image: string;
   instagram: string;
-}
-
-export interface Feature {
-  type: 'Feature';
-  geometry: Point;
-  properties: PlaceProperties;
+  averageRating: number;
+  userRating: number;
+  ratingCount: number;
+  favoriteCount: number;
+  isFavorite: boolean;
 }
 
 export interface User {
@@ -20,3 +20,21 @@ export interface User {
   email: string;
   avatar: string;
 }
+export interface PlaceResponse {
+  type: 'Feature';
+  geometry: Point;
+  properties: PlaceProperties;
+}
+
+export interface MyFeature {
+  type: 'Feature';
+  geometry: Point;
+  properties: PlaceProperties;
+}
+
+// type CardData = Omit<MyFeature, 'type' | 'geometry'>;
+
+// export type PlaceCardProps = CardData & {
+//   coordinates: Position;
+//   isPopup?: boolean;
+// };

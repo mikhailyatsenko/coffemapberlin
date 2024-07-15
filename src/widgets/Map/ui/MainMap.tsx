@@ -1,20 +1,24 @@
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { PlacesList } from 'widgets/PlacesList';
 import { LoadMap } from 'features/LoadMap';
 import { useQuery } from '@apollo/client';
 import { useEffect, useState } from 'react';
 import { GET_ALL_PLACES } from 'shared/query/places';
 import { Loader } from 'shared/ui/Loader';
-import { type Feature } from 'shared/types';
+import { type PlaceProperties, type MyFeature, type PlaceResponse } from 'shared/types';
 
-export interface PlacesData {
-  places: Feature[];
+interface PlacesData {
+  places: PlaceResponse[];
+}
+
+export interface PlacesDataWithGeo extends GeoJSON.FeatureCollection<GeoJSON.Geometry, PlaceProperties> {
+  features: MyFeature[];
 }
 
 export const MainMap = () => {
   const { data, loading, error } = useQuery<PlacesData>(GET_ALL_PLACES);
+  console.log('data', data);
 
-  const [placesGeo, setPlacesGeo] = useState<undefined | GeoJSON.FeatureCollection<GeoJSON.Geometry>>(undefined);
+  const [placesGeo, setPlacesGeo] = useState<undefined | PlacesDataWithGeo>(undefined);
 
   useEffect(() => {
     if (data && !loading) {
@@ -28,15 +32,13 @@ export const MainMap = () => {
   if (loading) {
     return <Loader />;
   }
-
   if (error) {
     return <div>Error: {error.message}</div>;
   }
 
   return (
     <div style={{ width: '100dvw', height: 'calc(100dvh - 60px)' }}>
-      <LoadMap places={placesGeo} />
-      {data?.places && <PlacesList places={data.places} />}
+      {placesGeo && <LoadMap placesGeo={placesGeo} />}
     </div>
   );
 };
