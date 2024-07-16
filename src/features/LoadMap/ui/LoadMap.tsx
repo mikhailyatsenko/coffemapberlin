@@ -7,7 +7,7 @@ import cls from './LoadMap.module.scss';
 import { LocationContext } from 'app/providers/LocationProvider/lib/LocationContext';
 import { type PlacesDataWithGeo } from 'widgets/Map/ui/MainMap';
 import { PlaceCard } from 'entities/PlaceCard';
-import { type PlaceProperties, type MyFeature } from 'shared/types';
+import { type PlaceResponse, type PlaceProperties } from 'shared/types';
 import { type Position } from 'geojson';
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoicGV0cmFrb3YiLCJhIjoiY2tuMGRxZXNqMG1xZzJ0cGZvb2h0emN1ayJ9.CsROju7EJW9j76c6bEsyYw';
@@ -24,7 +24,7 @@ export const LoadMap = ({ placesGeo }: LoadMapProps) => {
 
   const { location } = useContext(LocationContext);
 
-  type MyMapboxGeoJSONFeature = MapboxGeoJSONFeature & MyFeature;
+  type MyMapboxGeoJSONFeature = MapboxGeoJSONFeature & PlaceResponse;
 
   const [popupData, setPopupData] = useState<{ properties: PlaceProperties; coordinates: Position } | null>(null);
 

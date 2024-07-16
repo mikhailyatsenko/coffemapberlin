@@ -2,11 +2,10 @@ import cls from './PlaceCard.module.scss';
 import instagram from '../../../shared/assets/instagram.svg';
 import { useContext } from 'react';
 import { LocationContext } from 'app/providers/LocationProvider/lib/LocationContext';
-import { RATE_PLACE } from 'shared/query/places';
-import { useMutation } from '@apollo/client';
 import RatingWidget from 'shared/ui/RatingWidget/ui/RatingWidget';
 import { type PlaceProperties } from 'shared/types';
 import { type Position } from 'geojson';
+import { useRatePlace } from '../api/interactions/ratePlace';
 
 interface PlaceCardProps {
   properties: PlaceProperties;
@@ -14,33 +13,12 @@ interface PlaceCardProps {
   isPopup: boolean;
 }
 
-export const PlaceCard = ({ coordinates, isPopup = false, properties }: PlaceCardProps) => {
-  console.log('in card', coordinates, isPopup, properties);
+export const PlaceCard = ({ coordinates, isPopup, properties }: PlaceCardProps) => {
+  const { handleRating } = useRatePlace();
 
-  const { id, userRating, ratingCount, averageRating, favoriteCount, isFavorite } = properties;
+  const { id, averageRating } = properties;
+
   /// /////test
-
-  const [ratePlace] = useMutation(RATE_PLACE, {
-    // update(cache, { data: { ratePlace } }) {
-    //   const { places } = cache.readQuery({ query: GET_ALL_PLACES });
-    //   const updatedPlaces = places.map((place) => (place.id === ratePlace.id ? { ...place, ...ratePlace } : place));
-    //   cache.writeQuery({
-    //     query: GET_ALL_PLACES,
-    //     data: { places: updatedPlaces },
-    //   });
-    // },
-  });
-
-  const handleRating = async (newRating: number) => {
-    try {
-      const { data } = await ratePlace({
-        variables: { placeId: id, rating: newRating },
-      });
-      console.log('Place rated:', data?.ratePlace);
-    } catch (error) {
-      console.error('Error rating place:', error);
-    }
-  };
 
   // review
 
@@ -143,7 +121,7 @@ export const PlaceCard = ({ coordinates, isPopup = false, properties }: PlaceCar
         <div className={cls.adress}>{properties.address}</div>
         {/* <div>Rating: {averageRating}</div>
         <div>Rating count: {ratingCount}</div> */}
-        <RatingWidget rating={averageRating} handleRating={handleRating} />
+        <RatingWidget rating={averageRating} id={id} handleRating={handleRating} />
         {/* <div>Favorite count: {favoriteCount}</div>
         <div>IsFavorite: {isFavorite ? 'true' : 'false'}</div>
         <div
