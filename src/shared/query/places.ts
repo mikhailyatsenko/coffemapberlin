@@ -39,10 +39,10 @@ export const ADD_REVIEW = gql`
   mutation AddReview($placeId: ID!, $text: String!) {
     addReview(placeId: $placeId, text: $text) {
       id
+      text
       userId
       placeId
-      review
-      date
+      createdAt
     }
   }
 `;
@@ -58,6 +58,28 @@ export const TOGGLE_FAVORITE = gql`
         isFavorite
         favoriteCount
       }
+    }
+  }
+`;
+
+export const GET_PLACE_REVIEWS = gql`
+  query GetPlaceReviews($placeId: ID!) {
+    placeReviews(placeId: $placeId) {
+      id
+      userName
+      text
+      userId
+      createdAt
+      isOwnReview
+    }
+  }
+`;
+
+export const DELETE_REVIEW = gql`
+  mutation DeleteReview($reviewId: ID!) {
+    deleteReview(reviewId: $reviewId) {
+      success
+      message
     }
   }
 `;

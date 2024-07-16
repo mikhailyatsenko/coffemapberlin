@@ -1,4 +1,4 @@
-import { PlacesList } from 'features/PlacesList';
+import { PlacesList } from 'widgets/PlacesList';
 import { MainMap } from 'widgets/Map';
 
 export const MainPage = () => {

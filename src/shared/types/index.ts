@@ -1,4 +1,4 @@
-import { type Position, type Point } from 'geojson';
+import { type Point } from 'geojson';
 
 export interface PlaceProperties {
   id: string;
