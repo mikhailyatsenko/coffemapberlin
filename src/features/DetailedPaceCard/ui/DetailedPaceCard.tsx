@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './DetailedPaceCard.module.scss';
 import { type PlaceProperties } from 'shared/types';
 import RatingWidget from 'shared/ui/RatingWidget/ui/RatingWidget';
-import { AddReview } from 'entities/ReviewForm/ui/ReviewForm';
+import { ReviewForm } from 'entities/ReviewForm/ui/ReviewForm';
 import { DELETE_REVIEW, GET_PLACE_REVIEWS } from 'shared/query/places';
 import { useMutation, useQuery } from '@apollo/client';
 
@@ -17,6 +17,7 @@ interface Review {
   text: string;
   userId: string;
   userName: string;
+  userAvatar: string;
   placeId: string;
   createdAt: string;
   isOwnReview: boolean;
@@ -26,16 +27,21 @@ interface PlaceReviewsData {
 }
 
 export const DetailedPaceCard: React.FC<CoffeeShopPopupProps> = ({ isOpen, onClose, properties }) => {
-  if (!isOpen) return null;
-
   const { data, loading, error } = useQuery<PlaceReviewsData>(GET_PLACE_REVIEWS, {
     variables: { placeId: properties.id },
   });
+
+  console.log('Loading reviews:', loading);
+  console.log('Error fetching reviews:', error);
+  console.log('Fetched reviews:', data?.placeReviews);
   const reviews = data?.placeReviews ?? [];
+  console.log(reviews);
 
   const [deleteReview] = useMutation(DELETE_REVIEW, {
     refetchQueries: [{ query: GET_PLACE_REVIEWS, variables: { placeId: properties.id } }],
   });
+
+  if (!isOpen) return null;
 
   const handleDeleteReview = async (reviewId: string) => {
     try {
@@ -64,16 +70,17 @@ export const DetailedPaceCard: React.FC<CoffeeShopPopupProps> = ({ isOpen, onClo
         </div>
         <p>Добавлено в избранное: {properties?.isFavorite}</p>
         <h3>Add review</h3>
-        <AddReview placeId={properties.id} />
+        <ReviewForm placeId={properties.id} />
         <h3>Reviews:</h3>
         <ul className={styles.commentsList}>
-          {reviews.map((revew, index) => (
+          {reviews.map((review, index) => (
             <li key={index}>
-              <strong>{revew.userName}:</strong> {revew.text}
-              {revew.isOwnReview ? (
+              <img src={review?.userAvatar ?? '/default-avatar.png'} alt="User avatar" referrerPolicy="no-referrer" />
+              <strong>{review.userName}:</strong> {review.text}
+              {review.isOwnReview ? (
                 <div
                   onClick={async () => {
-                    await handleDeleteReview(revew.id);
+                    await handleDeleteReview(review.id);
                   }}
                 >
                   remove my review
