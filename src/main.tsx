@@ -14,7 +14,7 @@ if (!process.env.GOOGLE_CLIENT_ID) {
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <ApolloProviderWrapper>
     <GoogleOAuthProvider clientId={process.env.GOOGLE_CLIENT_ID}>
-      <AuthProvider clientId={process.env.GOOGLE_CLIENT_ID}>
+      <AuthProvider>
         <BrowserRouter>
           <LocationProvider>
             <App />

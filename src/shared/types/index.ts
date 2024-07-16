@@ -25,16 +25,3 @@ export interface PlaceResponse {
   geometry: Point;
   properties: PlaceProperties;
 }
-
-export interface MyFeature {
-  type: 'Feature';
-  geometry: Point;
-  properties: PlaceProperties;
-}
-
-// type CardData = Omit<MyFeature, 'type' | 'geometry'>;
-
-// export type PlaceCardProps = CardData & {
-//   coordinates: Position;
-//   isPopup?: boolean;
-// };

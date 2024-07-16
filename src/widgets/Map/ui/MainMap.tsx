@@ -4,14 +4,14 @@ import { useQuery } from '@apollo/client';
 import { useEffect, useState } from 'react';
 import { GET_ALL_PLACES } from 'shared/query/places';
 import { Loader } from 'shared/ui/Loader';
-import { type PlaceProperties, type MyFeature, type PlaceResponse } from 'shared/types';
+import { type PlaceProperties, type PlaceResponse } from 'shared/types';
 
 interface PlacesData {
   places: PlaceResponse[];
 }
 
 export interface PlacesDataWithGeo extends GeoJSON.FeatureCollection<GeoJSON.Geometry, PlaceProperties> {
-  features: MyFeature[];
+  features: PlaceResponse[];
 }
 
 export const MainMap = () => {
