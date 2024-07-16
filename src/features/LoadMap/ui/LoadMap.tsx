@@ -6,7 +6,7 @@ import type { MapRef, GeoJSONSource, MapLayerMouseEvent, LngLatLike, MapboxGeoJS
 import cls from './LoadMap.module.scss';
 import { LocationContext } from 'app/providers/LocationProvider/lib/LocationContext';
 import { type PlacesDataWithGeo } from 'widgets/Map/ui/MainMap';
-import { PlaceCard } from 'entities/PlaceCard';
+import { PlaceCard } from 'features/PlaceCard';
 import { type PlaceResponse, type PlaceProperties } from 'shared/types';
 import { type Position } from 'geojson';
 

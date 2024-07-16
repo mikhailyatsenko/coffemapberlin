@@ -1,7 +1,7 @@
 import cls from './PlaceCard.module.scss';
 import instagram from '../../../shared/assets/instagram.svg';
-import { useContext } from 'react';
-import { LocationContext } from 'app/providers/LocationProvider/lib/LocationContext';
+// import { useContext } from 'react';
+// import { LocationContext } from 'app/providers/LocationProvider/lib/LocationContext';
 import RatingWidget from 'shared/ui/RatingWidget/ui/RatingWidget';
 import { type PlaceProperties } from 'shared/types';
 import { type Position } from 'geojson';
@@ -11,9 +11,10 @@ interface PlaceCardProps {
   properties: PlaceProperties;
   coordinates: Position;
   isPopup: boolean;
+  handleCardClick: (properties: PlaceProperties) => void;
 }
 
-export const PlaceCard = ({ coordinates, isPopup, properties }: PlaceCardProps) => {
+export const PlaceCard = ({ coordinates, isPopup, properties, handleCardClick }: PlaceCardProps) => {
   const { handleRating } = useRatePlace();
 
   const { id, averageRating } = properties;
@@ -96,33 +97,43 @@ export const PlaceCard = ({ coordinates, isPopup, properties }: PlaceCardProps) 
   // toglle favorite
 
   /// /////test
-  const { setLocation } = useContext(LocationContext);
-  const handleClick = () => {
-    if (coordinates && setLocation) {
-      setLocation(coordinates);
-    }
-  };
+  // const { setLocation } = useContext(LocationContext);
+
+  // const handleGoToLocation = () => {
+  //   if (coordinates && setLocation) {
+  //     setLocation(coordinates);
+  //   }
+  // };
+
+  // const handleMoreDetails = () => {};
+
   return (
-    <div onClick={handleClick} className={`${cls.placeCard} ${isPopup ? cls.popupCard : ''}`}>
+    <>
       <div
-        className={cls.image}
-        style={{
-          backgroundImage: `url("${'./places-images/' + properties.image}")`,
+        onClick={() => {
+          handleCardClick(properties);
         }}
-      ></div>
-      <div className={cls.content}>
-        <a className={cls.header} href={properties.instagram} target="_blank" rel="noreferrer">
-          <h4 className={cls.name}>{properties.name}</h4>
-          <img className={cls.instagram} src={instagram} alt="" />
-        </a>
+        className={`${cls.placeCard} ${isPopup ? cls.popupCard : ''}`}
+      >
+        <div
+          className={cls.image}
+          style={{
+            backgroundImage: `url("${'./places-images/' + properties.image}")`,
+          }}
+        ></div>
+        <div className={cls.content}>
+          <a className={cls.header} href={properties.instagram} target="_blank" rel="noreferrer">
+            <h4 className={cls.name}>{properties.name}</h4>
+            <img className={cls.instagram} src={instagram} alt="" />
+          </a>
+          <RatingWidget rating={averageRating} id={id} handleRating={handleRating} />
 
-        <div className={cls.description}>{properties.description}</div>
+          <div className={cls.description}>{properties.description}</div>
 
-        <div className={cls.adress}>{properties.address}</div>
-        {/* <div>Rating: {averageRating}</div>
+          <div className={cls.address}>{properties.address}</div>
+          {/* <div>Rating: {averageRating}</div>
         <div>Rating count: {ratingCount}</div> */}
-        <RatingWidget rating={averageRating} id={id} handleRating={handleRating} />
-        {/* <div>Favorite count: {favoriteCount}</div>
+          {/* <div>Favorite count: {favoriteCount}</div>
         <div>IsFavorite: {isFavorite ? 'true' : 'false'}</div>
         <div
           onClick={async () => {
@@ -138,7 +149,8 @@ export const PlaceCard = ({ coordinates, isPopup, properties }: PlaceCardProps) 
         >
           Add comment test1:
         </div> */}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
