@@ -67,6 +67,7 @@ export const GET_PLACE_REVIEWS = gql`
     placeReviews(placeId: $placeId) {
       id
       userName
+      userAvatar
       text
       userId
       createdAt
