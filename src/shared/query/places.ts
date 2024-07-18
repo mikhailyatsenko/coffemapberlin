@@ -35,18 +35,6 @@ export const RATE_PLACE = gql`
   }
 `;
 
-export const ADD_REVIEW = gql`
-  mutation AddReview($placeId: ID!, $text: String!) {
-    addReview(placeId: $placeId, text: $text) {
-      id
-      text
-      userId
-      placeId
-      createdAt
-    }
-  }
-`;
-
 export const TOGGLE_FAVORITE = gql`
   mutation ToggleFavorite($placeId: ID!) {
     toggleFavorite(placeId: $placeId) {
@@ -70,12 +58,24 @@ export const GET_PLACE_REVIEWS = gql`
       userAvatar
       text
       userId
+      userRating
       createdAt
       isOwnReview
     }
   }
 `;
 
+export const ADD_REVIEW = gql`
+  mutation AddReview($placeId: ID!, $text: String!) {
+    addReview(placeId: $placeId, text: $text) {
+      id
+      text
+      userId
+      placeId
+      createdAt
+    }
+  }
+`;
 export const DELETE_REVIEW = gql`
   mutation DeleteReview($reviewId: ID!) {
     deleteReview(reviewId: $reviewId) {

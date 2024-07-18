@@ -1,54 +1,36 @@
 import React, { useState } from 'react';
-import { gql, useMutation } from '@apollo/client';
-import { GET_PLACE_REVIEWS } from 'shared/query/places';
+import cls from './ReviewForm.module.scss';
 
-const ADD_REVIEW = gql`
-  mutation AddReview($placeId: ID!, $text: String!) {
-    addReview(placeId: $placeId, text: $text) {
-      id
-      text
-      userId
-      placeId
-      createdAt
-    }
-  }
-`;
-
-interface AddReviewProps {
+interface ReviewFormProps {
   placeId: string;
+  onSubmit: (text: string) => void;
 }
 
-export const ReviewForm: React.FC<AddReviewProps> = ({ placeId }) => {
-  const [review, setReview] = useState('');
-  const [addReview, { loading, error }] = useMutation(ADD_REVIEW, {
-    refetchQueries: [{ query: GET_PLACE_REVIEWS, variables: { placeId } }, 'GetPlaceReviews'],
-  });
+export const ReviewForm: React.FC<ReviewFormProps> = ({ onSubmit }) => {
+  const [reviewText, setReviewText] = useState('');
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      await addReview({
-        variables: { placeId, text: review },
-      });
-      setReview('');
-    } catch (err) {
-      console.error('Error adding review:', err);
+    if (reviewText.trim()) {
+      onSubmit(reviewText);
+      setReviewText('');
     }
   };
 
-  if (loading) return <p>Submitting...</p>;
-  if (error) return <p>Error: {error.message}</p>;
-
   return (
-    <form onSubmit={handleSubmit}>
+    <form className={cls.reviewForm} onSubmit={handleSubmit}>
       <textarea
-        value={review}
+        className={cls.reviewInput}
+        value={reviewText}
         onChange={(e) => {
-          setReview(e.target.value);
+          setReviewText(e.target.value);
         }}
-        placeholder="Add your review..."
+        placeholder="Write your review here..."
+        rows={4}
       />
-      <button type="submit">Submit Review</button>
+      <button type="submit" className={cls.submitButton} disabled={!reviewText.trim()}>
+        Submit Review
+      </button>
     </form>
   );
 };
