@@ -42,7 +42,6 @@ export const LoadMap = ({ placesGeo }: LoadMapProps) => {
     event.originalEvent.stopPropagation();
 
     const feature = event.features?.[0] as MyMapboxGeoJSONFeature;
-    console.log('click feature', feature.properties);
 
     if (!feature) {
       setPopupData(null);

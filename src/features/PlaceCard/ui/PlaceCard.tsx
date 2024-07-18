@@ -5,17 +5,16 @@ import instagram from '../../../shared/assets/instagram.svg';
 import RatingWidget from 'shared/ui/RatingWidget/ui/RatingWidget';
 import { type PlaceProperties } from 'shared/types';
 import { type Position } from 'geojson';
-import { useRatePlace } from '../api/interactions/ratePlace';
 
 interface PlaceCardProps {
   properties: PlaceProperties;
   coordinates: Position;
   isPopup: boolean;
-  handleCardClick: (properties: PlaceProperties) => void;
+  handleCardClick: (placeId: string) => void;
 }
 
 export const PlaceCard = ({ coordinates, isPopup, properties, handleCardClick }: PlaceCardProps) => {
-  const { handleRating } = useRatePlace();
+  // const { handleRating } = useRatePlace();
 
   const { id, averageRating } = properties;
 
@@ -111,7 +110,7 @@ export const PlaceCard = ({ coordinates, isPopup, properties, handleCardClick }:
     <>
       <div
         onClick={() => {
-          handleCardClick(properties);
+          handleCardClick(id);
         }}
         className={`${cls.placeCard} ${isPopup ? cls.popupCard : ''}`}
       >
@@ -126,7 +125,7 @@ export const PlaceCard = ({ coordinates, isPopup, properties, handleCardClick }:
             <h4 className={cls.name}>{properties.name}</h4>
             <img className={cls.instagram} src={instagram} alt="" />
           </a>
-          <RatingWidget rating={averageRating} id={id} handleRating={handleRating} />
+          <RatingWidget rating={averageRating} id={id} />
 
           <div className={cls.description}>{properties.description}</div>
 

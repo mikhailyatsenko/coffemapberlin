@@ -1,8 +1,8 @@
 import { useQuery } from '@apollo/client';
-import cls from './Places.module.scss';
+import cls from './PlacesList.module.scss';
 import { PlaceCard } from 'features/PlaceCard';
 import { GET_ALL_PLACES } from 'shared/query/places';
-import { type PlaceProperties, type PlaceResponse } from 'shared/types';
+import { type PlaceResponse } from 'shared/types';
 import { DetailedPaceCard } from 'features/DetailedPaceCard';
 import { useState } from 'react';
 
@@ -12,10 +12,10 @@ interface PlacesData {
 
 export function PlacesList() {
   const { data } = useQuery<PlacesData>(GET_ALL_PLACES);
-  const [detaisPopupData, setDetaisPopupData] = useState<PlaceProperties | null>(null);
+  const [selectedPlaceId, setSelectedPlaceId] = useState<string | null>(null);
 
-  const handleCardClick = (properties: PlaceProperties) => {
-    setDetaisPopupData(properties);
+  const handleCardClick = (placeId: string) => {
+    setSelectedPlaceId(placeId);
   };
 
   return (
@@ -25,18 +25,18 @@ export function PlacesList() {
           <PlaceCard
             properties={place.properties}
             coordinates={place.geometry.coordinates}
-            key={index}
+            key={place.properties.id}
             isPopup={false}
             handleCardClick={handleCardClick}
           />
         ))}
       </div>
-      {detaisPopupData && (
+      {selectedPlaceId && (
         <DetailedPaceCard
-          properties={detaisPopupData}
-          isOpen={!!detaisPopupData}
+          placeId={selectedPlaceId}
+          isOpen={!!selectedPlaceId}
           onClose={() => {
-            setDetaisPopupData(null);
+            setSelectedPlaceId(null);
           }}
         />
       )}
