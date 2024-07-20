@@ -1,5 +1,5 @@
-import React from 'react';
-import styles from './DetailedPaceCard.module.scss';
+import React, { useContext, useEffect, useState } from 'react';
+import cls from './DetailedPaceCard.module.scss';
 import { type PlaceResponse } from 'shared/types';
 import RatingWidget from 'shared/ui/RatingWidget/ui/RatingWidget';
 import { ReviewForm } from 'entities/ReviewForm/ui/ReviewForm';
@@ -9,6 +9,7 @@ import { useRatePlace } from '../api/interactions/useRatePlace';
 import { Loader } from 'shared/ui/Loader';
 import { ReviewCard } from 'shared/ui/ReviewCard';
 import { useAddReview } from '../api/interactions/useAddReview';
+import { LocationContext } from 'app/providers/LocationProvider/lib/LocationContext';
 
 interface DetailedPaceCardProps {
   placeId: string;
@@ -36,6 +37,8 @@ interface PlacesData {
 }
 
 export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ isOpen, onClose, placeId }) => {
+  const { setLocation } = useContext(LocationContext);
+  const [showReviewForm, setShowReviewForm] = useState(false);
   const { handleAddReview, loading: addReviewLoading, error: addRevewError } = useAddReview(placeId);
 
   const { data: placesData } = useQuery<PlacesData>(GET_ALL_PLACES);
@@ -53,17 +56,21 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ isOpen, onCl
     refetchQueries: [{ query: GET_PLACE_REVIEWS, variables: { placeId } }],
   });
 
-  if (!isOpen) return null;
-
   const place = placesData?.places.find((p) => p.properties.id === placeId);
+  useEffect(() => {
+    if (place?.geometry.coordinates && setLocation) {
+      setLocation(place.geometry.coordinates);
+    }
+  }, [place?.geometry.coordinates, setLocation]);
 
   if (!place?.properties) return <Loader />;
+  if (!isOpen) return null;
 
   const { averageRating, description, name } = place.properties;
 
-  console.log('Loading reviews:', reviewsLoading);
-  console.log('Error fetching reviews:', reviewsError);
-  console.log('Fetched reviews:', reviewsData?.placeReviews);
+  // console.log('Loading reviews:', reviewsLoading);
+  // console.log('Error fetching reviews:', reviewsError);
+  // console.log('Fetched reviews:', reviewsData?.placeReviews);
 
   const reviews = reviewsData?.placeReviews ?? [];
 
@@ -83,22 +90,42 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ isOpen, onCl
   };
 
   return (
-    <div className={styles.popupContainer}>
-      <div className={styles.popupContent}>
-        <button className={styles.closeButton} onClick={onClose}>
-          X
-        </button>
+    <div className={cls.detailsContainer}>
+      <button className={cls.closeButton} onClick={onClose}>
+        X
+      </button>
+      <div className={cls.detailsHeader}>
         <h2>{name}</h2>
-        <p>{description}</p>
-        <div className={styles.ratingContainer}>
-          <RatingWidget id={placeId} rating={averageRating} handleRating={handleRating} />
-          <span>{averageRating}</span>
+        <div className={cls.descriptionAndRating}>
+          <div className={cls.ratingContainer}>
+            <h4>Average Rating</h4>
+            <div className={cls.ratingNumber}>
+              {averageRating}
+              <span>/5</span>
+            </div>
+            <RatingWidget isClickable={false} id={placeId} rating={averageRating} handleRating={handleRating} />
+          </div>
+          <div>{description}</div>
         </div>
-        {/* <p>Добавлено в избранное: {isFavorite ? 'да' : 'no'}</p> */}
-        <h3>Add review</h3>
-        <ReviewForm onSubmit={handleAddReview} placeId={placeId} />
+        <div className={cls.rateNowContainer}>
+          <h3>Have you visited this place?</h3>
+          <h3>Rate now</h3>
+          <RatingWidget isClickable={true} id={placeId} rating={averageRating} handleRating={handleRating} />
+
+          <button
+            onClick={() => {
+              setShowReviewForm((prew) => !prew);
+            }}
+          >
+            Add review
+          </button>
+        </div>
+
+        <ReviewForm onSubmit={handleAddReview} isVisible={showReviewForm} />
         <h3>Reviews:</h3>
-        <ul className={styles.commentsList}>
+      </div>
+      <div className={cls.reviewsContainer}>
+        <ul className={cls.reviewsList}>
           {reviews.map((review) => (
             <ReviewCard
               key={review.id}

@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import cls from './ReviewForm.module.scss';
 
 interface ReviewFormProps {
-  placeId: string;
+  // placeId: string;
   onSubmit: (text: string) => void;
+  isVisible: boolean;
 }
 
-export const ReviewForm: React.FC<ReviewFormProps> = ({ onSubmit }) => {
+export const ReviewForm: React.FC<ReviewFormProps> = ({ onSubmit, isVisible }) => {
   const [reviewText, setReviewText] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -18,7 +19,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({ onSubmit }) => {
   };
 
   return (
-    <form className={cls.reviewForm} onSubmit={handleSubmit}>
+    <form className={`${cls.reviewForm} ${isVisible ? cls.displayForm : ''}`} onSubmit={handleSubmit}>
       <textarea
         className={cls.reviewInput}
         value={reviewText}

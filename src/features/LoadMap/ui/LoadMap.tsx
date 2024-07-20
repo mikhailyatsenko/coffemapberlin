@@ -34,6 +34,7 @@ export const LoadMap = ({ placesGeo }: LoadMapProps) => {
         center: location as LngLatLike,
         zoom: 15,
         duration: 500,
+        offset: [300, 0],
       });
     }
   }, [location]);

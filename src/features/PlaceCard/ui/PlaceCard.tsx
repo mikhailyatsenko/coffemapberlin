@@ -10,7 +10,7 @@ interface PlaceCardProps {
   properties: PlaceProperties;
   coordinates: Position;
   isPopup: boolean;
-  handleCardClick: (placeId: string) => void;
+  handleCardClick?: (placeId: string) => void;
 }
 
 export const PlaceCard = ({ coordinates, isPopup, properties, handleCardClick }: PlaceCardProps) => {
@@ -109,9 +109,11 @@ export const PlaceCard = ({ coordinates, isPopup, properties, handleCardClick }:
   return (
     <>
       <div
-        onClick={() => {
-          handleCardClick(id);
-        }}
+        {...(handleCardClick && {
+          onClick: () => {
+            handleCardClick(id);
+          },
+        })}
         className={`${cls.placeCard} ${isPopup ? cls.popupCard : ''}`}
       >
         <div
@@ -125,10 +127,8 @@ export const PlaceCard = ({ coordinates, isPopup, properties, handleCardClick }:
             <h4 className={cls.name}>{properties.name}</h4>
             <img className={cls.instagram} src={instagram} alt="" />
           </a>
-          <RatingWidget rating={averageRating} id={id} />
-
+          <RatingWidget isClickable={false} rating={averageRating} id={id} /> {averageRating}/5
           <div className={cls.description}>{properties.description}</div>
-
           <div className={cls.address}>{properties.address}</div>
           {/* <div>Rating: {averageRating}</div>
         <div>Rating count: {ratingCount}</div> */}
