@@ -27,6 +27,7 @@ module.exports = {
   },
   plugins: ['@typescript-eslint', 'react', 'react-hooks'],
   rules: {
+    '@typescript-eslint/no-unused-vars': 'warn',
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
     'react/prop-types': 'off',
@@ -57,10 +58,7 @@ module.exports = {
     ],
     'prefer-const': 'warn',
     '@typescript-eslint/no-floating-promises': 'off',
-    '@typescript-eslint/strict-boolean-expressions': [
-      'error',
-      { allowString: true, allowNullableString: true, allowNullableObject: true, allowNullableBoolean: true },
-    ],
+    '@typescript-eslint/strict-boolean-expressions': 'off',
     '@typescript-eslint/no-misused-promises': [
       2,
       {

@@ -1,0 +1,49 @@
+.reviewCard {
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 12px;
+}
+
+.userName {
+  font-weight: bold;
+}
+
+.reviewText {
+  margin-bottom: 12px;
+}
+
+.rating {
+  font-style: italic;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.deleteButton {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #ff3333;
+  }
+}

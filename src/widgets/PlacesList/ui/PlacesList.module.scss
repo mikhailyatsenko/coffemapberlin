@@ -1,14 +1,26 @@
-.Places {
+.placesData {
   position: absolute;
+  top: 60px;
+  display: flex;
+  left: 0;
+}
+
+.detailsOpen {
+  margin-left: -420px;
+  &:hover {
+    margin-left: -6px;
+  }
+}
+
+.PlacesList {
   display: flex;
   gap: 8px;
   flex-direction: column;
   height: calc(100dvh - 50px);
   overflow-y: scroll;
   overflow-x: hidden;
-  top: 60px;
   padding: 8px 5px 5px;
-
+  transition: margin-left 0.3s ease-in-out;
   z-index: 1;
   @media (width <= 768px) {
     display: none;

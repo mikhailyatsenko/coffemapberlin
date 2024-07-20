@@ -4,13 +4,23 @@ import './index.scss';
 import { HashRouter as BrowserRouter } from 'react-router-dom';
 import { LocationProvider } from 'app/providers/LocationProvider';
 import { ApolloProviderWrapper } from 'app/providers/ApolloProviderWrapper';
+import { AuthProvider } from 'app/providers/AuthProvider';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+
+if (!process.env.GOOGLE_CLIENT_ID) {
+  throw new Error(`Missing required environment variable: GOOGLE_CLIENT_ID`);
+}
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <BrowserRouter>
-    <LocationProvider>
-      <ApolloProviderWrapper>
-        <App />
-      </ApolloProviderWrapper>
-    </LocationProvider>
-  </BrowserRouter>,
+  <ApolloProviderWrapper>
+    <GoogleOAuthProvider clientId={process.env.GOOGLE_CLIENT_ID}>
+      <AuthProvider>
+        <BrowserRouter>
+          <LocationProvider>
+            <App />
+          </LocationProvider>
+        </BrowserRouter>
+      </AuthProvider>
+    </GoogleOAuthProvider>
+  </ApolloProviderWrapper>,
 );

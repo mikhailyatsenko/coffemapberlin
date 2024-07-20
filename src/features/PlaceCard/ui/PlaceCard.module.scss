@@ -33,7 +33,7 @@
     padding: 10px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 2px;
     font-family: 'Lato', sans-serif;
     .header {
       display: flex;
@@ -51,11 +51,12 @@
       font-style: normal;
       line-height: 1.2;
     }
-    .adress {
+    .address {
       font-size: 12px;
       font-weight: 300;
       color: #8c4c17;
       padding-left: 2px;
+      padding-top: 4px;
       &::before {
         content: '📍';
       }

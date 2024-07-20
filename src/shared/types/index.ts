@@ -1,21 +1,26 @@
-// import { type Geometry } from 'geojson';
-
 import { type Point } from 'geojson';
 
 export interface PlaceProperties {
+  id: string;
   name: string;
   description: string;
   address: string;
   image: string;
   instagram: string;
+  averageRating: number;
+  userRating: number;
+  ratingCount: number;
+  favoriteCount: number;
+  isFavorite: boolean;
 }
 
-// interface Geometry {
-//   type: string;
-//   coordinates: number[];
-// }
-
-export interface Feature {
+export interface User {
+  id: string;
+  displayName: string;
+  email: string;
+  avatar: string;
+}
+export interface PlaceResponse {
   type: 'Feature';
   geometry: Point;
   properties: PlaceProperties;

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import cls from './Navbar.module.scss';
 import { NavLink } from 'react-router-dom';
 import { Logo } from 'shared/ui/Logo';
+import { Auth } from 'features/Auth';
 
 export const Navbar = () => {
   const [isBurgerActive, setIsBurgerActive] = useState(false);
@@ -29,7 +30,7 @@ export const Navbar = () => {
       ) : (
         ''
       )}
-      <NavLink className={({ isActive }) => (isActive ? cls.active : '')} to={'/'}>
+      <NavLink to={'/'}>
         <div className={cls.logo}>
           <Logo />
         </div>
@@ -68,6 +69,7 @@ export const Navbar = () => {
             Contacts
           </NavLink>
         </li>
+        <Auth />
       </ul>
       <div
         onClick={() => {
