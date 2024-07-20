@@ -6,9 +6,10 @@ interface RatingProps {
   rating: number;
   id: string;
   handleRating?: (rating: number, id: string) => void;
+  isClickable: boolean;
 }
 
-const RatingWidget: React.FC<RatingProps> = ({ rating, handleRating, id }) => {
+const RatingWidget: React.FC<RatingProps> = ({ rating, handleRating, id, isClickable }) => {
   const [hoverRating, setHoverRating] = useState<number>(0);
 
   const handleMouseEnter = (index: number) => {
@@ -36,13 +37,16 @@ const RatingWidget: React.FC<RatingProps> = ({ rating, handleRating, id }) => {
           <span
             key={index}
             className={cls.starWrapper}
-            onMouseEnter={() => {
-              handleMouseEnter(index);
-            }}
-            onMouseLeave={handleMouseLeave}
-            onClick={() => {
-              handleClick(index);
-            }}
+            {...(isClickable && {
+              onMouseEnter: () => {
+                handleMouseEnter(index);
+              },
+              onMouseLeave: handleMouseLeave,
+              onClick: () => {
+                handleClick(index);
+              },
+              style: { cursor: 'pointer' },
+            })}
           >
             <BeanIcon filled={filled} />
             {halfFilled && (

@@ -19,9 +19,9 @@ export function PlacesList() {
   };
 
   return (
-    <>
-      <div className={cls.Places}>
-        {data?.places.map((place, index) => (
+    <div className={`${cls.placesData}`}>
+      <div className={`${cls.PlacesList} ${selectedPlaceId ? cls.detailsOpen : ''}`}>
+        {data?.places.map((place) => (
           <PlaceCard
             properties={place.properties}
             coordinates={place.geometry.coordinates}
@@ -40,6 +40,6 @@ export function PlacesList() {
           }}
         />
       )}
-    </>
+    </div>
   );
 }

@@ -1,19 +1,86 @@
-.popupContainer {
-  position: fixed;
-  top: 68px;
-  right: 10px;
-  bottom: 10px;
-  width: calc(100vw - 506px);
+.detailsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 8px;
+  width: 640px;
+  height: calc(100vh - 76px);
   background-color: white;
   border-radius: 10px;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
-  overflow-y: auto;
+  overflow-y: hidden;
   padding: 20px;
   z-index: 1000;
+  animation: ease-out 0.3s fadeIn;
 }
 
-.popupContent {
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.detailsContent {
   position: relative;
+  overflow-y: scroll;
+}
+
+.detailsHeader {
+  flex-shrink: 0;
+}
+
+.descriptionAndRating {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  gap: 10px;
+}
+
+.ratingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 210px;
+  padding: 10px;
+  background-color: #fff1ed;
+  border-radius: 10px;
+  .ratingNumber {
+    font-size: 44px;
+    text-align: center;
+    span {
+      font-size: 22px;
+    }
+  }
+  h4 {
+    text-align: center;
+  }
+}
+.reviewsContainer {
+  flex-grow: 1;
+  width: 100%;
+  overflow-y: auto;
+  z-index: 9;
+}
+
+.rateNowContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.reviewsList {
+  list-style-type: none;
+  padding: 0;
+}
+
+.reviewsList li {
+  margin-bottom: 10px;
 }
 
 .closeButton {
@@ -24,19 +91,4 @@
   border: none;
   font-size: 24px;
   cursor: pointer;
-}
-
-.ratingContainer {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.commentsList {
-  list-style-type: none;
-  padding: 0;
-}
-
-.commentsList li {
-  margin-bottom: 10px;
 }
