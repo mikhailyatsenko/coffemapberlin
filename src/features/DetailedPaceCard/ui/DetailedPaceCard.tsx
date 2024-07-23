@@ -40,28 +40,32 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ isOpen, onCl
     }
   }, [isHeaderVisible]);
 
-  const handleScrollUpAttempt = useCallback((e: WheelEvent | TouchEvent) => {
-    if (reviewsContainerRef.current && reviewsContainerRef.current.scrollTop === 0 && !isHeaderVisible) {
-      if ('deltaY' in e && e.deltaY < 0) {
-        setIsHeaderVisible(true);
-        e.preventDefault();
-      } else if ('touches' in e) {
-        const touch = e.touches[0];
-        const startY = touch.pageY;
+  const handleScrollUpAttempt = useCallback(
+    (e: WheelEvent | TouchEvent) => {
+      if (reviewsContainerRef.current && reviewsContainerRef.current.scrollTop === 0 && !isHeaderVisible) {
+        if ('deltaY' in e && e.deltaY < 0) {
+          // console.log('attemp scrollup');
+          setIsHeaderVisible(true);
+          e.preventDefault();
+        } else if ('touches' in e) {
+          const touch = e.touches[0];
+          const startY = touch.pageY;
 
-        const handleTouchEnd = (endEvent: TouchEvent) => {
-          const endY = endEvent.changedTouches[0].pageY;
-          if (endY > startY) {
-            console.log('Попытка прокрутить вверх на сенсорном устройстве');
-            // Здесь можно выполнить нужное действие
-          }
-          reviewsContainerRef.current?.removeEventListener('touchend', handleTouchEnd);
-        };
+          const handleTouchEnd = (endEvent: TouchEvent) => {
+            const endY = endEvent.changedTouches[0].pageY;
+            if (endY > startY) {
+              console.log('Попытка прокрутить вверх на сенсорном устройстве');
+              // Здесь можно выполнить нужное действие
+            }
+            reviewsContainerRef.current?.removeEventListener('touchend', handleTouchEnd);
+          };
 
-        reviewsContainerRef.current.addEventListener('touchend', handleTouchEnd);
+          reviewsContainerRef.current.addEventListener('touchend', handleTouchEnd);
+        }
       }
-    }
-  }, []);
+    },
+    [isHeaderVisible],
+  );
 
   useLayoutEffect(() => {
     const reviewsContainer = reviewsContainerRef.current;
