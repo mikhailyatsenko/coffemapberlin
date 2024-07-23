@@ -84,3 +84,39 @@ export const DELETE_REVIEW = gql`
     }
   }
 `;
+
+export const GET_PLACE_DETAILS = gql`
+  query GetPlaceDetails($placeId: ID!) {
+    placeDetails(placeId: $placeId) {
+      place {
+        type
+        geometry {
+          type
+          coordinates
+        }
+        properties {
+          name
+          description
+          address
+          image
+          instagram
+          averageRating
+          ratingCount
+          userRating
+          isFavorite
+          favoriteCount
+        }
+      }
+      reviews {
+        id
+        userName
+        userAvatar
+        text
+        userId
+        userRating
+        createdAt
+        isOwnReview
+      }
+    }
+  }
+`;

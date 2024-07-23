@@ -25,11 +25,18 @@
 
 .detailsContent {
   position: relative;
-  overflow-y: scroll;
 }
 
 .detailsHeader {
   flex-shrink: 0;
+  opacity: 1;
+  height: 160px;
+  transition: all ease-in-out 0.2s;
+}
+
+.hideDetailsHeader {
+  height: 0;
+  opacity: 0;
 }
 
 .descriptionAndRating {
@@ -44,8 +51,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
   gap: 4px;
-  width: 210px;
+  width: 140px;
+  height: 140px;
   padding: 10px;
   background-color: #fff1ed;
   border-radius: 10px;
@@ -60,6 +69,12 @@
     text-align: center;
   }
 }
+
+.description {
+  max-height: 120px;
+  overflow-y: auto;
+}
+
 .reviewsContainer {
   flex-grow: 1;
   width: 100%;
@@ -68,6 +83,7 @@
 }
 
 .rateNowContainer {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;

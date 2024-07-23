@@ -8,8 +8,9 @@
 
 .userInfo {
   display: flex;
+  gap: 12px;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .avatar {
@@ -17,7 +18,6 @@
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
-  margin-right: 12px;
 }
 
 .userName {
@@ -46,4 +46,19 @@
   &:hover {
     background-color: #ff3333;
   }
+}
+
+.userRate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 8px 4px;
+  background-color: #fff1ed;
+  border-radius: 4px;
+  width: fit-content;
+}
+
+.userRateNumber {
+  font-size: 18px;
+  margin-left: 1px;
 }

@@ -1,59 +1,34 @@
 import { useMutation } from '@apollo/client';
-import { GET_ALL_PLACES, RATE_PLACE, GET_PLACE_REVIEWS } from 'shared/query/places';
-import { type PlaceResponse } from 'shared/types';
-
-interface PlacesData {
-  places: PlaceResponse[];
-}
-
-interface Review {
-  id: string;
-  userRating?: number;
-  userName: string;
-  userAvatar: string;
-  text: string;
-  userId: string;
-  createdAt: string;
-  isOwnReview: boolean; // Убедитесь, что это поле есть
-}
-
-interface PlaceReviewsData {
-  placeReviews: Review[];
-}
+import { RATE_PLACE, GET_PLACE_DETAILS } from 'shared/query/places';
+import { type PlaceDetailsData } from './useReview';
 
 export function useRatePlace() {
   const [ratePlace] = useMutation(RATE_PLACE, {
     update(cache, { data: { ratePlace } }) {
-      // Обновление кэша для GET_ALL_PLACES
-      const cachedData = cache.readQuery<PlacesData>({ query: GET_ALL_PLACES });
-      if (cachedData?.places) {
-        const updatedPlaces = cachedData.places.map((place) =>
-          place.properties.id === ratePlace.id
-            ? { ...place, properties: { ...place.properties, ...ratePlace } }
-            : place,
-        );
-
-        cache.writeQuery({
-          query: GET_ALL_PLACES,
-          data: { places: updatedPlaces },
-        });
-      }
-
-      // Обновление кэша для GET_PLACE_REVIEWS
-      const reviewsData = cache.readQuery<PlaceReviewsData>({
-        query: GET_PLACE_REVIEWS,
+      const existingData = cache.readQuery<PlaceDetailsData>({
+        query: GET_PLACE_DETAILS,
         variables: { placeId: ratePlace.id },
       });
 
-      if (reviewsData?.placeReviews) {
-        const updatedReviews = reviewsData.placeReviews.map((review) =>
-          review.isOwnReview ? { ...review, userRating: ratePlace.userRating } : review,
+      if (existingData?.placeDetails) {
+        const updatedReviews = existingData.placeDetails.reviews.map((review) =>
+          review.userId === ratePlace.userId ? { ...review, userRating: ratePlace.userRating } : review,
         );
 
         cache.writeQuery({
-          query: GET_PLACE_REVIEWS,
+          query: GET_PLACE_DETAILS,
           variables: { placeId: ratePlace.id },
-          data: { placeReviews: updatedReviews },
+          data: {
+            placeDetails: {
+              ...existingData.placeDetails,
+              place: {
+                ...existingData.placeDetails.place,
+                averageRating: ratePlace.averageRating,
+                ratingCount: ratePlace.ratingCount,
+              },
+              reviews: updatedReviews,
+            },
+          },
         });
       }
     },

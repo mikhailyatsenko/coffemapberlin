@@ -7,9 +7,10 @@ interface RatingProps {
   id: string;
   handleRating?: (rating: number, id: string) => void;
   isClickable: boolean;
+  userRating?: number;
 }
 
-const RatingWidget: React.FC<RatingProps> = ({ rating, handleRating, id, isClickable }) => {
+const RatingWidget: React.FC<RatingProps> = ({ rating, handleRating, id, isClickable, userRating = 0 }) => {
   const [hoverRating, setHoverRating] = useState<number>(0);
 
   const handleMouseEnter = (index: number) => {
@@ -29,7 +30,7 @@ const RatingWidget: React.FC<RatingProps> = ({ rating, handleRating, id, isClick
   return (
     <div className={cls.rating}>
       {[...Array(5)].map((_, index) => {
-        const fillValue = hoverRating || rating;
+        const fillValue = isClickable ? hoverRating || userRating : hoverRating || rating;
         const filled = index < Math.floor(fillValue);
         const halfFilled = !filled && index < fillValue;
 
@@ -48,10 +49,10 @@ const RatingWidget: React.FC<RatingProps> = ({ rating, handleRating, id, isClick
               style: { cursor: 'pointer' },
             })}
           >
-            <BeanIcon filled={filled} />
+            <BeanIcon clickable={isClickable} filled={filled} />
             {halfFilled && (
               <div className={cls.halfStar}>
-                <BeanIcon filled={true} />
+                <BeanIcon clickable={isClickable} filled={true} />
               </div>
             )}
           </span>

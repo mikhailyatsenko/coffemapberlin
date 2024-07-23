@@ -2,10 +2,11 @@ import cls from './RatingWidget.module.scss';
 
 interface StarIconProps {
   filled: boolean;
+  clickable?: boolean;
 }
-const BeanIcon: React.FC<StarIconProps> = ({ filled }) => (
+const BeanIcon: React.FC<StarIconProps> = ({ filled, clickable = false }) => (
   <svg
-    className={filled ? cls.filledStar : cls.emptyStar}
+    className={`${filled ? cls.filledStar : cls.emptyStar} ${clickable && cls.clickable}`}
     viewBox="20 20 60 60"
     xmlSpace="preserve"
     preserveAspectRatio="xMidYMid meet"

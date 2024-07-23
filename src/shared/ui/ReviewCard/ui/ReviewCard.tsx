@@ -1,4 +1,5 @@
 import cls from './ReviewCard.module.scss';
+import BeanIcon from 'shared/ui/RatingWidget/ui/BeanIcon';
 
 interface ReviewCardProps {
   id: string;
@@ -28,9 +29,16 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({
       <div className={cls.userInfo}>
         <img src={userAvatar ?? '/default-avatar.png'} alt={userName} className={cls.avatar} />
         <span className={cls.userName}>{userName}</span>
+        {rating && (
+          <div className={cls.userRate}>
+            <BeanIcon filled />
+            <div className={cls.userRateNumber}>{rating}</div>
+          </div>
+        )}
       </div>
-      <p className={cls.reviewText}>{reviewText}</p>
-      {rating !== undefined && <div className={cls.rating}>Rating: {rating}</div>}
+
+      <p className={cls.reviewText}>{!reviewText && rating ? `Rated: ${rating}` : reviewText}</p>
+
       {isOwnReview && (
         <button
           onClick={() => {
