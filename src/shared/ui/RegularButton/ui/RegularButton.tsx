@@ -3,12 +3,13 @@ import cls from './RegularButton.module.scss';
 
 interface RegularButtonProps extends PropsWithChildren {
   clickHandler?: () => void;
-  theme?: string;
+  type?: 'submit' | 'reset' | 'button' | undefined;
+  disabled?: boolean;
 }
 
-export const RegularButton = ({ clickHandler, theme, children }: RegularButtonProps) => {
+export const RegularButton = ({ clickHandler, type, disabled, children }: RegularButtonProps) => {
   return (
-    <button className={`${cls.RegularButton} ${theme ? cls[theme] : ''}`} onClick={clickHandler}>
+    <button disabled={disabled} className={`${cls.RegularButton}`} onClick={clickHandler} type={type}>
       {children}
     </button>
   );

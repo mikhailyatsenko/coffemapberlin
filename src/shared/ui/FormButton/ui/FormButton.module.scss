@@ -24,7 +24,7 @@
       &::after {
         content: 'all fields are required';
         position: absolute;
-        top: 100%; /* Расположите текст под кнопкой */
+        top: 100%;
         left: 50%;
         padding-top: 2px;
         transform: translateX(-50%);

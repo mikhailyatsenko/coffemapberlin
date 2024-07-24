@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import cls from './ReviewForm.module.scss';
+import { RegularButton } from 'shared/ui/RegularButton';
 
 interface ReviewFormProps {
   // placeId: string;
@@ -29,9 +30,10 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({ onSubmit, isVisible }) =
         placeholder="Write your review here..."
         rows={4}
       />
-      <button type="submit" className={cls.submitButton} disabled={!reviewText.trim()}>
+      <RegularButton type="submit" disabled={!reviewText.trim()}>
         Submit Review
-      </button>
+      </RegularButton>
+      {/* <button onClick={}>Cancel</button> */}
     </form>
   );
 };

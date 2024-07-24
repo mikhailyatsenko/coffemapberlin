@@ -8,6 +8,7 @@ import { Loader } from 'shared/ui/Loader';
 import { ReviewCard } from 'shared/ui/ReviewCard';
 import { type PlaceDetailsData, useReview } from '../api/interactions/useReview';
 import { LocationContext } from 'app/providers/LocationProvider/lib/LocationContext';
+import { RegularButton } from 'shared/ui/RegularButton';
 
 interface DetailedPaceCardProps {
   placeId: string;
@@ -56,8 +57,8 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ isOpen, onCl
           const handleTouchEnd = (endEvent: TouchEvent) => {
             const endY = endEvent.changedTouches[0].pageY;
             if (endY > startY) {
-              console.log('Попытка прокрутить вверх на сенсорном устройстве');
-              // Здесь можно выполнить нужное действие
+              setIsHeaderVisible(true);
+              e.preventDefault();
             }
             reviewsListRef.current?.removeEventListener('touchend', handleTouchEnd);
           };
@@ -169,64 +170,72 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ isOpen, onCl
             </div>
             <div className={cls.description}>{description}</div>
           </div>
+          {(() => {
+            const hasRating = !!place.properties.userRating;
+            const hasReviewWithText = reviews.some((review) => review.isOwnReview && review.text.trim() !== '');
+
+            if (!hasRating || !hasReviewWithText) {
+              return (
+                <div className={cls.rateNowContainer}>
+                  <h3>Have you visited this place?</h3>
+
+                  {!hasRating && (
+                    <>
+                      <h3>Rate now</h3>
+                      <RatingWidget
+                        userRating={place.properties.userRating}
+                        isClickable={true}
+                        id={placeId}
+                        rating={averageRating}
+                        handleRating={handleRating}
+                      />
+                    </>
+                  )}
+
+                  {!hasReviewWithText && !showReviewForm && (
+                    <RegularButton
+                      clickHandler={() => {
+                        setShowReviewForm((prev) => !prev);
+                      }}
+                    >
+                      Add review
+                    </RegularButton>
+                  )}
+                  <ReviewForm onSubmit={onSubmitReview} isVisible={showReviewForm} />
+                </div>
+              );
+            }
+
+            return null;
+          })()}
         </div>
-        {(() => {
-          const hasRating = !!place.properties.userRating;
-          const hasReviewWithText = reviews.some((review) => review.isOwnReview && review.text.trim() !== '');
 
-          if (!hasRating || !hasReviewWithText) {
-            return (
-              <div className={cls.rateNowContainer}>
-                <h3>Have you visited this place?</h3>
-
-                {!hasRating && (
-                  <>
-                    <h3>Rate now</h3>
-                    <RatingWidget
-                      userRating={place.properties.userRating}
-                      isClickable={true}
-                      id={placeId}
-                      rating={averageRating}
-                      handleRating={handleRating}
-                    />
-                  </>
-                )}
-
-                {!hasReviewWithText && (
-                  <button
-                    onClick={() => {
-                      setShowReviewForm((prev) => !prev);
-                    }}
-                  >
-                    Add review
-                  </button>
-                )}
-                <ReviewForm onSubmit={onSubmitReview} isVisible={showReviewForm} />
-              </div>
-            );
-          }
-
-          return null;
-        })()}
-        {/* <div className={cls.Reviews}> */}
-        <div className={cls.reviewsContainer}>
-          <h4 className={cls.reviewsTitel}>Reviews ({reviews.length})</h4>
-          <div ref={reviewsListRef} className={cls.reviewsList}>
-            {reviews.map((review) => (
-              <ReviewCard
-                key={`${review.id}-${review.createdAt}`}
-                id={review.id}
-                rating={review.userRating}
-                reviewText={review.text}
-                userName={review.userName}
-                isOwnReview={review.isOwnReview}
-                userAvatar={review.userAvatar}
-                handleDeleteReview={handleDeleteReview}
-              />
-            ))}
+        {!showReviewForm && (
+          <div className={cls.reviewsContainer}>
+            <h4
+              onClick={() => {
+                setIsHeaderVisible((prew) => !prew);
+              }}
+              className={cls.reviewsTitel}
+            >
+              Reviews ({reviews.length})
+            </h4>
+            <div ref={reviewsListRef} className={cls.reviewsList}>
+              {reviews.map((review) => (
+                <ReviewCard
+                  key={`${review.id}-${review.createdAt}`}
+                  id={review.id}
+                  rating={review.userRating}
+                  reviewText={review.text}
+                  userName={review.userName}
+                  isOwnReview={review.isOwnReview}
+                  userAvatar={review.userAvatar}
+                  handleDeleteReview={handleDeleteReview}
+                />
+              ))}
+            </div>
           </div>
-          {/* </div> */}
-        </div>
+        )}
       </div>
     </div>
   );

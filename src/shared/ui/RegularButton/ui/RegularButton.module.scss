@@ -5,26 +5,22 @@
   padding: 10px 20px;
   border-radius: 4px;
   cursor: pointer;
-  margin-top: 20px;
-  animation: appearTransition 1.5s forwards; /* Анимация на 0.5 секунды */
   transition: background-color color 0.2s;
-  &.success {
-    border: 1px solid #6bc839;
-    color: #6bc839;
-    &:hover {
-      background-color: #6bc839;
-    }
-  }
-  &.error {
-    border: 1px solid #fd5353;
-    color: #fd5353;
-    &:hover {
-      background-color: #fd5353;
-    }
-  }
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+
   &:hover {
     color: #fff;
     background-color: #111111;
+  }
+
+  &:disabled {
+    color: #b4b4b4;
+    background-color: #fff;
+    border-color: #b4b4b4;
+    cursor: not-allowed;
+    transform: none;
   }
 }
 
