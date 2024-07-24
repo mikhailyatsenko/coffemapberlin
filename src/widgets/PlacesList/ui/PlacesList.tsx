@@ -5,6 +5,7 @@ import { GET_ALL_PLACES } from 'shared/query/places';
 import { type PlaceResponse } from 'shared/types';
 import { DetailedPaceCard } from 'features/DetailedPaceCard';
 import { useEffect, useRef, useState } from 'react';
+import { PortalToBody } from 'shared/ui/Portals/PortalToBody';
 
 interface PlacesData {
   places: PlaceResponse[];
@@ -13,31 +14,10 @@ interface PlacesData {
 export function PlacesList() {
   const { data } = useQuery<PlacesData>(GET_ALL_PLACES);
   const [selectedPlaceId, setSelectedPlaceId] = useState<string | null>(null);
-  const detailedCardRef = useRef<HTMLDivElement>(null);
 
   const handleCardClick = (placeId: string) => {
     setSelectedPlaceId(placeId);
   };
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (detailedCardRef.current && !detailedCardRef.current.contains(event.target as Node)) {
-        setSelectedPlaceId(null);
-      }
-    };
-
-    const handleEscKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setSelectedPlaceId(null);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    document.addEventListener('keydown', handleEscKey);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('keydown', handleEscKey);
-    };
-  }, []);
 
   return (
     <div className={`${cls.placesData}`}>
@@ -52,8 +32,8 @@ export function PlacesList() {
           />
         ))}
       </div>
-      <div ref={detailedCardRef}>
-        {selectedPlaceId && (
+      {selectedPlaceId && (
+        <PortalToBody>
           <DetailedPaceCard
             placeId={selectedPlaceId}
             isOpen={!!selectedPlaceId}
@@ -61,8 +41,8 @@ export function PlacesList() {
               setSelectedPlaceId(null);
             }}
           />
-        )}
-      </div>
+        </PortalToBody>
+      )}
     </div>
   );
 }

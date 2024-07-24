@@ -6,20 +6,20 @@
 }
 
 .detailsOpen {
-  margin-left: -420px;
+  margin-left: -100%;
 }
 
 .PlacesList {
   display: flex;
   gap: 8px;
   flex-direction: column;
-  height: calc(100dvh - 50px);
+  height: calc(100dvh - 60px);
   overflow-y: scroll;
   overflow-x: hidden;
   padding: 8px 5px 5px;
   transition: margin-left 0.3s ease-in-out;
   z-index: 1;
-  @media (width <= 768px) {
+  @media (width <= 767px) {
     display: none;
   }
 }

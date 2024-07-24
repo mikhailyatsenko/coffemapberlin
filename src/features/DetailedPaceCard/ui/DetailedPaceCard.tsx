@@ -19,7 +19,9 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ isOpen, onCl
   const { setLocation } = useContext(LocationContext);
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
-  const reviewsContainerRef = useRef<HTMLDivElement>(null);
+  const reviewsListRef = useRef<HTMLDivElement>(null);
+  const detailedCardRef = useRef<HTMLDivElement>(null);
+
   const { handleAddReview, handleRating, loading: reviewLoading, error: reviewError } = useReview(placeId);
 
   const { data, loading, error } = useQuery<PlaceDetailsData>(GET_PLACE_DETAILS, {
@@ -34,15 +36,15 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ isOpen, onCl
   const reviews = data?.placeDetails.reviews ?? [];
 
   const handleScrollReviewsDown = useCallback(() => {
-    if (reviewsContainerRef.current && isHeaderVisible) {
-      const scrollTop = reviewsContainerRef.current.scrollTop;
+    if (reviewsListRef.current && isHeaderVisible) {
+      const scrollTop = reviewsListRef.current.scrollTop;
       setIsHeaderVisible(scrollTop < 100);
     }
   }, [isHeaderVisible]);
 
   const handleScrollUpAttempt = useCallback(
     (e: WheelEvent | TouchEvent) => {
-      if (reviewsContainerRef.current && reviewsContainerRef.current.scrollTop === 0 && !isHeaderVisible) {
+      if (reviewsListRef.current && reviewsListRef.current.scrollTop === 0 && !isHeaderVisible) {
         if ('deltaY' in e && e.deltaY < 0) {
           // console.log('attemp scrollup');
           setIsHeaderVisible(true);
@@ -57,10 +59,10 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ isOpen, onCl
               console.log('Попытка прокрутить вверх на сенсорном устройстве');
               // Здесь можно выполнить нужное действие
             }
-            reviewsContainerRef.current?.removeEventListener('touchend', handleTouchEnd);
+            reviewsListRef.current?.removeEventListener('touchend', handleTouchEnd);
           };
 
-          reviewsContainerRef.current.addEventListener('touchend', handleTouchEnd);
+          reviewsListRef.current.addEventListener('touchend', handleTouchEnd);
         }
       }
     },
@@ -68,26 +70,26 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ isOpen, onCl
   );
 
   useLayoutEffect(() => {
-    const reviewsContainer = reviewsContainerRef.current;
-    if (reviewsContainer) {
-      reviewsContainer.addEventListener('scroll', handleScrollReviewsDown);
-      reviewsContainer.addEventListener('wheel', handleScrollUpAttempt, { passive: false });
-      reviewsContainer.addEventListener('touchmove', handleScrollUpAttempt, { passive: false });
+    const reviewsList = reviewsListRef.current;
+    if (reviewsList) {
+      reviewsList.addEventListener('scroll', handleScrollReviewsDown);
+      reviewsList.addEventListener('wheel', handleScrollUpAttempt, { passive: false });
+      reviewsList.addEventListener('touchmove', handleScrollUpAttempt, { passive: false });
       return () => {
-        reviewsContainer.removeEventListener('scroll', handleScrollReviewsDown);
-        reviewsContainer.removeEventListener('wheel', handleScrollUpAttempt);
-        reviewsContainer.removeEventListener('touchmove', handleScrollUpAttempt);
+        reviewsList.removeEventListener('scroll', handleScrollReviewsDown);
+        reviewsList.removeEventListener('wheel', handleScrollUpAttempt);
+        reviewsList.removeEventListener('touchmove', handleScrollUpAttempt);
       };
     }
   }, [handleScrollReviewsDown, handleScrollUpAttempt]);
 
   useEffect(() => {
-    let currentContainer: HTMLDivElement | null = null;
+    let reviewsListContainer: HTMLDivElement | null = null;
 
     const observer = new MutationObserver(() => {
-      currentContainer = reviewsContainerRef.current;
-      if (currentContainer) {
-        currentContainer.addEventListener('scroll', handleScrollReviewsDown);
+      reviewsListContainer = reviewsListRef.current;
+      if (reviewsListContainer) {
+        reviewsListContainer.addEventListener('scroll', handleScrollReviewsDown);
       }
     });
 
@@ -95,8 +97,8 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ isOpen, onCl
 
     return () => {
       observer.disconnect();
-      if (currentContainer) {
-        currentContainer.removeEventListener('scroll', handleScrollReviewsDown);
+      if (reviewsListContainer) {
+        reviewsListContainer.removeEventListener('scroll', handleScrollReviewsDown);
       }
     };
   }, [handleScrollReviewsDown]);
@@ -106,6 +108,26 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ isOpen, onCl
       setLocation(place.geometry.coordinates);
     }
   }, [place?.geometry.coordinates, setLocation]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (detailedCardRef.current && !detailedCardRef.current.contains(event.target as Node)) {
+        onClose();
+      }
+    };
+
+    const handleEscKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleEscKey);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscKey);
+    };
+  }, [onClose]);
 
   if (!place?.properties) return <Loader />;
   if (!isOpen) return null;
@@ -131,78 +153,80 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ isOpen, onCl
   };
 
   return (
-    <div className={cls.detailsContainer}>
-      <button className={cls.closeButton} onClick={onClose}>
-        X
-      </button>
-      <h2>{name}</h2>
-      <div className={`${cls.detailsHeader} ${!isHeaderVisible && cls.hideDetailsHeader}`}>
-        <div className={cls.descriptionAndRating}>
-          <div className={cls.ratingContainer}>
-            <h4>Average Rating</h4>
-            <div className={cls.ratingNumber}>
-              {averageRating}
-              <span>/5</span>
+    <div className={cls.backDrop}>
+      <div ref={detailedCardRef} className={cls.detailsContainer}>
+        <button className={cls.closeButton} onClick={onClose}></button>
+        <h2>{name}</h2>
+        <div className={`${cls.detailsHeader} ${!isHeaderVisible && cls.hideDetailsHeader}`}>
+          <div className={cls.descriptionAndRating}>
+            <div className={cls.ratingContainer}>
+              <h4>Average Rating</h4>
+              <div className={cls.ratingNumber}>
+                {averageRating}
+                <span>/5</span>
+              </div>
+              <RatingWidget isClickable={false} id={placeId} rating={averageRating} handleRating={handleRating} />
             </div>
-            <RatingWidget isClickable={false} id={placeId} rating={averageRating} handleRating={handleRating} />
+            <div className={cls.description}>{description}</div>
           </div>
-          <div className={cls.description}>{description}</div>
         </div>
-      </div>
-      {(() => {
-        const hasRating = !!place.properties.userRating;
-        const hasReviewWithText = reviews.some((review) => review.isOwnReview && review.text.trim() !== '');
+        {(() => {
+          const hasRating = !!place.properties.userRating;
+          const hasReviewWithText = reviews.some((review) => review.isOwnReview && review.text.trim() !== '');
 
-        if (!hasRating || !hasReviewWithText) {
-          return (
-            <div className={cls.rateNowContainer}>
-              <h3>Have you visited this place?</h3>
+          if (!hasRating || !hasReviewWithText) {
+            return (
+              <div className={cls.rateNowContainer}>
+                <h3>Have you visited this place?</h3>
 
-              {!hasRating && (
-                <>
-                  <h3>Rate now</h3>
-                  <RatingWidget
-                    userRating={place.properties.userRating}
-                    isClickable={true}
-                    id={placeId}
-                    rating={averageRating}
-                    handleRating={handleRating}
-                  />
-                </>
-              )}
+                {!hasRating && (
+                  <>
+                    <h3>Rate now</h3>
+                    <RatingWidget
+                      userRating={place.properties.userRating}
+                      isClickable={true}
+                      id={placeId}
+                      rating={averageRating}
+                      handleRating={handleRating}
+                    />
+                  </>
+                )}
 
-              {!hasReviewWithText && (
-                <button
-                  onClick={() => {
-                    setShowReviewForm((prev) => !prev);
-                  }}
-                >
-                  Add review
-                </button>
-              )}
-              <ReviewForm onSubmit={onSubmitReview} isVisible={showReviewForm} />
-            </div>
-          );
-        }
+                {!hasReviewWithText && (
+                  <button
+                    onClick={() => {
+                      setShowReviewForm((prev) => !prev);
+                    }}
+                  >
+                    Add review
+                  </button>
+                )}
+                <ReviewForm onSubmit={onSubmitReview} isVisible={showReviewForm} />
+              </div>
+            );
+          }
 
-        return null;
-      })()}
-      <h4>Reviews ({reviews.length})</h4>
-      <div className={cls.reviewsContainer} ref={reviewsContainerRef}>
-        <ul className={cls.reviewsList}>
-          {reviews.map((review) => (
-            <ReviewCard
-              key={`${review.id}-${review.createdAt}`}
-              id={review.id}
-              rating={review.userRating}
-              reviewText={review.text}
-              userName={review.userName}
-              isOwnReview={review.isOwnReview}
-              userAvatar={review.userAvatar}
-              handleDeleteReview={handleDeleteReview}
-            />
-          ))}
-        </ul>
+          return null;
+        })()}
+        {/* <div className={cls.Reviews}> */}
+        <div className={cls.reviewsContainer}>
+          <h4 className={cls.reviewsTitel}>Reviews ({reviews.length})</h4>
+          <div ref={reviewsListRef} className={cls.reviewsList}>
+            {reviews.map((review) => (
+              <ReviewCard
+                key={`${review.id}-${review.createdAt}`}
+                id={review.id}
+                rating={review.userRating}
+                reviewText={review.text}
+                userName={review.userName}
+                isOwnReview={review.isOwnReview}
+                userAvatar={review.userAvatar}
+                handleDeleteReview={handleDeleteReview}
+              />
+            ))}
+          </div>
+          {/* </div> */}
+        </div>
       </div>
     </div>
   );
