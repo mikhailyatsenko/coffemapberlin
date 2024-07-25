@@ -133,7 +133,7 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ isOpen, onCl
   if (!place?.properties) return <Loader />;
   if (!isOpen) return null;
 
-  const { averageRating, description, name } = place.properties;
+  const { averageRating, description, name, address } = place.properties;
 
   const onSubmitReview = (reviewText: string) => {
     handleAddReview(reviewText);
@@ -158,6 +158,7 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ isOpen, onCl
       <div ref={detailedCardRef} className={cls.detailsContainer}>
         <button className={cls.closeButton} onClick={onClose}></button>
         <h2>{name}</h2>
+        <p className={cls.address}>{address}</p>
         <div className={`${cls.detailsHeader} ${!isHeaderVisible && cls.hideDetailsHeader}`}>
           <div className={cls.descriptionAndRating}>
             <div className={cls.ratingContainer}>
@@ -170,45 +171,55 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ isOpen, onCl
             </div>
             <div className={cls.description}>{description}</div>
           </div>
-          {(() => {
-            const hasRating = !!place.properties.userRating;
-            const hasReviewWithText = reviews.some((review) => review.isOwnReview && review.text.trim() !== '');
-
-            if (!hasRating || !hasReviewWithText) {
-              return (
-                <div className={cls.rateNowContainer}>
-                  <h3>Have you visited this place?</h3>
-
-                  {!hasRating && (
-                    <>
-                      <h3>Rate now</h3>
-                      <RatingWidget
-                        userRating={place.properties.userRating}
-                        isClickable={true}
-                        id={placeId}
-                        rating={averageRating}
-                        handleRating={handleRating}
-                      />
-                    </>
-                  )}
-
-                  {!hasReviewWithText && !showReviewForm && (
-                    <RegularButton
-                      clickHandler={() => {
-                        setShowReviewForm((prev) => !prev);
-                      }}
-                    >
-                      Add review
-                    </RegularButton>
-                  )}
-                  <ReviewForm onSubmit={onSubmitReview} isVisible={showReviewForm} />
-                </div>
-              );
-            }
-
-            return null;
-          })()}
         </div>
+        {(() => {
+          const hasRating = !!place.properties.userRating;
+          const hasReviewWithText = reviews.some((review) => review.isOwnReview && review.text.trim() !== '');
+
+          if (!hasRating || !hasReviewWithText) {
+            return (
+              <div className={cls.rateNowContainer}>
+                <h3>Have you visited this place?</h3>
+
+                {!hasRating && (
+                  <>
+                    <h4>Rate now</h4>
+                    <RatingWidget
+                      userRating={place.properties.userRating}
+                      isClickable={true}
+                      id={placeId}
+                      rating={averageRating}
+                      handleRating={handleRating}
+                    />
+                  </>
+                )}
+
+                {!hasReviewWithText && !showReviewForm && (
+                  <RegularButton
+                    clickHandler={() => {
+                      setShowReviewForm((prev) => !prev);
+                    }}
+                  >
+                    Add review
+                  </RegularButton>
+                )}
+                {showReviewForm && (
+                  <RegularButton
+                    blank={true}
+                    clickHandler={() => {
+                      setShowReviewForm((prev) => !prev);
+                    }}
+                  >
+                    ← Back
+                  </RegularButton>
+                )}
+                <ReviewForm onSubmit={onSubmitReview} isVisible={showReviewForm} />
+              </div>
+            );
+          }
+
+          return null;
+        })()}
 
         {!showReviewForm && (
           <div className={cls.reviewsContainer}>

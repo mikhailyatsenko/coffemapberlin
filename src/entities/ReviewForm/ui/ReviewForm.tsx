@@ -33,7 +33,6 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({ onSubmit, isVisible }) =
       <RegularButton type="submit" disabled={!reviewText.trim()}>
         Submit Review
       </RegularButton>
-      {/* <button onClick={}>Cancel</button> */}
     </form>
   );
 };

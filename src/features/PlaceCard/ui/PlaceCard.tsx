@@ -9,36 +9,11 @@ import { type Position } from 'geojson';
 interface PlaceCardProps {
   properties: PlaceProperties;
   coordinates: Position;
-  isPopup: boolean;
   handleCardClick?: (placeId: string) => void;
 }
 
-export const PlaceCard = ({ coordinates, isPopup, properties, handleCardClick }: PlaceCardProps) => {
-  // const { handleRating } = useRatePlace();
-
+export const PlaceCard = ({ coordinates, properties, handleCardClick }: PlaceCardProps) => {
   const { id, averageRating } = properties;
-
-  /// /////test
-
-  // review
-
-  // const [addReview] = useMutation(ADD_REVIEW);
-  // const [reviewText, setReviewText] = useState('');
-
-  // const handleReviewSubmit = async (text: string) => {
-  //   // e.preventDefault();
-  //   try {
-  //     const { data } = await addReview({
-  //       variables: { placeId: id, text },
-  //     });
-  //     console.log('Review added:', data.addReview);
-  //     // setReviewText(''); // Очистить поле ввода после успешного добавления
-  //   } catch (error) {
-  //     console.error('Error adding review:', error);
-  //   }
-  // };
-
-  // review
 
   // toglle favorite
 
@@ -96,15 +71,6 @@ export const PlaceCard = ({ coordinates, isPopup, properties, handleCardClick }:
   // toglle favorite
 
   /// /////test
-  // const { setLocation } = useContext(LocationContext);
-
-  // const handleGoToLocation = () => {
-  //   if (coordinates && setLocation) {
-  //     setLocation(coordinates);
-  //   }
-  // };
-
-  // const handleMoreDetails = () => {};
 
   return (
     <>
@@ -114,7 +80,7 @@ export const PlaceCard = ({ coordinates, isPopup, properties, handleCardClick }:
             handleCardClick(id);
           },
         })}
-        className={`${cls.placeCard} ${isPopup ? cls.popupCard : ''}`}
+        className={`${cls.placeCard} `}
       >
         <div
           className={cls.image}
@@ -127,27 +93,11 @@ export const PlaceCard = ({ coordinates, isPopup, properties, handleCardClick }:
             <h4 className={cls.name}>{properties.name}</h4>
             <img className={cls.instagram} src={instagram} alt="" />
           </a>
-          <RatingWidget isClickable={false} rating={averageRating} id={id} /> {averageRating}/5
+          <div className={cls.rating}>
+            <RatingWidget isClickable={false} rating={averageRating} id={id} /> {averageRating}
+          </div>
           <div className={cls.description}>{properties.description}</div>
           <div className={cls.address}>{properties.address}</div>
-          {/* <div>Rating: {averageRating}</div>
-        <div>Rating count: {ratingCount}</div> */}
-          {/* <div>Favorite count: {favoriteCount}</div>
-        <div>IsFavorite: {isFavorite ? 'true' : 'false'}</div>
-        <div
-          onClick={async () => {
-            await handleToggle();
-          }}
-        >
-          add to Favorite
-        </div>
-        <div
-          onClick={async () => {
-            await handleReviewSubmit('test1');
-          }}
-        >
-          Add comment test1:
-        </div> */}
         </div>
       </div>
     </>

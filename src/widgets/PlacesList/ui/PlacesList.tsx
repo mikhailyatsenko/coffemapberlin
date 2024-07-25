@@ -27,7 +27,6 @@ export function PlacesList() {
             properties={place.properties}
             coordinates={place.geometry.coordinates}
             key={place.properties.id}
-            isPopup={false}
             handleCardClick={handleCardClick}
           />
         ))}

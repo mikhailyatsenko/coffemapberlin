@@ -1,8 +1,7 @@
-.placeCard {
-  cursor: pointer;
+.TooltipCardOnMap {
   display: flex;
   flex-shrink: 0;
-  max-width: 480px;
+  max-width: 100%;
   width: fit-content;
   overflow: hidden;
   background: #fff;
@@ -13,22 +12,7 @@
     0px 2px 4px rgba(0, 0, 0, 0.1),
     0px 4px 8px rgba(0, 0, 0, 0.1);
   transition: all 0.2s;
-  @media (width <= 1279px) {
-    width: 420px;
-    max-width: 100%;
-  }
 
-  &:hover {
-    transform: scale(1.01);
-  }
-  .image {
-    flex-shrink: 0;
-    width: 140px;
-    height: auto;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
   .content {
     padding: 10px;
     display: flex;
@@ -38,9 +22,10 @@
     .header {
       display: flex;
       color: #ff4b34;
-      gap: 8px;
-      padding-left: 2px;
+      gap: 6px;
+      margin-bottom: 4px;
       .instagram {
+        cursor: pointer;
         height: 20px;
         width: 20px;
         filter: grayscale(100%);
@@ -57,12 +42,7 @@
       font-weight: 400;
       gap: 4px;
     }
-    .description {
-      font-size: 14px;
-      font-weight: 300;
-      font-style: normal;
-      line-height: 1.2;
-    }
+
     .address {
       font-size: 12px;
       font-weight: 300;
@@ -73,12 +53,5 @@
         content: '📍';
       }
     }
-  }
-}
-
-.popupCard {
-  cursor: default;
-  &:hover {
-    transform: none;
   }
 }

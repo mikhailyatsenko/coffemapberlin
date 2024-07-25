@@ -6,9 +6,9 @@ import type { MapRef, GeoJSONSource, MapLayerMouseEvent, LngLatLike, MapboxGeoJS
 import cls from './LoadMap.module.scss';
 import { LocationContext } from 'app/providers/LocationProvider/lib/LocationContext';
 import { type PlacesDataWithGeo } from 'widgets/Map/ui/MainMap';
-import { PlaceCard } from 'features/PlaceCard';
 import { type PlaceResponse, type PlaceProperties } from 'shared/types';
 import { type Position } from 'geojson';
+import { TooltipCardOnMap } from 'features/TooltipCardOnMap';
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoicGV0cmFrb3YiLCJhIjoiY2tuMGRxZXNqMG1xZzJ0cGZvb2h0emN1ayJ9.CsROju7EJW9j76c6bEsyYw';
 // 'pk.eyJ1IjoibWlraGFpbHlhdHNlbmtvIiwiYSI6ImNsdnFwZ3F5MDBlejMybG52cW54eXZhcmYifQ.K0kaDuoAqNrXBbe2Sc1pzw';
@@ -26,7 +26,8 @@ export const LoadMap = ({ placesGeo }: LoadMapProps) => {
 
   type MyMapboxGeoJSONFeature = MapboxGeoJSONFeature & PlaceResponse;
 
-  const [popupData, setPopupData] = useState<{ properties: PlaceProperties; coordinates: Position } | null>(null);
+  const [popupData, setPopupData] = useState<PlaceProperties | null>(null);
+  const [selectedPacePosition, setSelectedPacePosition] = useState<Position | null>(null);
 
   useEffect(() => {
     if (location) {
@@ -54,8 +55,6 @@ export const LoadMap = ({ placesGeo }: LoadMapProps) => {
       geometry: { coordinates },
     } = feature;
 
-    console.log(feature);
-
     switch (feature?.layer?.id) {
       case 'clusters': {
         const clusterId: number = feature.properties?.cluster_id;
@@ -81,8 +80,8 @@ export const LoadMap = ({ placesGeo }: LoadMapProps) => {
         break;
       case 'place_title':
         if (feature.geometry.type === 'Point') {
-          setPopupData({ properties, coordinates });
-          console.log('popUpData', popupData);
+          setPopupData(properties);
+          setSelectedPacePosition(coordinates);
         }
         break;
       default:
@@ -122,19 +121,18 @@ export const LoadMap = ({ placesGeo }: LoadMapProps) => {
           <Layer {...unclusteredPointLayer} />
           <Layer {...namesLayer} />
         </Source>
-        {popupData && (
+        {popupData && selectedPacePosition && (
           <Popup
-            className={cls.popup}
             closeButton={false}
             closeOnClick={false}
             anchor="top"
-            longitude={Number(popupData.coordinates[0])}
-            latitude={Number(popupData.coordinates[1])}
+            longitude={Number(selectedPacePosition[0])}
+            latitude={Number(selectedPacePosition[1])}
             onClose={() => {
               setPopupData(null);
             }}
           >
-            <PlaceCard {...popupData} isPopup={true} />
+            <TooltipCardOnMap properties={popupData} />
           </Popup>
         )}
         <NavigationControl position="bottom-right" />
