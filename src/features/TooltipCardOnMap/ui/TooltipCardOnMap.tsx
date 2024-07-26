@@ -21,6 +21,7 @@ export const TooltipCardOnMap = ({ properties }: TooltipCardOnMapProps) => {
           <RatingWidget isClickable={false} rating={averageRating} id={id} /> {averageRating}
         </div>
         <div className={cls.address}>{address}</div>
+        <div className={cls.moreButton}>More details...</div>
       </div>
     </div>
   );

@@ -5,16 +5,16 @@ import instagram from '../../../shared/assets/instagram.svg';
 import RatingWidget from 'shared/ui/RatingWidget/ui/RatingWidget';
 import { type PlaceProperties } from 'shared/types';
 import { type Position } from 'geojson';
+import { useDetailedCard } from 'app/providers/DetailedCardProvider';
 
 interface PlaceCardProps {
   properties: PlaceProperties;
   coordinates: Position;
-  handleCardClick?: (placeId: string) => void;
 }
 
-export const PlaceCard = ({ coordinates, properties, handleCardClick }: PlaceCardProps) => {
+export const PlaceCard = ({ properties }: PlaceCardProps) => {
   const { id, averageRating } = properties;
-
+  const { setCurrentSelectedPlaceId } = useDetailedCard();
   // toglle favorite
 
   // interface FavoriteActionResult {
@@ -22,7 +22,7 @@ export const PlaceCard = ({ coordinates, properties, handleCardClick }: PlaceCar
   //   message: string | null;
   //   requiresAuth: boolean;
   //   place: PlaceResponse | null;
-  // }
+  // }§
 
   // interface ToggleFavoriteMutationData {
   //   toggleFavorite: FavoriteActionResult;
@@ -75,11 +75,9 @@ export const PlaceCard = ({ coordinates, properties, handleCardClick }: PlaceCar
   return (
     <>
       <div
-        {...(handleCardClick && {
-          onClick: () => {
-            handleCardClick(id);
-          },
-        })}
+        onClick={() => {
+          setCurrentSelectedPlaceId(id);
+        }}
         className={`${cls.placeCard} `}
       >
         <div

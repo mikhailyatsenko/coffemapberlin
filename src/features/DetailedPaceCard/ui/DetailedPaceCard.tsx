@@ -12,11 +12,10 @@ import { RegularButton } from 'shared/ui/RegularButton';
 
 interface DetailedPaceCardProps {
   placeId: string;
-  isOpen: boolean;
   onClose: () => void;
 }
 
-export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ isOpen, onClose, placeId }) => {
+export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ onClose, placeId }) => {
   const { setLocation } = useContext(LocationContext);
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
@@ -131,7 +130,6 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ isOpen, onCl
   }, [onClose]);
 
   if (!place?.properties) return <Loader />;
-  if (!isOpen) return null;
 
   const { averageRating, description, name, address } = place.properties;
 
