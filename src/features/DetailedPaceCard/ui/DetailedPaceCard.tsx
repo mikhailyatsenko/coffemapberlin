@@ -2,13 +2,14 @@ import React, { useContext, useEffect, useState, useRef, useCallback, useLayoutE
 import cls from './DetailedPaceCard.module.scss';
 import RatingWidget from 'shared/ui/RatingWidget/ui/RatingWidget';
 import { ReviewForm } from 'entities/ReviewForm/ui/ReviewForm';
-import { DELETE_REVIEW, GET_PLACE_DETAILS } from 'shared/query/places';
+import { DELETE_REVIEW, GET_ALL_PLACES, GET_PLACE_DETAILS } from 'shared/query/places';
 import { useMutation, useQuery } from '@apollo/client';
 import { Loader } from 'shared/ui/Loader';
 import { ReviewCard } from 'shared/ui/ReviewCard';
 import { type PlaceDetailsData, useReview } from '../api/interactions/useReview';
 import { LocationContext } from 'app/providers/LocationProvider/lib/LocationContext';
 import { RegularButton } from 'shared/ui/RegularButton';
+import { type PlaceResponse } from 'shared/types';
 
 interface DetailedPaceCardProps {
   placeId: string;
@@ -22,18 +23,24 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ onClose, pla
   const reviewsListRef = useRef<HTMLDivElement>(null);
   const detailedCardRef = useRef<HTMLDivElement>(null);
 
-  const { handleAddReview, handleRating, loading: reviewLoading } = useReview(placeId);
-
-  const { data, loading: placeDataLoading } = useQuery<PlaceDetailsData>(GET_PLACE_DETAILS, {
-    variables: { placeId },
-  });
+  const { handleAddReview, loading: reviewLoading } = useReview(placeId);
 
   const [deleteReview] = useMutation(DELETE_REVIEW, {
     refetchQueries: [{ query: GET_PLACE_DETAILS, variables: { placeId } }],
   });
 
-  const place = data?.placeDetails.place;
-  const reviews = data?.placeDetails.reviews ?? [];
+  const { data: allPlacesData } = useQuery<{ places: PlaceResponse[] }>(GET_ALL_PLACES);
+  const {
+    data: placeDetailsData,
+    loading,
+    // error,
+  } = useQuery<PlaceDetailsData>(GET_PLACE_DETAILS, {
+    variables: { placeId },
+  });
+  console.log(placeDetailsData);
+
+  const place = allPlacesData?.places.find((p) => p.properties.id === placeId);
+  const reviews = placeDetailsData?.placeDetails.reviews ?? [];
 
   const handleScrollReviewsDown = useCallback(() => {
     if (reviewsListRef.current && isHeaderVisible) {
@@ -129,7 +136,7 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ onClose, pla
     };
   }, [onClose]);
 
-  if (!place?.properties || placeDataLoading) return <Loader />;
+  if (!place?.properties || loading) return <Loader />;
 
   const { averageRating, description, name, address } = place.properties;
 
@@ -165,13 +172,14 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ onClose, pla
                 {averageRating}
                 <span>/5</span>
               </div>
-              <RatingWidget isClickable={false} id={placeId} rating={averageRating} handleRating={handleRating} />
+              <RatingWidget isClickable={false} id={placeId} rating={averageRating} />
             </div>
             <div className={cls.description}>{description}</div>
           </div>
         </div>
         {(() => {
-          const hasRating = !!place.properties.userRating;
+          const hasRating = reviews.some((review) => review.isOwnReview && review.userRating !== null);
+          console.log('has rating?:', hasRating);
           const hasReviewWithText = reviews.some((review) => review.isOwnReview && review.text.trim() !== '');
 
           if (!hasRating || !hasReviewWithText) {
@@ -187,7 +195,7 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ onClose, pla
                       isClickable={true}
                       id={placeId}
                       rating={averageRating}
-                      handleRating={handleRating}
+                      handleRating={handleAddReview}
                     />
                   </>
                 )}

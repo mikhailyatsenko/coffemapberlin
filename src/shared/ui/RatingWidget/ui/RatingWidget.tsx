@@ -4,13 +4,13 @@ import BeanIcon from './BeanIcon';
 
 interface RatingProps {
   rating: number;
-  id: string;
-  handleRating?: (rating: number, id: string) => void;
+  id?: string;
+  handleRating?: (_: undefined, rating: number) => void;
   isClickable: boolean;
   userRating?: number;
 }
 
-const RatingWidget: React.FC<RatingProps> = ({ rating, handleRating, id, isClickable, userRating = 0 }) => {
+const RatingWidget: React.FC<RatingProps> = ({ rating, handleRating, isClickable, userRating = 0 }) => {
   const [hoverRating, setHoverRating] = useState<number>(0);
 
   const handleMouseEnter = (index: number) => {
@@ -23,7 +23,7 @@ const RatingWidget: React.FC<RatingProps> = ({ rating, handleRating, id, isClick
 
   const handleClick = (index: number) => {
     if (handleRating) {
-      handleRating(index + 1, id);
+      handleRating(undefined, index + 1);
     }
   };
 

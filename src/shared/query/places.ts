@@ -24,17 +24,6 @@ export const GET_ALL_PLACES = gql`
   }
 `;
 
-export const RATE_PLACE = gql`
-  mutation RatePlace($placeId: ID!, $rating: Int!) {
-    ratePlace(placeId: $placeId, rating: $rating) {
-      id
-      averageRating
-      ratingCount
-      userRating
-    }
-  }
-`;
-
 export const TOGGLE_FAVORITE = gql`
   mutation ToggleFavorite($placeId: ID!) {
     toggleFavorite(placeId: $placeId) {
@@ -66,16 +55,25 @@ export const GET_PLACE_REVIEWS = gql`
 `;
 
 export const ADD_REVIEW = gql`
-  mutation AddReview($placeId: ID!, $text: String!) {
-    addReview(placeId: $placeId, text: $text) {
-      id
-      text
-      userId
-      placeId
-      createdAt
+  mutation AddReview($placeId: ID!, $text: String, $rating: Float) {
+    addReview(placeId: $placeId, text: $text, rating: $rating) {
+      review {
+        id
+        text
+        userId
+        userName
+        userAvatar
+        placeId
+        createdAt
+        isOwnReview
+        userRating
+      }
+      averageRating
+      ratingCount
     }
   }
 `;
+
 export const DELETE_REVIEW = gql`
   mutation DeleteReview($reviewId: ID!) {
     deleteReview(reviewId: $reviewId) {
@@ -86,37 +84,20 @@ export const DELETE_REVIEW = gql`
 `;
 
 export const GET_PLACE_DETAILS = gql`
-  query GetPlaceDetails($placeId: ID!) {
+  query PlaceDetails($placeId: ID!) {
     placeDetails(placeId: $placeId) {
-      place {
-        type
-        geometry {
-          type
-          coordinates
-        }
-        properties {
-          name
-          description
-          address
-          image
-          instagram
-          averageRating
-          ratingCount
-          userRating
-          isFavorite
-          favoriteCount
-        }
-      }
       reviews {
         id
-        userName
-        userAvatar
         text
         userId
-        userRating
+        userName
+        userAvatar
         createdAt
+        userRating
         isOwnReview
       }
+      favoriteCount
+      isFavorite
     }
   }
 `;

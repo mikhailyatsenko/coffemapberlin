@@ -2,8 +2,8 @@ import { type PropsWithChildren, type FC } from 'react';
 import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:3000/graphql', // Замените на URL вашего GraphQL сервера
-  credentials: 'include', // Это важно для отправки куки
+  uri: 'https://yatsenko.site/coffee',
+  credentials: 'include',
 });
 
 const client = new ApolloClient({
