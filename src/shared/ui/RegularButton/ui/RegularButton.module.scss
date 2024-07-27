@@ -11,7 +11,20 @@
   transition:
     background-color 0.2s,
     color 0.2s;
-
+  &.success {
+    border: 1px solid #61c289;
+    color: #61c289;
+    &:hover {
+      background-color: #61c289;
+    }
+  }
+  &.error {
+    border: 1px solid #fd5353;
+    color: #fd5353;
+    &:hover {
+      background-color: #fd5353;
+    }
+  }
   &:hover {
     color: #fff;
     background-color: #111111;

@@ -22,9 +22,9 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ onClose, pla
   const reviewsListRef = useRef<HTMLDivElement>(null);
   const detailedCardRef = useRef<HTMLDivElement>(null);
 
-  const { handleAddReview, handleRating, loading: reviewLoading, error: reviewError } = useReview(placeId);
+  const { handleAddReview, handleRating, loading: reviewLoading } = useReview(placeId);
 
-  const { data, loading, error } = useQuery<PlaceDetailsData>(GET_PLACE_DETAILS, {
+  const { data, loading: placeDataLoading } = useQuery<PlaceDetailsData>(GET_PLACE_DETAILS, {
     variables: { placeId },
   });
 
@@ -129,7 +129,7 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ onClose, pla
     };
   }, [onClose]);
 
-  if (!place?.properties) return <Loader />;
+  if (!place?.properties || placeDataLoading) return <Loader />;
 
   const { averageRating, description, name, address } = place.properties;
 
@@ -203,7 +203,7 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ onClose, pla
                 )}
                 {showReviewForm && (
                   <RegularButton
-                    blank={true}
+                    theme="blank"
                     clickHandler={() => {
                       setShowReviewForm((prev) => !prev);
                     }}
@@ -211,7 +211,7 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ onClose, pla
                     ← Back
                   </RegularButton>
                 )}
-                <ReviewForm onSubmit={onSubmitReview} isVisible={showReviewForm} />
+                <ReviewForm isLoading={reviewLoading} onSubmit={onSubmitReview} isVisible={showReviewForm} />
               </div>
             );
           }

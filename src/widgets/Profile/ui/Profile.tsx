@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
 import { useAuth } from 'app/providers/AuthProvider';
-// import './Profile.css';
+// import './Profile.css
 
 export const Profile: React.FC = () => {
   const { user } = useAuth();

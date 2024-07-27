@@ -31,7 +31,9 @@ export const Navbar = () => {
         ''
       )}
       <NavLink to={'/'}>
-        <div className={cls.logo}>{/* <Logo /> */}</div>
+        <div className={cls.logo}>
+          <Logo />
+        </div>
       </NavLink>
       <ul className={`${cls.navMenu} ${isBurgerActive ? cls.active : ''}`}>
         <li className={cls.navItem}>
