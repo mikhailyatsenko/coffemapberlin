@@ -42,7 +42,11 @@ export const ContactForm = ({ onSubmit }: ContactFormProps) => {
           <FormField labelText={'Message'} fieldName="message" error={errors.message?.message} />
           <div className={cls.recaptcha}>
             <ReCAPTCHA
-              sitekey={process.env.VITE_ENV === 'development' ? '6Lf0FxoqAAAAAGRdTjuemyGmJO3Nd3dSRg-JzCI-' : ''}
+              sitekey={
+                process.env.VITE_ENV === 'development'
+                  ? '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'
+                  : '6Lf0FxoqAAAAAGRdTjuemyGmJO3Nd3dSRg-JzCI-'
+              }
               onChange={handleCaptchaChange}
             />
             {errors.recaptcha && <p>Please complete the reCAPTCHA</p>}
