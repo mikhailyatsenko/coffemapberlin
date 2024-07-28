@@ -9,7 +9,7 @@ dotenv.config();
 export default defineConfig({
   plugins: [react(), tsconfigPaths()],
   define: {
-    'process.env': process.env,
+    'process.env': { ...process.env, VITE_ENV: process.env.VITE_ENV ?? 'development' },
   },
   base: './',
 });

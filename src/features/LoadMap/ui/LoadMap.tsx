@@ -9,8 +9,7 @@ import { type PlaceResponse, type PlaceProperties } from 'shared/types';
 import { type Position } from 'geojson';
 import { TooltipCardOnMap } from 'features/TooltipCardOnMap';
 
-const MAPBOX_TOKEN = 'pk.eyJ1IjoicGV0cmFrb3YiLCJhIjoiY2tuMGRxZXNqMG1xZzJ0cGZvb2h0emN1ayJ9.CsROju7EJW9j76c6bEsyYw';
-// 'pk.eyJ1IjoibWlraGFpbHlhdHNlbmtvIiwiYSI6ImNsdnFwZ3F5MDBlejMybG52cW54eXZhcmYifQ.K0kaDuoAqNrXBbe2Sc1pzw';
+const MAPBOX_TOKEN = process.env.MAPBOX_API;
 
 interface LoadMapProps {
   placesGeo: PlacesDataWithGeo;

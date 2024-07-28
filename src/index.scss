@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
+
 * {
   box-sizing: border-box;
   outline: 0 none;
@@ -11,7 +13,7 @@ body {
   background-color: #fff;
   font-size: 16px;
   color: #303030;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Roboto Slab', serif;
   font-weight: 200;
   font-style: normal;
 }
@@ -61,4 +63,8 @@ h4 {
   margin-right: auto;
   max-width: 1140px;
   width: 100%;
+}
+
+.mapboxgl-map {
+  font-family: 'Roboto Slab', serif;
 }

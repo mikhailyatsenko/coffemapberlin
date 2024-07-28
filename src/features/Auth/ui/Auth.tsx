@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import React, { useState, useRef, useEffect } from 'react';
 import { useAuth } from 'app/providers/AuthProvider';
-import { Link } from 'react-router-dom';
 import cls from './Auth.module.scss';
+import { GoogleLoginButton } from 'shared/ui/GoogleLoginButton';
 
 export const Auth: React.FC = () => {
   const { user, logout, login } = useAuth();
@@ -24,14 +24,11 @@ export const Auth: React.FC = () => {
 
   if (!user) {
     return (
-      <li
-        onClick={() => {
+      <GoogleLoginButton
+        buttonHandler={() => {
           login();
         }}
-        className={cls.loginButton}
-      >
-        Login
-      </li>
+      />
     );
   }
 
@@ -47,14 +44,14 @@ export const Auth: React.FC = () => {
       </div>
       {dropdownOpen && (
         <div className={cls.dropdown}>
-          <Link
+          {/* <Link
             to="/profile"
             onClick={() => {
               setDropdownOpen(false);
             }}
           >
             Profile
-          </Link>
+          </Link> */}
           <button
             onClick={() => {
               logout();

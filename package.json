@@ -9,7 +9,7 @@
     "lint:ts": "eslint \"**/*.{ts, tsx}\"",
     "lint:ts:fix": "eslint \"**/*.{ts, tsx}\" --fix",
     "preview": "vite preview",
-    "predeploy": "npm run build",
+    "predeploy": "VITE_ENV=production npm run build",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
