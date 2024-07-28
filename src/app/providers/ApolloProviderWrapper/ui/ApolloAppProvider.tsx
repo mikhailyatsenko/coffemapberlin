@@ -2,7 +2,7 @@ import { type PropsWithChildren, type FC } from 'react';
 import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 
 const httpLink = createHttpLink({
-  uri: 'https://yatsenko.site/coffee',
+  uri: 'http://localhost:3000/coffee',
   credentials: 'include',
 });
 

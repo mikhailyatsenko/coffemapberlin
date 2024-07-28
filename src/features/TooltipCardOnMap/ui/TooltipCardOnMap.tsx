@@ -1,6 +1,6 @@
 import cls from './TooltipCardOnMap.module.scss';
 import instagramIcon from '../../../shared/assets/instagram.svg';
-// import { useContext } from 'react';
+import { useDetailedCard } from 'app/providers/DetailedCardProvider';
 import RatingWidget from 'shared/ui/RatingWidget/ui/RatingWidget';
 import { type PlaceProperties } from 'shared/types';
 
@@ -10,6 +10,7 @@ interface TooltipCardOnMapProps {
 
 export const TooltipCardOnMap = ({ properties }: TooltipCardOnMapProps) => {
   const { id, averageRating, name, address, instagram } = properties;
+  const { setCurrentSelectedPlaceId } = useDetailedCard();
   return (
     <div className={cls.TooltipCardOnMap}>
       <div className={cls.content}>
@@ -21,7 +22,14 @@ export const TooltipCardOnMap = ({ properties }: TooltipCardOnMapProps) => {
           <RatingWidget isClickable={false} rating={averageRating} id={id} /> {averageRating}
         </div>
         <div className={cls.address}>{address}</div>
-        <div className={cls.moreButton}>More details...</div>
+        <div
+          onClick={() => {
+            setCurrentSelectedPlaceId(id);
+          }}
+          className={cls.moreButton}
+        >
+          More details...
+        </div>
       </div>
     </div>
   );
