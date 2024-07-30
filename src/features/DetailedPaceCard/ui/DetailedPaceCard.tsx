@@ -10,6 +10,7 @@ import { type PlaceDetailsData, useReview } from '../api/interactions/useReview'
 import { LocationContext } from 'app/providers/LocationProvider/lib/LocationContext';
 import { RegularButton } from 'shared/ui/RegularButton';
 import { type PlaceResponse } from 'shared/types';
+import { PortalToBody } from 'shared/ui/Portals/PortalToBody';
 
 interface DetailedPaceCardProps {
   placeId: string;
@@ -159,101 +160,103 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ onClose, pla
   };
 
   return (
-    <div className={cls.backDrop}>
-      <div ref={detailedCardRef} className={cls.detailsContainer}>
-        <button className={cls.closeButton} onClick={onClose}></button>
-        <h2>{name}</h2>
-        <p className={cls.address}>{address}</p>
-        <div className={`${cls.detailsHeader} ${!isHeaderVisible && cls.hideDetailsHeader}`}>
-          <div className={cls.descriptionAndRating}>
-            <div className={cls.ratingContainer}>
-              <h4>Average Rating</h4>
-              <div className={cls.ratingNumber}>
-                {averageRating}
-                <span>/5</span>
+    <PortalToBody>
+      <div className={cls.backDrop}>
+        <div ref={detailedCardRef} className={cls.detailsContainer}>
+          <button className={cls.closeButton} onClick={onClose}></button>
+          <h2>{name}</h2>
+          <p className={cls.address}>{address}</p>
+          <div className={`${cls.detailsHeader} ${!isHeaderVisible && cls.hideDetailsHeader}`}>
+            <div className={cls.descriptionAndRating}>
+              <div className={cls.ratingContainer}>
+                <h4>Average Rating</h4>
+                <div className={cls.ratingNumber}>
+                  {averageRating}
+                  <span>/5</span>
+                </div>
+                <RatingWidget isClickable={false} id={placeId} rating={averageRating} />
               </div>
-              <RatingWidget isClickable={false} id={placeId} rating={averageRating} />
+              <div className={cls.description}>{description}</div>
             </div>
-            <div className={cls.description}>{description}</div>
           </div>
+          {(() => {
+            const hasRating = reviews.some((review) => review.isOwnReview && review.userRating !== null);
+            console.log('has rating?:', hasRating);
+            const hasReviewWithText = reviews.some((review) => review.isOwnReview && review.text.trim() !== '');
+
+            if (!hasRating || !hasReviewWithText) {
+              return (
+                <div className={cls.rateNowContainer}>
+                  <h3>Have you visited this place?</h3>
+
+                  {!hasRating && (
+                    <>
+                      <h4>Rate now</h4>
+                      <RatingWidget
+                        userRating={place.properties.userRating}
+                        isClickable={true}
+                        id={placeId}
+                        rating={averageRating}
+                        handleRating={handleAddReview}
+                      />
+                    </>
+                  )}
+
+                  {!hasReviewWithText && !showReviewForm && (
+                    <RegularButton
+                      clickHandler={() => {
+                        setShowReviewForm((prev) => !prev);
+                      }}
+                    >
+                      Add review
+                    </RegularButton>
+                  )}
+                  {showReviewForm && (
+                    <RegularButton
+                      theme="blank"
+                      clickHandler={() => {
+                        setShowReviewForm((prev) => !prev);
+                      }}
+                    >
+                      ← Back
+                    </RegularButton>
+                  )}
+                  <ReviewForm isLoading={reviewLoading} onSubmit={onSubmitReview} isVisible={showReviewForm} />
+                </div>
+              );
+            }
+
+            return null;
+          })()}
+
+          {!showReviewForm && (
+            <div className={cls.reviewsContainer}>
+              <h4
+                onClick={() => {
+                  setIsHeaderVisible((prew) => !prew);
+                }}
+                className={cls.reviewsTitel}
+              >
+                Reviews ({reviews.length})
+              </h4>
+              <div ref={reviewsListRef} className={cls.reviewsList}>
+                {reviews.map((review) => (
+                  <ReviewCard
+                    key={`${review.id}-${review.createdAt}`}
+                    id={review.id}
+                    rating={review.userRating}
+                    reviewText={review.text}
+                    userName={review.userName}
+                    isOwnReview={review.isOwnReview}
+                    userAvatar={review.userAvatar}
+                    handleDeleteReview={handleDeleteReview}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
         </div>
-        {(() => {
-          const hasRating = reviews.some((review) => review.isOwnReview && review.userRating !== null);
-          console.log('has rating?:', hasRating);
-          const hasReviewWithText = reviews.some((review) => review.isOwnReview && review.text.trim() !== '');
-
-          if (!hasRating || !hasReviewWithText) {
-            return (
-              <div className={cls.rateNowContainer}>
-                <h3>Have you visited this place?</h3>
-
-                {!hasRating && (
-                  <>
-                    <h4>Rate now</h4>
-                    <RatingWidget
-                      userRating={place.properties.userRating}
-                      isClickable={true}
-                      id={placeId}
-                      rating={averageRating}
-                      handleRating={handleAddReview}
-                    />
-                  </>
-                )}
-
-                {!hasReviewWithText && !showReviewForm && (
-                  <RegularButton
-                    clickHandler={() => {
-                      setShowReviewForm((prev) => !prev);
-                    }}
-                  >
-                    Add review
-                  </RegularButton>
-                )}
-                {showReviewForm && (
-                  <RegularButton
-                    theme="blank"
-                    clickHandler={() => {
-                      setShowReviewForm((prev) => !prev);
-                    }}
-                  >
-                    ← Back
-                  </RegularButton>
-                )}
-                <ReviewForm isLoading={reviewLoading} onSubmit={onSubmitReview} isVisible={showReviewForm} />
-              </div>
-            );
-          }
-
-          return null;
-        })()}
-
-        {!showReviewForm && (
-          <div className={cls.reviewsContainer}>
-            <h4
-              onClick={() => {
-                setIsHeaderVisible((prew) => !prew);
-              }}
-              className={cls.reviewsTitel}
-            >
-              Reviews ({reviews.length})
-            </h4>
-            <div ref={reviewsListRef} className={cls.reviewsList}>
-              {reviews.map((review) => (
-                <ReviewCard
-                  key={`${review.id}-${review.createdAt}`}
-                  id={review.id}
-                  rating={review.userRating}
-                  reviewText={review.text}
-                  userName={review.userName}
-                  isOwnReview={review.isOwnReview}
-                  userAvatar={review.userAvatar}
-                  handleDeleteReview={handleDeleteReview}
-                />
-              ))}
-            </div>
-          </div>
-        )}
       </div>
-    </div>
+    </PortalToBody>
   );
 };

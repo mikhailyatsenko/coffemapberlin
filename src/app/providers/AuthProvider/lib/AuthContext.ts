@@ -5,7 +5,13 @@ interface AuthContextType {
   loading: boolean;
   user: User | null;
   login: () => void;
+
+  isLoginPopup: boolean;
+  showLoginPopup: () => void;
+  closeLoginPopup: () => void;
+
   logout: () => Promise<void>;
+
   error: Error | null;
 }
 

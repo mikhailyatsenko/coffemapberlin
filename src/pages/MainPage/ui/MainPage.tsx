@@ -2,25 +2,26 @@ import { PlacesList } from 'widgets/PlacesList';
 import { MainMap } from 'widgets/Map';
 import { useDetailedCard } from 'app/providers/DetailedCardProvider';
 import { DetailedPaceCard } from 'features/DetailedPaceCard';
-import { PortalToBody } from 'shared/ui/Portals/PortalToBody';
+import { LoginModal } from 'shared/ui/LoginPopup';
+import { useAuth } from 'app/providers/AuthProvider';
 
 export const MainPage = () => {
   const { currentSelectedPlaceId, setCurrentSelectedPlaceId } = useDetailedCard();
-
+  const { isLoginPopup, closeLoginPopup, login } = useAuth();
+  console.log('isLOginPOPpup', isLoginPopup);
   return (
     <>
       <MainMap />
       <PlacesList />
       {currentSelectedPlaceId && (
-        <PortalToBody>
-          <DetailedPaceCard
-            placeId={currentSelectedPlaceId}
-            onClose={() => {
-              setCurrentSelectedPlaceId(null);
-            }}
-          />
-        </PortalToBody>
+        <DetailedPaceCard
+          placeId={currentSelectedPlaceId}
+          onClose={() => {
+            setCurrentSelectedPlaceId(null);
+          }}
+        />
       )}
+      {isLoginPopup && <LoginModal onClose={closeLoginPopup} handleLogin={login} />}
     </>
   );
 };

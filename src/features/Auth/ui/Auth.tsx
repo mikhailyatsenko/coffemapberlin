@@ -5,7 +5,7 @@ import cls from './Auth.module.scss';
 import { GoogleLoginButton } from 'shared/ui/GoogleLoginButton';
 
 export const Auth: React.FC = () => {
-  const { user, logout, login } = useAuth();
+  const { user, logout, login, loading } = useAuth();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -21,7 +21,6 @@ export const Auth: React.FC = () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
-
   if (!user) {
     return (
       <GoogleLoginButton
@@ -44,14 +43,6 @@ export const Auth: React.FC = () => {
       </div>
       {dropdownOpen && (
         <div className={cls.dropdown}>
-          {/* <Link
-            to="/profile"
-            onClick={() => {
-              setDropdownOpen(false);
-            }}
-          >
-            Profile
-          </Link> */}
           <button
             onClick={() => {
               logout();

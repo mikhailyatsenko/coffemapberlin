@@ -26,6 +26,8 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
   const [error, setError] = useState<Error | null>(null);
   const [loginWithGoogle] = useMutation<LoginWithGoogleData>(LOGIN_WITH_GOOGLE_MUTATION);
 
+  const [isLoginPopup, setIsLoginPopup] = useState(false);
+
   const client = useApolloClient();
 
   const checkAuth = useCallback(async () => {
@@ -53,23 +55,6 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
     };
   }, [checkAuth]);
 
-  // const checkAuth = async () => {
-  //   setLoading(true);
-  //   try {
-  //     const { data } = await client.query<CurrentUserData>({
-  //       query: CURRENT_USER_QUERY,
-  //       fetchPolicy: 'network-only',
-  //     });
-  //     if (data.currentUser) {
-  //       setUser(data.currentUser);
-  //     }
-  //   } catch (error) {
-  //     console.error('Error checking authentication:', error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
   const login = useGoogleLogin({
     flow: 'auth-code',
     onSuccess: async (tokenResponse) => {
@@ -96,6 +81,14 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
     },
   });
 
+  const showLoginPopup = () => {
+    setIsLoginPopup(true);
+  };
+
+  const closeLoginPopup = () => {
+    if (isLoginPopup) setIsLoginPopup(false);
+  };
+
   const logout = async () => {
     setLoading(true);
     setError(null);
@@ -111,5 +104,11 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
     }
   };
 
-  return <AuthContext.Provider value={{ user, login, logout, loading, error }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider
+      value={{ user, login, isLoginPopup, showLoginPopup, closeLoginPopup, logout, loading, error }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 };
