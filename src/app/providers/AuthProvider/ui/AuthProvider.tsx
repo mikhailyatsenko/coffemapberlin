@@ -58,6 +58,7 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
   const login = useGoogleLogin({
     flow: 'auth-code',
     onSuccess: async (tokenResponse) => {
+      if (isLoginPopup) setIsLoginPopup(false);
       setLoading(true);
       try {
         const { data } = await loginWithGoogle({
@@ -66,7 +67,6 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
         if (data?.loginWithGoogle.user) {
           setUser(data.loginWithGoogle.user);
           await client.resetStore();
-          if (isLoginPopup) setIsLoginPopup(false);
         }
       } catch (err) {
         console.error('Error logging in with Google:', err);

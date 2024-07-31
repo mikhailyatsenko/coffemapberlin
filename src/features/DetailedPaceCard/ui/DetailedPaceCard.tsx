@@ -11,6 +11,7 @@ import { LocationContext } from 'app/providers/LocationProvider/lib/LocationCont
 import { RegularButton } from 'shared/ui/RegularButton';
 import { type PlaceResponse } from 'shared/types';
 import { PortalToBody } from 'shared/ui/Portals/PortalToBody';
+import { sortReviews } from '../lib/sortReviews';
 
 interface DetailedPaceCardProps {
   placeId: string;
@@ -237,7 +238,7 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ onClose, pla
                 Reviews ({reviews.length})
               </h4>
               <div ref={reviewsListRef} className={cls.reviewsList}>
-                {reviews.map((review) => (
+                {sortReviews(reviews).map((review) => (
                   <ReviewCard
                     key={`${review.id}-${review.createdAt}`}
                     id={review.id}
