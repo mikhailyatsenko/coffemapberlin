@@ -34,6 +34,9 @@
   @media (width <= 767px) {
     width: 100%;
   }
+  @media (height < 600px) {
+    overflow-y: auto;
+  }
 }
 
 @keyframes fadeIn {
@@ -117,7 +120,7 @@
 
 .reviewsContainer {
   width: 100%;
-  padding: 10px;
+  padding-top: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -130,11 +133,16 @@
     font-style: italic;
     margin-left: 10px;
   }
+  @media (height < 600px) {
+    overflow-y: initial;
+    flex-shrink: 0;
+  }
 }
 
 .reviewsList {
   width: 100%;
-  overflow: auto;
+  padding: 0 10px;
+  overflow-y: auto
 }
 
 .closeButton--old {
