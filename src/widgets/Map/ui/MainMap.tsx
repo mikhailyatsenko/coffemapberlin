@@ -16,7 +16,6 @@ export interface PlacesDataWithGeo extends GeoJSON.FeatureCollection<GeoJSON.Geo
 
 export const MainMap = () => {
   const { data, loading, error } = useQuery<PlacesData>(GET_ALL_PLACES);
-  console.log('data', data);
 
   const [placesGeo, setPlacesGeo] = useState<undefined | PlacesDataWithGeo>(undefined);
 

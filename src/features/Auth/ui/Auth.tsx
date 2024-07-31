@@ -5,7 +5,7 @@ import cls from './Auth.module.scss';
 import { GoogleLoginButton } from 'shared/ui/GoogleLoginButton';
 
 export const Auth: React.FC = () => {
-  const { user, logout, login, loading } = useAuth();
+  const { user, logout, login } = useAuth();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 

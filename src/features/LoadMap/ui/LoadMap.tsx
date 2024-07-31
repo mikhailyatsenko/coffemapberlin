@@ -16,8 +16,6 @@ interface LoadMapProps {
 }
 
 export const LoadMap = ({ placesGeo }: LoadMapProps) => {
-  console.log('places in LoadMap', placesGeo);
-
   const mapRef = useRef<MapRef>(null);
 
   const { location } = useContext(LocationContext);

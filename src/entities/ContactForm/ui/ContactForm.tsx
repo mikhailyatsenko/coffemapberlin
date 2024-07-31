@@ -32,7 +32,6 @@ export const ContactForm = ({ onSubmit }: ContactFormProps) => {
     setValue('recaptcha', value ?? '');
     trigger('recaptcha');
   };
-  console.log(process.env.VITE_ENV);
   return (
     <div className={cls.ContactForm}>
       <FormProvider {...form}>

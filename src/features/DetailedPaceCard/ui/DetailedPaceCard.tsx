@@ -38,7 +38,6 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ onClose, pla
   } = useQuery<PlaceDetailsData>(GET_PLACE_DETAILS, {
     variables: { placeId },
   });
-  console.log(placeDetailsData);
 
   const place = allPlacesData?.places.find((p) => p.properties.id === placeId);
   const reviews = placeDetailsData?.placeDetails.reviews ?? [];
@@ -54,7 +53,6 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ onClose, pla
     (e: WheelEvent | TouchEvent) => {
       if (reviewsListRef.current && reviewsListRef.current.scrollTop === 0 && !isHeaderVisible) {
         if ('deltaY' in e && e.deltaY < 0) {
-          // console.log('attemp scrollup');
           setIsHeaderVisible(true);
           e.preventDefault();
         } else if ('touches' in e) {
@@ -181,7 +179,6 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ onClose, pla
           </div>
           {(() => {
             const hasRating = reviews.some((review) => review.isOwnReview && review.userRating !== null);
-            console.log('has rating?:', hasRating);
             const hasReviewWithText = reviews.some((review) => review.isOwnReview && review.text.trim() !== '');
 
             if (!hasRating || !hasReviewWithText) {

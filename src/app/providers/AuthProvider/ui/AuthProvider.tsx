@@ -66,6 +66,7 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
         if (data?.loginWithGoogle.user) {
           setUser(data.loginWithGoogle.user);
           await client.resetStore();
+          if (isLoginPopup) setIsLoginPopup(false);
         }
       } catch (err) {
         console.error('Error logging in with Google:', err);
@@ -93,9 +94,11 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
     setLoading(true);
     setError(null);
     try {
-      await client.mutate({ mutation: LOGOUT_MUTATION });
+      const { data } = await client.mutate({ mutation: LOGOUT_MUTATION });
+      console.log(data?.logout.message);
       setUser(null);
       await client.resetStore();
+      console.log('Apollo Client cache reset');
     } catch (error) {
       console.error('Error logging out:', error);
       setError(error instanceof Error ? error : new Error('An unknown error occurred during logout'));

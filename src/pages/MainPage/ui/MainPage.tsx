@@ -8,7 +8,6 @@ import { useAuth } from 'app/providers/AuthProvider';
 export const MainPage = () => {
   const { currentSelectedPlaceId, setCurrentSelectedPlaceId } = useDetailedCard();
   const { isLoginPopup, closeLoginPopup, login } = useAuth();
-  console.log('isLOginPOPpup', isLoginPopup);
   return (
     <>
       <MainMap />

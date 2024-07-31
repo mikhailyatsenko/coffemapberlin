@@ -60,7 +60,6 @@ export function useReview(placeId: string) {
       if (rating !== undefined) variables.rating = rating;
 
       const { data } = await addReview({ variables });
-      console.log('Review added or updated:', data?.addReview.review);
       return data?.addReview.review;
     } catch (err) {
       // const error = err as CustomError;
