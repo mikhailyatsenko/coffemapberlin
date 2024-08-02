@@ -1,6 +1,7 @@
 .rating {
   display: inline-flex;
   row-gap: 1px;
+  padding: 4px 0;
 }
 
 .starWrapper {
@@ -20,7 +21,7 @@
 }
 
 .emptyStar {
-  fill: #e0e0e0;
+  fill: #b8b8b8;
 }
 
 .filledStar {

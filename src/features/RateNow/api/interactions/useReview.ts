@@ -1,19 +1,7 @@
 import { useMutation, useQuery } from '@apollo/client';
 import { ADD_REVIEW, GET_PLACE_DETAILS, GET_ALL_PLACES } from 'shared/query/places';
-import { type PlaceResponse } from 'shared/types';
+import { type PlaceResponse, type Review } from 'shared/types';
 import { useAuth } from 'app/providers/AuthProvider';
-
-export interface Review {
-  id: string;
-  text: string;
-  userId: string;
-  userRating?: number;
-  userName: string;
-  userAvatar: string;
-  placeId: string;
-  createdAt: string;
-  isOwnReview: boolean;
-}
 
 export interface PlaceDetailsData {
   placeDetails: {

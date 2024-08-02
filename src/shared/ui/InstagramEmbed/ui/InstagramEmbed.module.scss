@@ -1,0 +1,28 @@
+.embedWrapper {
+  position: absolute;
+  clip-path: inset(160px 0 64px 0);
+  margin-top: -180px;
+  width: 100%;
+  overflow: hidden;
+  z-index: -1;
+  &::before {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 18%, rgba(0, 0, 0, 0) 70%),
+      linear-gradient(to top, white 15%, rgba(255, 255, 255, 0) 70%);
+    z-index: 10;
+  }
+  @media (width <= 496px) {
+    clip-path: inset(145px 0 64px 0);
+    margin-top: -165px;
+  }
+}
+
+.embed {
+  pointer-events: none;
+  position: relative;
+  left: -1px;
+  width: calc(100% + 4px); /* iframe has borders 1px,  and width (100%-2px) */
+}

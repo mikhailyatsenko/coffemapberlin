@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import cls from './AboutPage.module.scss';
+import { InstagramEmbed } from 'react-social-media-embed';
 
 export const AboutPage = () => {
   return (
@@ -22,6 +23,7 @@ export const AboutPage = () => {
         </Link>
         .
       </p>
+      <InstagramEmbed url="https://www.instagram.com/thegreensberlin" width={485} />
     </section>
   );
 };

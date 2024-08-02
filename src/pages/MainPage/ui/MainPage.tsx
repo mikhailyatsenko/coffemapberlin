@@ -1,7 +1,7 @@
 import { PlacesList } from 'widgets/PlacesList';
 import { MainMap } from 'widgets/Map';
 import { useDetailedCard } from 'app/providers/DetailedCardProvider';
-import { DetailedPaceCard } from 'features/DetailedPaceCard';
+import { DetailedPaceCard } from 'widgets/DetailedPaceCard';
 import { LoginModal } from 'shared/ui/LoginPopup';
 import { useAuth } from 'app/providers/AuthProvider';
 

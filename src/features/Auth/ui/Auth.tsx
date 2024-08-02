@@ -41,7 +41,7 @@ export const Auth: React.FC = () => {
       >
         <img src={user?.avatar ?? '/default-avatar.png'} alt="User avatar" referrerPolicy="no-referrer" />
       </div>
-      {dropdownOpen && (
+      {/* {dropdownOpen && (
         <div className={cls.dropdown}>
           <button
             onClick={() => {
@@ -52,7 +52,15 @@ export const Auth: React.FC = () => {
             Logout
           </button>
         </div>
-      )}
+      )} */}
+      <span
+        onClick={() => {
+          logout();
+          setDropdownOpen(false);
+        }}
+      >
+        Logout
+      </span>
     </div>
   );
 };

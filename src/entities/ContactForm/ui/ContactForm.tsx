@@ -43,8 +43,8 @@ export const ContactForm = ({ onSubmit }: ContactFormProps) => {
             <ReCAPTCHA
               sitekey={
                 process.env.VITE_ENV === 'development'
-                  ? '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'
-                  : '6Lf0FxoqAAAAAGRdTjuemyGmJO3Nd3dSRg-JzCI-'
+                  ? process.env.RE_CAPTCHA_KEY_DEV!
+                  : process.env.RE_CAPTCHA_KEY_PROD!
               }
               onChange={handleCaptchaChange}
             />
