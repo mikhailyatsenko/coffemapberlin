@@ -19,7 +19,7 @@ interface DetailedPaceCardProps {
 
 export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ onClose, placeId }) => {
   const { setLocation } = useContext(LocationContext);
-
+  const [isViewInstProfile, setIsViewInstProfile] = useState(false);
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
   const reviewsListRef = useRef<HTMLDivElement>(null);
   const detailedCardRef = useRef<HTMLDivElement>(null);
@@ -133,8 +133,16 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ onClose, pla
     <PortalToBody>
       <div className={cls.backDrop}>
         <div ref={detailedCardRef} className={cls.detailsContainer}>
+          <InstagramEmbedProfile normalView={isViewInstProfile} username={instagram} />
+          <button
+            className={`${cls.viewInstagramButton} ${isViewInstProfile ? cls.darkColor : ''}`}
+            onClick={() => {
+              setIsViewInstProfile((prev) => !prev);
+            }}
+          >
+            {isViewInstProfile ? 'Back to place info' : 'View Instagram'}
+          </button>
           <button className={cls.closeButton} onClick={onClose}></button>
-          <InstagramEmbedProfile username={instagram} />
           <h2 className={cls.name}>{name}</h2>
           <p className={cls.address}>{address}</p>
           <div className={`${cls.detailsHeader} ${!isHeaderVisible && cls.hideDetailsHeader}`}>

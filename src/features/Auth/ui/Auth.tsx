@@ -21,6 +21,11 @@ export const Auth: React.FC = () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+
+  const toggleDropdown = () => {
+    setDropdownOpen((prev) => !prev);
+  };
+
   if (!user) {
     return (
       <GoogleLoginButton
@@ -33,27 +38,12 @@ export const Auth: React.FC = () => {
 
   return (
     <div className={cls.authIndicator} ref={dropdownRef}>
-      <div
-        className={cls.userAvatar}
-        onClick={() => {
-          setDropdownOpen(!dropdownOpen);
-        }}
-      >
+      <div className={cls.userAvatar} onClick={toggleDropdown}>
         <img src={user?.avatar ?? '/default-avatar.png'} alt="User avatar" referrerPolicy="no-referrer" />
       </div>
-      {/* {dropdownOpen && (
-        <div className={cls.dropdown}>
-          <button
-            onClick={() => {
-              logout();
-              setDropdownOpen(false);
-            }}
-          >
-            Logout
-          </button>
-        </div>
-      )} */}
+
       <span
+        className={dropdownOpen ? cls.show : ''}
         onClick={() => {
           logout();
           setDropdownOpen(false);

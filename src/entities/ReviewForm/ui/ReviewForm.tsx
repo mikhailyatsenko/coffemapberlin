@@ -4,13 +4,12 @@ import { RegularButton } from 'shared/ui/RegularButton';
 import { Loader } from 'shared/ui/Loader';
 
 interface ReviewFormProps {
-  // placeId: string;
   onSubmit: (text: string) => void;
-  isVisible: boolean;
+  onBack: () => void;
   isLoading: boolean;
 }
 
-export const ReviewForm: React.FC<ReviewFormProps> = ({ onSubmit, isVisible, isLoading }) => {
+export const ReviewForm: React.FC<ReviewFormProps> = ({ onSubmit, isLoading, onBack }) => {
   const [reviewText, setReviewText] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -24,7 +23,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({ onSubmit, isVisible, isL
   if (isLoading) return <Loader />;
 
   return (
-    <form className={`${cls.reviewForm} ${isVisible ? cls.displayForm : ''}`} onSubmit={handleSubmit}>
+    <form className={`${cls.reviewForm}`} onSubmit={handleSubmit}>
       <textarea
         className={cls.reviewInput}
         value={reviewText}
@@ -34,9 +33,14 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({ onSubmit, isVisible, isL
         placeholder="Write your review here..."
         rows={4}
       />
-      <RegularButton type="submit" disabled={!reviewText.trim()}>
-        Submit Review
-      </RegularButton>
+      <div className={cls.buttons}>
+        <RegularButton theme="blank" type="button" clickHandler={onBack}>
+          &#8612; Back
+        </RegularButton>
+        <RegularButton type="submit" disabled={!reviewText.trim()}>
+          Submit Review
+        </RegularButton>
+      </div>
     </form>
   );
 };

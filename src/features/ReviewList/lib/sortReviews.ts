@@ -1,4 +1,4 @@
-import { type Review } from '../api/interactions/useReview';
+import { type Review } from 'shared/types';
 
 export const sortReviews = (reviews: Review[]) => {
   return [...reviews].sort((a, b) => {

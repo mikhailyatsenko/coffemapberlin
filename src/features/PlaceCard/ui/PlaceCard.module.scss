@@ -34,6 +34,9 @@
     display: flex;
     flex-direction: column;
     gap: 2px;
+    .nameAndInst {
+      display: flex;
+    }
     .header {
       display: flex;
       color: #ff4b34;
@@ -44,6 +47,7 @@
         width: 20px;
         filter: grayscale(100%);
         transition: filter 0.3s;
+        margin-left: 4px;
         &:hover {
           filter: none;
         }

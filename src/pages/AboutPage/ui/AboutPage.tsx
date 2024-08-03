@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import cls from './AboutPage.module.scss';
-import { InstagramEmbed } from 'react-social-media-embed';
 
 export const AboutPage = () => {
   return (
@@ -11,19 +10,16 @@ export const AboutPage = () => {
         We gather information about top specialty coffee shops from open sources and personal experiences, making it
         easy for you to find your perfect coffee shop on our{' '}
         <Link to={'/'} className={cls.link}>
-          map
+          map.
         </Link>
-        .
       </p>
       <p className={cls.text}>
         As a young project still in development, we welcome your suggestions for improving our service. If you have
         ideas or know of a café that&apos;s not yet on our map, please contact us through our{' '}
         <Link to={'/contacts'} className={cls.link}>
-          contact form
+          contact form.
         </Link>
-        .
       </p>
-      <InstagramEmbed url="https://www.instagram.com/thegreensberlin" width={485} />
     </section>
   );
 };

@@ -9,15 +9,38 @@ interface TooltipCardOnMapProps {
 }
 
 export const TooltipCardOnMap = ({ properties }: TooltipCardOnMapProps) => {
-  const { id, averageRating, name, address, instagram } = properties;
+  const { id, averageRating, name, address, instagram, image } = properties;
   const { setCurrentSelectedPlaceId } = useDetailedCard();
   return (
     <div className={cls.TooltipCardOnMap}>
+      <div
+        className={cls.image}
+        style={{
+          backgroundImage: `url("${'./places-images/' + image}")`,
+        }}
+      ></div>
       <div className={cls.content}>
-        <a className={cls.header} href={instagram} target="_blank" rel="noreferrer">
-          <h4 className={cls.name}>{name}</h4>
-          <img className={cls.instagram} src={instagramIcon} alt="" />
-        </a>
+        <div className={cls.header}>
+          <h4
+            onClick={() => {
+              setCurrentSelectedPlaceId(id);
+            }}
+            className={cls.name}
+          >
+            {name}
+          </h4>
+          <a
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+            href={'https://www.instagram.com/' + instagram}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <img className={cls.instagram} src={instagramIcon} alt="" />
+          </a>
+        </div>
+
         <div className={cls.rating}>
           <RatingWidget isClickable={false} rating={averageRating} id={id} /> {averageRating}
         </div>

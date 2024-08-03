@@ -59,6 +59,7 @@ const RatingWidget: React.FC<RatingProps> = ({ rating, handleRating, isClickable
           </span>
         );
       })}
+      {isClickable && <div className={cls.hoveredRating}>{Boolean(hoverRating) && hoverRating}</div>}
     </div>
   );
 };

@@ -2,9 +2,10 @@ import RatingWidget from 'shared/ui/RatingWidget/ui/RatingWidget';
 import cls from './RateNow.module.scss';
 import { useReview } from '../api/interactions/useReview';
 import { type Review } from 'shared/types';
-import { RegularButton } from 'shared/ui/RegularButton';
+// import { RegularButton } from 'shared/ui/RegularButton';
 import { useState } from 'react';
 import { ReviewForm } from 'entities/ReviewForm';
+import { RegularButton } from 'shared/ui/RegularButton';
 
 interface RateNowProps {
   reviews: Review[];
@@ -24,41 +25,60 @@ export const RateNow = ({ reviews, placeId }: RateNowProps) => {
     setShowReviewForm(false);
   };
 
-  if (!hasRating || !hasReviewWithText) {
-    return (
-      <div className={cls.rateNowContainer}>
-        <h4>Have you visited this place?</h4>
+  if (hasRating && hasReviewWithText) return null;
 
-        {!hasRating && (
-          <>
-            <h4>Rate now</h4>
-            <RatingWidget isClickable={true} id={placeId} handleRating={handleAddReview} />
-          </>
-        )}
+  return (
+    <>
+      {!showReviewForm && (
+        <div className={cls.rateNowContainer}>
+          <h4 className={cls.question}>
+            Have you visited this place?{' '}
+            <span
+              onClick={() => {
+                setShowReviewForm(true);
+              }}
+            >
+              Rate it now
+            </span>
+          </h4>
+        </div>
+      )}
 
-        {!hasReviewWithText && !showReviewForm && (
-          <RegularButton
-            clickHandler={() => {
-              setShowReviewForm((prev) => !prev);
-            }}
-          >
-            Add review
-          </RegularButton>
-        )}
-        {showReviewForm && (
-          <RegularButton
-            theme="blank"
-            clickHandler={() => {
-              setShowReviewForm((prev) => !prev);
-            }}
-          >
-            ← Back
-          </RegularButton>
-        )}
-        <ReviewForm isLoading={reviewLoading} onSubmit={onSubmitTextReview} isVisible={showReviewForm} />
-      </div>
-    );
-  }
-
-  return null;
+      {showReviewForm && (
+        <div className={cls.addReviewCard}>
+          {!hasRating && (
+            <>
+              <div className={cls.rateWidget}>
+                <h3>Rate this place:</h3>
+                <RatingWidget isClickable={true} id={placeId} handleRating={handleAddReview} />
+              </div>
+              {hasReviewWithText && (
+                <div className={cls.itemFullWidth}>
+                  <RegularButton
+                    theme="blank"
+                    type="button"
+                    clickHandler={() => {
+                      setShowReviewForm(false);
+                    }}
+                  >
+                    &#8612; Back
+                  </RegularButton>
+                </div>
+              )}
+            </>
+          )}
+          {/* <h4>Add text review</h4> */}
+          {!hasReviewWithText && (
+            <ReviewForm
+              isLoading={reviewLoading}
+              onSubmit={onSubmitTextReview}
+              onBack={() => {
+                setShowReviewForm(false);
+              }}
+            />
+          )}
+        </div>
+      )}
+    </>
+  );
 };

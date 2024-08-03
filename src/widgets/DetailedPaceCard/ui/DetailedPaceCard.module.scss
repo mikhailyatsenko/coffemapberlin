@@ -7,6 +7,9 @@
   padding: 8px;
   background-color: rgba(0, 0, 0, 0.062);
   z-index: 11;
+  @media (width <= 767px) {
+    padding: 2px;
+  }
 }
 
 .detailsContainer {
@@ -24,13 +27,19 @@
   z-index: 1000;
   animation: ease-out 0.3s fadeIn;
   .name {
+    margin-top: 16px;
     color: #fff;
   }
   .address {
+    position: absolute;
+    top: 8px;
+    left: 16px;
+    line-height: 28px;
+    color: #fafafa;
+    font-weight: 200;
     font-size: 14px;
-    color: #fff;
     font-style: italic;
-    margin-bottom: 4px;
+    text-shadow: 1px 0px #303030;
   }
   @media (width <= 869px) {
     width: 520px;
@@ -87,6 +96,9 @@
   padding: 10px;
   background-color: #fff1ed;
   border-radius: 10px;
+  box-shadow:
+    0px 1px 2px rgba(0, 0, 0, 0.1),
+    0px 2px 4px rgba(0, 0, 0, 0.1);
   .ratingNumber {
     font-size: 44px;
     text-align: center;
@@ -109,6 +121,9 @@
   color: #fff;
   height: 140px;
   overflow-y: auto;
+  box-shadow:
+    0px 1px 2px rgba(0, 0, 0, 0.1),
+    0px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .Reviews {
@@ -145,8 +160,8 @@
 
 .closeButton {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 8px;
+  right: 8px;
   width: 28px;
   height: 28px;
   color: #fff;
@@ -189,5 +204,39 @@
 
   &::after {
     transform: rotate(-45deg);
+  }
+}
+
+.viewInstagramButton {
+  position: absolute;
+  top: 8px;
+  right: 48px;
+  color: #fafafa;
+  font-weight: 200;
+  border: 1px solid white;
+  border-radius: 30px;
+  padding: 0 10px;
+  height: 28px;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: color 0.3s ease;
+  width: fit-content;
+  z-index: 11;
+  &:hover,
+  &:active {
+    color: #fafafa;
+    border-color: #fafafa;
+    transform: scale(0.99);
+  }
+
+  &:focus {
+    outline: none;
+  }
+  &.darkColor {
+    color: #303030;
+    border-color: #303030;
   }
 }

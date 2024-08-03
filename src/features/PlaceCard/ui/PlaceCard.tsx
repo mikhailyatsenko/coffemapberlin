@@ -87,12 +87,30 @@ export const PlaceCard = ({ properties }: PlaceCardProps) => {
           }}
         ></div>
         <div className={cls.content}>
-          <a className={cls.header} href={properties.instagram} target="_blank" rel="noreferrer">
-            <h4 className={cls.name}>{properties.name}</h4>
-            <img className={cls.instagram} src={instagram} alt="" />
-          </a>
+          <div className={cls.nameAndInst}>
+            <h4
+              onClick={() => {
+                setCurrentSelectedPlaceId(id);
+              }}
+              className={cls.name}
+            >
+              {properties.name}
+            </h4>
+            <a
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+              className={cls.header}
+              href={'https://www.instagram.com/' + properties.instagram}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <img className={cls.instagram} src={instagram} alt="" />
+            </a>
+          </div>
           <div className={cls.rating}>
-            <RatingWidget isClickable={false} rating={averageRating} id={id} /> {averageRating}
+            <RatingWidget isClickable={false} rating={averageRating} id={id} />{' '}
+            {Boolean(averageRating) && averageRating}
           </div>
           <div className={cls.description}>{properties.description}</div>
           <div className={cls.address}>{properties.address}</div>

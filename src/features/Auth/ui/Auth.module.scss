@@ -1,11 +1,10 @@
 .authIndicator {
   position: relative;
-
+  margin-left: 40px;
   .userAvatar {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    margin-left: 20px;
     overflow: hidden;
     cursor: pointer;
     display: flex;
@@ -17,10 +16,9 @@
       height: 100%;
       object-fit: cover;
     }
-
-    @media (max-width: 760px) {
-      margin-left: 0;
-    }
+  }
+  @media (max-width: 760px) {
+    margin-left: 0;
   }
 
   .dropdown {
@@ -52,9 +50,10 @@
     position: absolute;
     top: 60%;
     margin-top: 10px;
-    padding: 0.55rem 1rem;
-    font-size: 1rem;
+    padding: 8px 12px;
     font-weight: 500;
+    left: 50%;
+    transform: translateX(-50%);
     white-space: nowrap;
     color: #000;
     border-radius: 50px;
@@ -70,11 +69,19 @@
     user-select: none;
     opacity: 0;
     transition: all 0.2s ease-in-out;
-  }
-  &:hover {
-    span {
-      top: 100%;
-      opacity: 0.9;
+    &.show {
+      cursor: pointer;
+      top: calc(100% + 2px);
+      opacity: 0.8;
+      pointer-events: all;
+      -webkit-user-select: initial;
+      -moz-user-select: all;
+      -ms-user-select: initial;
+      user-select: all;
+      &:hover,
+      &:active {
+        opacity: 1;
+      }
     }
   }
 }
