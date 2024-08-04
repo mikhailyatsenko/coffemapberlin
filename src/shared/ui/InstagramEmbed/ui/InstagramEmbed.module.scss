@@ -1,8 +1,20 @@
 .embedWrapper {
+  overflow: hidden;
+  &.backDrop {
+    background-color: white;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 11;
+  }
+}
+
+.embed {
   position: absolute;
-  clip-path: inset(160px 0 64px 0);
+  clip-path: inset(160px 0 75px 0);
   margin-top: -180px;
-  width: 100%;
+  left: 0px;
+  width: calc(100% + 4px);
   overflow: hidden;
   z-index: -1;
   pointer-events: none;
@@ -11,8 +23,9 @@
     position: absolute;
     height: 100%;
     width: 100%;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 18%, rgba(0, 0, 0, 0) 70%),
-      linear-gradient(to top, white 15%, rgba(255, 255, 255, 0) 70%);
+    margin-top: 160px;
+    background: linear-gradient(to bottom, rgba(70, 22, 3, 0.7) 5%, rgba(0, 0, 0, 0) 50%),
+      linear-gradient(to top, white 45%, rgba(255, 255, 255, 0) 80%);
     z-index: 10;
   }
   &.normalView {
@@ -24,14 +37,11 @@
       display: none;
     }
   }
-  @media (width <= 496px) {
-    clip-path: inset(145px 0 64px 0);
+  @media (width <= 484px) {
+    clip-path: inset(145px 0 60px 0);
     margin-top: -165px;
+    &::before {
+      margin-top: 145px;
+    }
   }
-}
-
-.embed {
-  position: relative;
-  left: -1px;
-  width: calc(100% + 4px); /* iframe has borders 1px,  and width (100%-2px) */
 }

@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import cls from './AboutPage.module.scss';
-import { InstagramEmbed } from 'react-social-media-embed';
 
 export const AboutPage = () => {
   return (
