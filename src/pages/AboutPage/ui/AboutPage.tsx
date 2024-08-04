@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import cls from './AboutPage.module.scss';
+import { InstagramEmbed } from 'react-social-media-embed';
 
 export const AboutPage = () => {
   return (
@@ -20,6 +21,14 @@ export const AboutPage = () => {
           contact form.
         </Link>
       </p>
+      <div>
+        <blockquote
+          className="instagram-media"
+          data-instgrm-permalink="https://www.instagram.com/p/C-Kkcr0MFZV/"
+          data-instgrm-version="12"
+        ></blockquote>
+        <script async src="//www.instagram.com/embed.js"></script>
+      </div>
     </section>
   );
 };

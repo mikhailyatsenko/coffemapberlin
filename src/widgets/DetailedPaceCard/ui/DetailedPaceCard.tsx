@@ -106,21 +106,14 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ onClose, pla
   }, [place?.geometry.coordinates, setLocation]);
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (detailedCardRef.current && !detailedCardRef.current.contains(event.target as Node)) {
-        onClose();
-      }
-    };
-
     const handleEscKey = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         onClose();
       }
     };
-    document.addEventListener('mousedown', handleClickOutside);
+
     document.addEventListener('keydown', handleEscKey);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('keydown', handleEscKey);
     };
   }, [onClose]);
@@ -131,8 +124,14 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ onClose, pla
 
   return (
     <PortalToBody>
-      <div className={cls.backDrop}>
-        <div ref={detailedCardRef} className={cls.detailsContainer}>
+      <div onClick={onClose} className={cls.backDrop}>
+        <div
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+          ref={detailedCardRef}
+          className={cls.detailsContainer}
+        >
           <InstagramEmbedProfile normalView={isViewInstProfile} username={instagram} />
           <button
             className={`${cls.viewInstagramButton} ${isViewInstProfile ? cls.darkColor : ''}`}

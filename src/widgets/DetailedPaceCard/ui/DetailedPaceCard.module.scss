@@ -6,9 +6,12 @@
   bottom: 0;
   padding: 8px;
   background-color: rgba(0, 0, 0, 0.062);
-  z-index: 11;
+  z-index: 10;
   @media (width <= 767px) {
     padding: 2px;
+    .detailsContainer {
+      height: calc(100dvh - 64px);
+    }
   }
 }
 
@@ -24,8 +27,8 @@
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
   overflow-y: hidden;
   padding: 20px;
-  z-index: 1000;
   animation: ease-out 0.3s fadeIn;
+  z-index: 11;
   .name {
     margin-top: 16px;
     color: #fff;
@@ -37,7 +40,7 @@
     line-height: 28px;
     color: #fafafa;
     font-weight: 200;
-    font-size: 14px;
+    font-size: 12px;
     font-style: italic;
     text-shadow: 1px 0px #303030;
   }
@@ -224,7 +227,7 @@
   align-items: center;
   transition: color 0.3s ease;
   width: fit-content;
-  z-index: 11;
+  z-index: 13;
   &:hover,
   &:active {
     color: #fafafa;
