@@ -1,6 +1,6 @@
 .embedWrapper {
-  overflow: hidden;
   &.backDrop {
+    top: 0;
     background-color: white;
     width: 100%;
     height: 100%;
@@ -30,7 +30,7 @@
   }
   &.normalView {
     clip-path: none;
-    margin-top: -20px;
+    margin-top: 0;
     pointer-events: all;
     z-index: 12;
     &::before {
