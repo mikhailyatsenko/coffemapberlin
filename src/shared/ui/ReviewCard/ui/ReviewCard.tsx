@@ -20,10 +20,6 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({
   isOwnReview,
   handleDeleteReview,
 }) => {
-  // if (isOwnReview && !reviewText) {
-  //   return null;
-  // }
-
   return (
     <div className={cls.reviewCard}>
       <div className={cls.userInfo}>

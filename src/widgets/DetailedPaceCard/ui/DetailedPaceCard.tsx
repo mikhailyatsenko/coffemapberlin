@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState, useRef, useCallback, useLayoutEffect } from 'react';
+import React, { useContext, useEffect, useState, useRef, useCallback } from 'react';
 import cls from './DetailedPaceCard.module.scss';
-import RatingWidget from 'shared/ui/RatingWidget/ui/RatingWidget';
 import { GET_ALL_PLACES, GET_PLACE_DETAILS } from 'shared/query/places';
 import { useQuery } from '@apollo/client';
 import { Loader } from 'shared/ui/Loader';
@@ -11,6 +10,7 @@ import { PortalToBody } from 'shared/ui/Portals/PortalToBody';
 import { InstagramEmbedProfile } from 'shared/ui/InstagramEmbed';
 import { RateNow } from 'features/RateNow';
 import { ReviewList } from 'features/ReviewList';
+import { HeaderDetailedPlacCard } from 'entities/HeaderDetailedPlacCard';
 
 interface DetailedPaceCardProps {
   placeId: string;
@@ -65,7 +65,7 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ onClose, pla
     [isHeaderVisible],
   );
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const reviewsList = reviewsListRef.current;
     if (reviewsList) {
       reviewsList.addEventListener('scroll', handleScrollReviewsDown);
@@ -141,22 +141,18 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ onClose, pla
           >
             {isViewInstProfile ? 'Back to place info' : 'View Instagram'}
           </button>
-          <button className={cls.closeButton} onClick={onClose}></button>
-          <h2 className={cls.name}>{name}</h2>
           <p className={cls.address}>{address}</p>
-          <div className={`${cls.detailsHeader} ${!isHeaderVisible && cls.hideDetailsHeader}`}>
-            <div className={cls.descriptionAndRating}>
-              <div className={cls.ratingContainer}>
-                <h4>Average Rating</h4>
-                <div className={cls.ratingNumber}>
-                  {averageRating}
-                  <span>/5</span>
-                </div>
-                <RatingWidget isClickable={false} id={placeId} rating={averageRating} />
-              </div>
-              <div className={cls.description}>{description}</div>
-            </div>
-          </div>
+          <button className={cls.closeButton} onClick={onClose}></button>
+
+          <h2 className={cls.name}>{name}</h2>
+
+          <HeaderDetailedPlacCard
+            averageRating={averageRating}
+            description={description}
+            placeId={placeId}
+            isHeaderVisible={isHeaderVisible}
+          />
+
           <RateNow placeId={placeId} reviews={reviews} />
           <div className={cls.reviewsContainer}>
             <h4
