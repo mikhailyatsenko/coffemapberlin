@@ -6,8 +6,10 @@ export const clusterLayer: LayerProps = {
   source: 'places',
   filter: ['has', 'point_count'],
   paint: {
-    'circle-color': ['step', ['get', 'point_count'], '#a56021', 100, '#f1f075', 750, '#f28cb1'],
-    'circle-radius': ['step', ['get', 'point_count'], 20, 100, 30, 750, 40],
+    'circle-color': ['step', ['get', 'point_count'], '#303030', 100, '#f1f075', 750, '#f28cb1'],
+    'circle-radius': ['step', ['get', 'point_count'], 16, 100, 30, 750, 40],
+    'circle-stroke-width': 2,
+    'circle-stroke-color': '#ffffff',
   },
 };
 
@@ -20,6 +22,7 @@ export const clusterCountLayer: LayerProps = {
     'text-field': '{point_count_abbreviated}',
     'text-font': ['Noto Sans SemiCondensed SemiBold', 'DIN Pro Medium', 'Arial Unicode MS Bold'],
     'text-size': 14,
+    'text-allow-overlap': true,
   },
   paint: {
     'text-color': '#fafafa',

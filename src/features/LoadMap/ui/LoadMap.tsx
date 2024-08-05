@@ -93,7 +93,7 @@ export const LoadMap = ({ placesGeo }: LoadMapProps) => {
           longitude: 13.397000808436752,
           zoom: 12,
         }}
-        mapStyle="mapbox://styles/mapbox/light-v9"
+        mapStyle="mapbox://styles/mapbox/streets-v12"
         mapboxAccessToken={MAPBOX_TOKEN}
         interactiveLayerIds={[unclusteredPointLayer.id!, clusterLayer.id!, namesLayer.id!]}
         onClick={onClick}
@@ -111,7 +111,7 @@ export const LoadMap = ({ placesGeo }: LoadMapProps) => {
           }
         }}
       >
-        <Source id="places" type="geojson" data={placesGeo} cluster={true} clusterMaxZoom={14} clusterRadius={50}>
+        <Source id="places" type="geojson" data={placesGeo} cluster={true} clusterMaxZoom={12} clusterRadius={30}>
           <Layer {...clusterLayer} />
           <Layer {...clusterCountLayer} />
           <Layer {...unclusteredPointLayer} />
