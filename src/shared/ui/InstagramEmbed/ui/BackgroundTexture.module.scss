@@ -1,9 +1,10 @@
 .bckgPattern {
   min-height: calc(100dvh - 70px);
   min-width: 640px;
-  --s: 29px; /* control the size*/
+
+  --s: 16px; /* control the size*/
   --c1: #935100;
-  --c2: #a9a9a9;
+  --c2: #c0c0c0;
 
   --c: var(--c1) calc(100% - 2px), #0000;
   --r: calc(2.414 * var(--s));

@@ -25,7 +25,7 @@ export const HeaderDetailedPlacCard = ({
           </div>
           <RatingWidget isClickable={false} id={placeId} rating={averageRating} />
         </div>
-        <div className={cls.description}>{description}</div>
+        {description && <div className={cls.description}>{description}</div>}
       </div>
     </div>
   );

@@ -83,7 +83,7 @@ export const PlaceCard = ({ properties }: PlaceCardProps) => {
         <div
           className={cls.image}
           style={{
-            backgroundImage: `url("${'./places-images/' + properties.image}")`,
+            backgroundImage: `url('./places-images/${properties.image || 'default-place.jpg'}')`,
           }}
         ></div>
         <div className={cls.content}>

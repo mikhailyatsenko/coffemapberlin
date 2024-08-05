@@ -16,7 +16,7 @@ export const TooltipCardOnMap = ({ properties }: TooltipCardOnMapProps) => {
       <div
         className={cls.image}
         style={{
-          backgroundImage: `url("${'./places-images/' + image}")`,
+          backgroundImage: `url('./places-images/${image || 'default-place.jpg'}')`,
         }}
       ></div>
       <div className={cls.content}>
