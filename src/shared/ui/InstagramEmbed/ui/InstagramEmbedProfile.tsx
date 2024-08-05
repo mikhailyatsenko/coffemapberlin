@@ -12,6 +12,7 @@ export const InstagramEmbedProfile = ({ username, normalView = false }: Instagra
       <div className={`${cls.embed}  ${normalView ? cls.normalView : ''}`}>
         <InstagramEmbed
           embedPlaceholder={<BackgroundTexture />}
+          // scriptLoadDisabled={true}
           url={`https://www.instagram.com/${username}`}
           width={'100%'}
         />

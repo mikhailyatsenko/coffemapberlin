@@ -1,5 +1,6 @@
 import cls from './BackgroundTexture.module.scss';
+import bkg from '../../../assets/default-bkg.jpg';
 
 export const BackgroundTexture = () => {
-  return <div className={cls.bckgPattern}></div>;
+  return <img className={cls.backgroundImage} src={bkg} alt="" />;
 };

@@ -1,3 +1,12 @@
+.backgroundImage {
+  width: 100%;
+  height: auto;
+  margin-top: 160px;
+  @media (width <= 484px) {
+    margin-top: 145px;
+  }
+}
+
 .bckgPattern {
   min-height: calc(100dvh - 70px);
   min-width: 640px;
