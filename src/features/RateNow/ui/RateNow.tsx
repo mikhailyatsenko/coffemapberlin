@@ -79,6 +79,22 @@ export const RateNow = ({ reviews, placeId }: RateNowProps) => {
           )}
         </div>
       )}
+
+      {reviews.length === 0 && !showReviewForm && (
+        <div className={cls.noReviews}>
+          <p>There are no reviews yet.</p>
+          <p>
+            Be first to{' '}
+            <span
+              onClick={() => {
+                setShowReviewForm(true);
+              }}
+            >
+              write one
+            </span>
+          </p>
+        </div>
+      )}
     </>
   );
 };

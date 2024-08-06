@@ -42,7 +42,7 @@ export const TooltipCardOnMap = ({ properties }: TooltipCardOnMapProps) => {
         </div>
 
         <div className={cls.rating}>
-          <RatingWidget isClickable={false} rating={averageRating} id={id} /> {averageRating}
+          <RatingWidget isClickable={false} rating={averageRating} id={id} /> {Boolean(averageRating) && averageRating}
         </div>
         <div className={cls.address}>{address}</div>
         <div

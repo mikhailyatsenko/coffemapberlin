@@ -21,7 +21,7 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ onClose, pla
   const { setLocation } = useContext(LocationContext);
   const [isViewInstProfile, setIsViewInstProfile] = useState(false);
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
-  const reviewsListRef = useRef<HTMLDivElement>(null);
+
   const detailedCardRef = useRef<HTMLDivElement>(null);
 
   const { data: allPlacesData } = useQuery<{ places: PlaceResponse[] }>(GET_ALL_PLACES);
@@ -31,73 +31,6 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ onClose, pla
 
   const place = allPlacesData?.places.find((p) => p.properties.id === placeId);
   const reviews = placeDetailsData?.placeDetails.reviews ?? [];
-
-  const handleScrollReviewsDown = useCallback(() => {
-    if (reviewsListRef.current && isHeaderVisible) {
-      const scrollTop = reviewsListRef.current.scrollTop;
-      setIsHeaderVisible(scrollTop < 100);
-    }
-  }, [isHeaderVisible]);
-
-  const handleScrollUpAttempt = useCallback(
-    (e: WheelEvent | TouchEvent) => {
-      if (reviewsListRef.current && reviewsListRef.current.scrollTop === 0 && !isHeaderVisible) {
-        if ('deltaY' in e && e.deltaY < 0) {
-          setIsHeaderVisible(true);
-          e.preventDefault();
-        } else if ('touches' in e) {
-          const touch = e.touches[0];
-          const startY = touch.pageY;
-
-          const handleTouchEnd = (endEvent: TouchEvent) => {
-            const endY = endEvent.changedTouches[0].pageY;
-            if (endY > startY) {
-              setIsHeaderVisible(true);
-              e.preventDefault();
-            }
-            reviewsListRef.current?.removeEventListener('touchend', handleTouchEnd);
-          };
-
-          reviewsListRef.current.addEventListener('touchend', handleTouchEnd);
-        }
-      }
-    },
-    [isHeaderVisible],
-  );
-
-  useEffect(() => {
-    const reviewsList = reviewsListRef.current;
-    if (reviewsList) {
-      reviewsList.addEventListener('scroll', handleScrollReviewsDown);
-      reviewsList.addEventListener('wheel', handleScrollUpAttempt, { passive: false });
-      reviewsList.addEventListener('touchmove', handleScrollUpAttempt, { passive: false });
-      return () => {
-        reviewsList.removeEventListener('scroll', handleScrollReviewsDown);
-        reviewsList.removeEventListener('wheel', handleScrollUpAttempt);
-        reviewsList.removeEventListener('touchmove', handleScrollUpAttempt);
-      };
-    }
-  }, [handleScrollReviewsDown, handleScrollUpAttempt]);
-
-  useEffect(() => {
-    let reviewsListContainer: HTMLDivElement | null = null;
-
-    const observer = new MutationObserver(() => {
-      reviewsListContainer = reviewsListRef.current;
-      if (reviewsListContainer) {
-        reviewsListContainer.addEventListener('scroll', handleScrollReviewsDown);
-      }
-    });
-
-    observer.observe(document.body, { childList: true, subtree: true });
-
-    return () => {
-      observer.disconnect();
-      if (reviewsListContainer) {
-        reviewsListContainer.removeEventListener('scroll', handleScrollReviewsDown);
-      }
-    };
-  }, [handleScrollReviewsDown]);
 
   useEffect(() => {
     if (place?.geometry.coordinates && setLocation) {
@@ -154,19 +87,13 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ onClose, pla
           />
 
           <RateNow placeId={placeId} reviews={reviews} />
-          <div className={cls.reviewsContainer}>
-            <h4
-              onClick={() => {
-                setIsHeaderVisible((prew) => !prew);
-              }}
-              className={cls.reviewsTitel}
-            >
-              Reviews ({reviews.length})
-            </h4>
-            <div ref={reviewsListRef} className={cls.reviewsList}>
-              <ReviewList reviews={reviews} placeId={placeId} />
-            </div>
-          </div>
+
+          <ReviewList
+            reviews={reviews}
+            placeId={placeId}
+            isCompactView={isHeaderVisible}
+            setCompactView={setIsHeaderVisible}
+          />
         </div>
       </div>
     </PortalToBody>
