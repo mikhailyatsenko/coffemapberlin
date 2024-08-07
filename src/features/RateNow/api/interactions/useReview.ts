@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from '@apollo/client';
+import { useAuth } from 'app/providers/AuthProvider';
 import { ADD_REVIEW, GET_PLACE_DETAILS, GET_ALL_PLACES } from 'shared/query/places';
 import { type PlaceResponse, type Review } from 'shared/types';
-import { useAuth } from 'app/providers/AuthProvider';
 
 export interface PlaceDetailsData {
   placeDetails: {

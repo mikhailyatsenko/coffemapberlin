@@ -1,5 +1,5 @@
-import cls from './FormButton.module.scss';
 import { type PropsWithChildren, type FC } from 'react';
+import cls from './FormButton.module.scss';
 
 interface FormButtonProps extends PropsWithChildren {
   clickHandler?: () => void;

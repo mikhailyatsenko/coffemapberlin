@@ -1,6 +1,6 @@
 import { RegularButton } from 'shared/ui/RegularButton';
-import cls from './ErrorResultSendForm.module.scss';
 import errorIcon from '../../../shared/assets/errorIcon.svg';
+import cls from './ErrorResultSendForm.module.scss';
 
 export const ErrorResultSendForm = () => {
   const handleRefresh = () => {

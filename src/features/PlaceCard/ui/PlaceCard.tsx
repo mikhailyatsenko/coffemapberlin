@@ -1,11 +1,11 @@
-import cls from './PlaceCard.module.scss';
-import instagram from '../../../shared/assets/instagram.svg';
 // import { useContext } from 'react';
 // import { LocationContext } from 'app/providers/LocationProvider/lib/LocationContext';
-import RatingWidget from 'shared/ui/RatingWidget/ui/RatingWidget';
-import { type PlaceProperties } from 'shared/types';
 import { type Position } from 'geojson';
 import { useDetailedCard } from 'app/providers/DetailedCardProvider';
+import { type PlaceProperties } from 'shared/types';
+import RatingWidget from 'shared/ui/RatingWidget/ui/RatingWidget';
+import instagram from '../../../shared/assets/instagram.svg';
+import cls from './PlaceCard.module.scss';
 
 interface PlaceCardProps {
   properties: PlaceProperties;

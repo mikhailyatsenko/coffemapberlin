@@ -1,7 +1,7 @@
-import { Footer } from 'widgets/Footer';
-import { AppRouter } from './providers/router';
-import { Navbar } from 'widgets/Navbar';
 import { useLocation } from 'react-router-dom';
+import { Footer } from 'widgets/Footer';
+import { Navbar } from 'widgets/Navbar';
+import { AppRouter } from './providers/router';
 
 const App = () => {
   const location = useLocation();

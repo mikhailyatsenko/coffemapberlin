@@ -1,9 +1,9 @@
-import { type Review } from 'shared/types';
-import { sortReviews } from '../lib/sortReviews';
-import { ReviewCard } from 'shared/ui/ReviewCard';
 import { useMutation } from '@apollo/client';
-import { DELETE_REVIEW, GET_PLACE_DETAILS } from 'shared/query/places';
 import { useCallback, useEffect, useRef } from 'react';
+import { DELETE_REVIEW, GET_PLACE_DETAILS } from 'shared/query/places';
+import { type Review } from 'shared/types';
+import { ReviewCard } from 'shared/ui/ReviewCard';
+import { sortReviews } from '../lib/sortReviews';
 import cls from './ReviewList.module.scss';
 
 interface ReviewListProps {

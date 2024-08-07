@@ -1,9 +1,9 @@
 import { useQuery } from '@apollo/client';
-import cls from './PlacesList.module.scss';
+import { useDetailedCard } from 'app/providers/DetailedCardProvider';
 import { PlaceCard } from 'features/PlaceCard';
 import { GET_ALL_PLACES } from 'shared/query/places';
 import { type PlaceResponse } from 'shared/types';
-import { useDetailedCard } from 'app/providers/DetailedCardProvider';
+import cls from './PlacesList.module.scss';
 
 interface PlacesData {
   places: PlaceResponse[];

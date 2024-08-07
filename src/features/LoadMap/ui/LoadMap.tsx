@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
+import { type Position } from 'geojson';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { Map, Source, Layer, Popup, GeolocateControl, NavigationControl } from 'react-map-gl';
-import { clusterLayer, clusterCountLayer, unclusteredPointLayer, namesLayer } from '../model/layers/layers';
 import type { MapRef, GeoJSONSource, MapLayerMouseEvent, LngLatLike, MapboxGeoJSONFeature } from 'react-map-gl';
 import { LocationContext } from 'app/providers/LocationProvider/lib/LocationContext';
 import { type PlacesDataWithGeo } from 'widgets/Map/ui/MainMap';
-import { type PlaceResponse, type PlaceProperties } from 'shared/types';
-import { type Position } from 'geojson';
 import { TooltipCardOnMap } from 'features/TooltipCardOnMap';
+import { type PlaceResponse, type PlaceProperties } from 'shared/types';
+import { clusterLayer, clusterCountLayer, unclusteredPointLayer, namesLayer } from '../model/layers/layers';
 
 const MAPBOX_TOKEN = process.env.MAPBOX_API;
 

@@ -1,7 +1,7 @@
-import { RegularButton } from 'shared/ui/RegularButton';
-import cls from './SuccessResultSendForm.module.scss';
 import { Link } from 'react-router-dom';
+import { RegularButton } from 'shared/ui/RegularButton';
 import successIcon from '../../../shared/assets/successIcon.svg';
+import cls from './SuccessResultSendForm.module.scss';
 
 export const SuccessResultSendForm = () => {
   return (

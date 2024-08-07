@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import React, { useState, useRef, useEffect } from 'react';
 import { useAuth } from 'app/providers/AuthProvider';
-import cls from './Auth.module.scss';
 import { GoogleLoginButton } from 'shared/ui/GoogleLoginButton';
+import cls from './Auth.module.scss';
 
 export const Auth: React.FC = () => {
   const { user, logout, login } = useAuth();

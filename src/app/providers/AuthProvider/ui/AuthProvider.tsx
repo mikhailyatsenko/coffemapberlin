@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
+import { useApolloClient, useMutation } from '@apollo/client';
+import { useGoogleLogin } from '@react-oauth/google';
 import { useCallback, type FC, type PropsWithChildren } from 'react';
 import { useState, useEffect } from 'react';
-import { useApolloClient, useMutation } from '@apollo/client';
+import { LOGIN_WITH_GOOGLE_MUTATION, CURRENT_USER_QUERY, LOGOUT_MUTATION } from 'shared/query/places';
 import { type User } from 'shared/types';
 
 import { AuthContext } from '../lib/AuthContext';
-import { useGoogleLogin } from '@react-oauth/google';
-import { LOGIN_WITH_GOOGLE_MUTATION, CURRENT_USER_QUERY, LOGOUT_MUTATION } from 'shared/query/places';
 
 interface LoginWithGoogleData {
   loginWithGoogle: {

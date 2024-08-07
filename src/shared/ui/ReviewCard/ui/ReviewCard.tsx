@@ -1,5 +1,5 @@
-import cls from './ReviewCard.module.scss';
 import BeanIcon from 'shared/ui/RatingWidget/ui/BeanIcon';
+import cls from './ReviewCard.module.scss';
 
 interface ReviewCardProps {
   id: string;

@@ -1,9 +1,9 @@
-import { FormProvider, useForm, type SubmitHandler } from 'react-hook-form';
-import { FormField } from 'shared/ui/FormField';
-import ReCAPTCHA from 'react-google-recaptcha';
 import { useState } from 'react';
-import cls from './ContactForm.module.scss';
+import ReCAPTCHA from 'react-google-recaptcha';
+import { FormProvider, useForm, type SubmitHandler } from 'react-hook-form';
 import { FormButton } from 'shared/ui/FormButton';
+import { FormField } from 'shared/ui/FormField';
+import cls from './ContactForm.module.scss';
 
 export interface ContactFormData {
   name: string | undefined;

@@ -1,9 +1,9 @@
 import { SendContactForm } from 'features/SendContactForm/ui/SendContactForm';
-import cls from './ContactsPage.module.scss';
+import cls from './ContactPage.module.scss';
 
-export const ContactsPage = () => {
+export const ContactPage = () => {
   return (
-    <div className={cls.ContactsPage}>
+    <div className={cls.ContactPage}>
       <div className={cls.textContainer}>
         <div className={cls.contactInfo}>
           <h1>Let&apos;s get in touch!</h1>
@@ -16,5 +16,3 @@ export const ContactsPage = () => {
     </div>
   );
 };
-
-export default ContactsPage;

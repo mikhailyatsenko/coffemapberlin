@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import cls from './Navbar.module.scss';
 import { NavLink } from 'react-router-dom';
-import { Logo } from 'shared/ui/Logo';
 import { Auth } from 'features/Auth';
+import { Logo } from 'shared/ui/Logo';
+import cls from './Navbar.module.scss';
 
 export const Navbar = () => {
   const [isBurgerActive, setIsBurgerActive] = useState(false);
@@ -66,7 +66,7 @@ export const Navbar = () => {
             className={({ isActive }) => (isActive ? cls.active : '')}
             to={'contacts'}
           >
-            Contacts
+            Contact
           </NavLink>
         </li>
         <Auth />

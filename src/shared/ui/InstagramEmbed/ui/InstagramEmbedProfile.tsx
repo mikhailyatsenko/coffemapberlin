@@ -1,6 +1,6 @@
 import { InstagramEmbed } from 'react-social-media-embed';
-import cls from './InstagramEmbed.module.scss';
 import { BackgroundTexture } from './BackgroundTexture';
+import cls from './InstagramEmbed.module.scss';
 
 interface InstagramEmbedProfileProps {
   username: string;

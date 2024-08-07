@@ -1,6 +1,6 @@
+import { GoogleLoginButton } from 'shared/ui/GoogleLoginButton';
 import { PortalToBody } from 'shared/ui/Portals/PortalToBody';
 import cls from './LoginModal.module.scss';
-import { GoogleLoginButton } from 'shared/ui/GoogleLoginButton';
 
 interface LoginPopupProps {
   onClose: () => void;

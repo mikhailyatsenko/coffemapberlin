@@ -1,10 +1,10 @@
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { LoadMap } from 'features/LoadMap';
 import { useQuery } from '@apollo/client';
 import { useEffect, useState } from 'react';
+import { LoadMap } from 'features/LoadMap';
 import { GET_ALL_PLACES } from 'shared/query/places';
-import { Loader } from 'shared/ui/Loader';
 import { type PlaceProperties, type PlaceResponse } from 'shared/types';
+import { Loader } from 'shared/ui/Loader';
 
 interface PlacesData {
   places: PlaceResponse[];

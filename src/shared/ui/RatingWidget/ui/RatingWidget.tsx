@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import cls from './RatingWidget.module.scss';
 import BeanIcon from './BeanIcon';
+import cls from './RatingWidget.module.scss';
 
 interface RatingProps {
   rating?: number;

@@ -9,6 +9,9 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
     'prettier',
+    '@feature-sliced/eslint-config/rules/import-order',
+    // '@feature-sliced/eslint-config/rules/public-api',
+    '@feature-sliced/eslint-config/rules/layers-slices',
   ],
   overrides: [
     {
@@ -68,7 +71,13 @@ module.exports = {
       },
     ],
   },
+  parser: '@typescript-eslint/parser',
   settings: {
+    'import/resolver': {
+      typescript: {
+        alwaysTryTypes: true,
+      },
+    },
     react: {
       pragma: 'React',
       version: 'detect',

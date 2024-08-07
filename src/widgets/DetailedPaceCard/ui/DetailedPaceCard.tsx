@@ -1,16 +1,16 @@
-import React, { useContext, useEffect, useState, useRef, useCallback } from 'react';
-import cls from './DetailedPaceCard.module.scss';
-import { GET_ALL_PLACES, GET_PLACE_DETAILS } from 'shared/query/places';
 import { useQuery } from '@apollo/client';
-import { Loader } from 'shared/ui/Loader';
-import { type PlaceDetailsData } from '../../../features/RateNow/api/interactions/useReview';
+import React, { useContext, useEffect, useState, useRef } from 'react';
 import { LocationContext } from 'app/providers/LocationProvider/lib/LocationContext';
-import { type PlaceResponse } from 'shared/types';
-import { PortalToBody } from 'shared/ui/Portals/PortalToBody';
-import { InstagramEmbedProfile } from 'shared/ui/InstagramEmbed';
 import { RateNow } from 'features/RateNow';
 import { ReviewList } from 'features/ReviewList';
 import { HeaderDetailedPlacCard } from 'entities/HeaderDetailedPlacCard';
+import { GET_ALL_PLACES, GET_PLACE_DETAILS } from 'shared/query/places';
+import { type PlaceResponse } from 'shared/types';
+import { InstagramEmbedProfile } from 'shared/ui/InstagramEmbed';
+import { Loader } from 'shared/ui/Loader';
+import { PortalToBody } from 'shared/ui/Portals/PortalToBody';
+import { type PlaceDetailsData } from '../../../features/RateNow/api/interactions/useReview';
+import cls from './DetailedPaceCard.module.scss';
 
 interface DetailedPaceCardProps {
   placeId: string;

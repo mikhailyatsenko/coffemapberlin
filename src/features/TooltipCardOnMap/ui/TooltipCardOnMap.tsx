@@ -1,8 +1,8 @@
-import cls from './TooltipCardOnMap.module.scss';
-import instagramIcon from '../../../shared/assets/instagram.svg';
 import { useDetailedCard } from 'app/providers/DetailedCardProvider';
-import RatingWidget from 'shared/ui/RatingWidget/ui/RatingWidget';
 import { type PlaceProperties } from 'shared/types';
+import RatingWidget from 'shared/ui/RatingWidget/ui/RatingWidget';
+import instagramIcon from '../../../shared/assets/instagram.svg';
+import cls from './TooltipCardOnMap.module.scss';
 
 interface TooltipCardOnMapProps {
   properties: PlaceProperties;

@@ -1,11 +1,11 @@
-import RatingWidget from 'shared/ui/RatingWidget/ui/RatingWidget';
-import cls from './RateNow.module.scss';
-import { useReview } from '../api/interactions/useReview';
-import { type Review } from 'shared/types';
 // import { RegularButton } from 'shared/ui/RegularButton';
 import { useState } from 'react';
 import { ReviewForm } from 'entities/ReviewForm';
+import { type Review } from 'shared/types';
+import RatingWidget from 'shared/ui/RatingWidget/ui/RatingWidget';
 import { RegularButton } from 'shared/ui/RegularButton';
+import { useReview } from '../api/interactions/useReview';
+import cls from './RateNow.module.scss';
 
 interface RateNowProps {
   reviews: Review[];

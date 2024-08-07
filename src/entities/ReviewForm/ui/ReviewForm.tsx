@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import cls from './ReviewForm.module.scss';
-import { RegularButton } from 'shared/ui/RegularButton';
 import { Loader } from 'shared/ui/Loader';
+import { RegularButton } from 'shared/ui/RegularButton';
+import cls from './ReviewForm.module.scss';
 
 interface ReviewFormProps {
   onSubmit: (text: string) => void;

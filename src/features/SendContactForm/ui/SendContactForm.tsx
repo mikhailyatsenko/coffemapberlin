@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { ContactForm, type ContactFormData } from 'entities/ContactForm/ui/ContactForm';
 import emailjs from 'emailjs-com';
+import { useState } from 'react';
 import { type SubmitHandler } from 'react-hook-form';
+import { ContactForm, type ContactFormData } from 'entities/ContactForm/ui/ContactForm';
 
-import { Loader } from 'shared/ui/Loader';
 import { ErrorResultSendForm } from 'entities/ErrorResultSendForm';
 import { SuccessResultSendForm } from 'entities/SuccessResultSendForm';
+import { Loader } from 'shared/ui/Loader';
 
 type FormState = 'loading' | 'success' | 'error' | null;
 
