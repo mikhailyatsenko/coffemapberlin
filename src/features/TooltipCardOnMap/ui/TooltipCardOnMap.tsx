@@ -14,6 +14,9 @@ export const TooltipCardOnMap = ({ properties }: TooltipCardOnMapProps) => {
   return (
     <div className={cls.TooltipCardOnMap}>
       <div
+        onClick={() => {
+          setCurrentSelectedPlaceId(id);
+        }}
         className={cls.image}
         style={{
           backgroundImage: `url('./places-images/${image || 'default-place.jpg'}')`,

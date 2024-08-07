@@ -28,7 +28,7 @@ export const FormField: React.FC<FormFieldProps> = ({ fieldName, type, value, er
       {!(type === 'textarea') ? (
         <input className={`${cls.formField} ${error ? cls.error : ''}`} {...parameters} />
       ) : (
-        <textarea className={`${cls.formField} ${error ? cls.error : ''}`} rows={3} {...parameters} />
+        <textarea className={`${cls.formField} ${error ? cls.error : ''}`} rows={4} {...parameters} />
       )}
 
       <label className={cls.formLabel} htmlFor={fieldName}>

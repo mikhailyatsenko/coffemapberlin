@@ -11,7 +11,7 @@ interface ReviewFormProps {
   isLoading: boolean;
 }
 
-const MAX_REVIEW_LENGTH = 500; // Максимальная длина отзыва
+const MAX_REVIEW_LENGTH = 1000; // Максимальная длина отзыва
 
 interface ReviewFormData {
   review: string;
@@ -53,7 +53,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({ onSubmit, isLoading, onB
         rows={4}
       /> */}
         <FormField fieldName="review" type="textarea" maxLength={MAX_REVIEW_LENGTH} labelText="Review" />
-        {errors.review && <p style={{ color: 'red' }}>{errors.review.message}</p>}
+        {errors.review && <p className={cls.formError}>{errors.review.message}</p>}
         <div className={cls.buttons}>
           <RegularButton theme="blank" type="button" clickHandler={onBack}>
             &#8612; Back
