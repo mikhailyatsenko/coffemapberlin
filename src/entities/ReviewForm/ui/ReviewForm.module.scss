@@ -5,7 +5,11 @@
   transition:
     height 0.3s ease-in-out,
     opacity 0.3s ease-in-out;
-  margin-top: 20px;
+  margin-top: 40px;
+  padding: 0 20px;
+  @media (width <= 440px) {
+    padding: 0;
+  }
 }
 
 .reviewInput {

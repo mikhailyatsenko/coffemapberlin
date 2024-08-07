@@ -2,11 +2,7 @@
   position: relative;
   padding: 15px 0 10px;
   margin: 10px auto;
-  width: 400px;
-
-  @media (max-width: 440px) {
-    width: 90%;
-  }
+  width: 100%;
 }
 
 .formField {
@@ -50,17 +46,9 @@
       display: block;
       transition: 0.2s;
       font-size: 14px;
-      color: gray;
+      color: #a6a6a6;
       font-weight: 700;
-      @media (width <= 767px) {
-        color: #efefef;
-      }
     }
-  }
-
-  @media (width <= 767px) {
-    border-color: #fff;
-    color: #fff;
   }
 }
 
@@ -71,9 +59,6 @@
   transition: 0.2s;
   font-size: 14px;
   color: #000;
-  @media (width <= 767px) {
-    color: #fff;
-  }
 }
 
 .error {

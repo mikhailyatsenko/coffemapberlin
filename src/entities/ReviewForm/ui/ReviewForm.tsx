@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form';
+import { FormField } from 'shared/ui/FormField';
 import { Loader } from 'shared/ui/Loader';
 import { RegularButton } from 'shared/ui/RegularButton';
 import cls from './ReviewForm.module.scss';
@@ -9,22 +11,39 @@ interface ReviewFormProps {
   isLoading: boolean;
 }
 
-export const ReviewForm: React.FC<ReviewFormProps> = ({ onSubmit, isLoading, onBack }) => {
-  const [reviewText, setReviewText] = useState('');
+const MAX_REVIEW_LENGTH = 500; // Максимальная длина отзыва
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (reviewText.trim()) {
-      onSubmit(reviewText);
-      setReviewText('');
+interface ReviewFormData {
+  review: string;
+}
+
+export const ReviewForm: React.FC<ReviewFormProps> = ({ onSubmit, isLoading, onBack }) => {
+  // const [reviewText, setReviewText] = useState('');
+
+  const form = useForm<ReviewFormData>({ mode: 'onChange' });
+
+  const {
+    handleSubmit,
+    formState: { errors, isValid },
+    reset,
+  } = form;
+
+  const handleFormSubmit: SubmitHandler<ReviewFormData> = (data) => {
+    console.log(data);
+    if (data.review.trim()) {
+      onSubmit(data.review);
+      reset();
     }
   };
 
   if (isLoading) return <Loader />;
 
+  console.log(errors.review?.message, 'errors');
+
   return (
-    <form className={`${cls.reviewForm}`} onSubmit={handleSubmit}>
-      <textarea
+    <FormProvider {...form}>
+      <form className={`${cls.reviewForm}`} onSubmit={handleSubmit(handleFormSubmit)}>
+        {/* <textarea
         className={cls.reviewInput}
         value={reviewText}
         onChange={(e) => {
@@ -32,15 +51,18 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({ onSubmit, isLoading, onB
         }}
         placeholder="Write your review here..."
         rows={4}
-      />
-      <div className={cls.buttons}>
-        <RegularButton theme="blank" type="button" clickHandler={onBack}>
-          &#8612; Back
-        </RegularButton>
-        <RegularButton type="submit" disabled={!reviewText.trim()}>
-          Submit Review
-        </RegularButton>
-      </div>
-    </form>
+      /> */}
+        <FormField fieldName="review" type="textarea" maxLength={MAX_REVIEW_LENGTH} labelText="Review" />
+        {errors.review && <p style={{ color: 'red' }}>{errors.review.message}</p>}
+        <div className={cls.buttons}>
+          <RegularButton theme="blank" type="button" clickHandler={onBack}>
+            &#8612; Back
+          </RegularButton>
+          <RegularButton type="submit" disabled={!isValid}>
+            Submit Review
+          </RegularButton>
+        </div>
+      </form>
+    </FormProvider>
   );
 };

@@ -20,8 +20,8 @@ export const RateNow = ({ reviews, placeId }: RateNowProps) => {
   const hasRating = reviews.some((review) => review.isOwnReview && review.userRating !== null);
   const hasReviewWithText = reviews.some((review) => review.isOwnReview && review.text.trim() !== '');
 
-  const onSubmitTextReview = (reviewText: string) => {
-    handleAddReview(reviewText);
+  const onSubmitTextReview = async (reviewText: string) => {
+    await handleAddReview(reviewText);
     setShowReviewForm(false);
   };
 
@@ -67,7 +67,7 @@ export const RateNow = ({ reviews, placeId }: RateNowProps) => {
               )}
             </>
           )}
-          {/* <h4>Add text review</h4> */}
+
           {!hasReviewWithText && (
             <ReviewForm
               isLoading={reviewLoading}

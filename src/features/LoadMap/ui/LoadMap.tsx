@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import { type Position } from 'geojson';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { Map, Source, Layer, Popup, GeolocateControl, NavigationControl } from 'react-map-gl';
@@ -6,6 +5,7 @@ import type { MapRef, GeoJSONSource, MapLayerMouseEvent, LngLatLike, MapboxGeoJS
 import { LocationContext } from 'app/providers/LocationProvider/lib/LocationContext';
 import { type PlacesDataWithGeo } from 'widgets/Map/ui/MainMap';
 import { TooltipCardOnMap } from 'features/TooltipCardOnMap';
+import useWidth from 'shared/lib/hooks/useWidth/useWidth';
 import { type PlaceResponse, type PlaceProperties } from 'shared/types';
 import { clusterLayer, clusterCountLayer, unclusteredPointLayer, namesLayer } from '../model/layers/layers';
 
@@ -25,16 +25,18 @@ export const LoadMap = ({ placesGeo }: LoadMapProps) => {
   const [popupData, setPopupData] = useState<PlaceProperties | null>(null);
   const [selectedPacePosition, setSelectedPacePosition] = useState<Position | null>(null);
 
+  const screenWidth = useWidth();
+
   useEffect(() => {
     if (location) {
       mapRef?.current?.easeTo({
         center: location as LngLatLike,
         zoom: 15,
         duration: 500,
-        offset: [300, 0],
+        offset: [screenWidth < 768 ? 0 : 300, 0],
       });
     }
-  }, [location]);
+  }, [location, screenWidth]);
 
   const onClick = (event: MapLayerMouseEvent) => {
     event.originalEvent.stopPropagation();

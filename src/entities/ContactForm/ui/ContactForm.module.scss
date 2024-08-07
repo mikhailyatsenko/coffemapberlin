@@ -1,5 +1,6 @@
 .ContactForm {
   margin: 0 auto;
+  width: 400px;
   padding: 20px;
   display: flex;
   justify-content: center;
@@ -18,5 +19,21 @@
     color: #fd5353;
     align-items: center;
     justify-content: center;
+  }
+  @media (width <= 440px) {
+    width: 90%;
+  }
+  @media (width <= 767px) {
+    border-color: #fff;
+    color: #fff;
+    label {
+      color: #fff;
+    }
+
+    input,
+    textarea {
+      border-color: #fff;
+      color: #efefef;
+    }
   }
 }

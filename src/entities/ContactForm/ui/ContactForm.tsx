@@ -18,7 +18,7 @@ interface ContactFormProps {
 
 export const ContactForm = ({ onSubmit }: ContactFormProps) => {
   const [captchaValue, setCaptchaValue] = useState<string | null>(null);
-  const form = useForm<ContactFormData>({ mode: 'all' });
+  const form = useForm<ContactFormData>({ mode: 'onBlur' });
 
   const {
     handleSubmit,
@@ -32,13 +32,14 @@ export const ContactForm = ({ onSubmit }: ContactFormProps) => {
     setValue('recaptcha', value ?? '');
     trigger('recaptcha');
   };
+
   return (
     <div className={cls.ContactForm}>
       <FormProvider {...form}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <FormField labelText={'Name'} fieldName="name" type="text" error={errors.name?.message} />
           <FormField labelText={'Email'} fieldName="email" type="email" error={errors.email?.message} />
-          <FormField labelText={'Message'} fieldName="message" error={errors.message?.message} />
+          <FormField labelText={'Message'} fieldName="message" type="textarea" error={errors.message?.message} />
           <div className={cls.recaptcha}>
             <ReCAPTCHA
               sitekey={

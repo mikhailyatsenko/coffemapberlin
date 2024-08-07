@@ -25,4 +25,3 @@ dist-ssr
 .env
 
 old.json
-src/features/LoadMap/ui/1.json
