@@ -31,7 +31,7 @@ export const LoadMap = ({ placesGeo }: LoadMapProps) => {
     if (location) {
       mapRef?.current?.flyTo({
         center: location as LngLatLike,
-        zoom: 15,
+        zoom: 15.6,
         // duration: 500,
         offset: [screenWidth < 768 ? 0 : 220, 0],
       });
@@ -130,7 +130,7 @@ export const LoadMap = ({ placesGeo }: LoadMapProps) => {
               setPopupData(null);
             }}
           >
-            <TooltipCardOnMap properties={popupData} />
+            <TooltipCardOnMap properties={popupData} coordinates={selectedPacePosition} />
           </Popup>
         )}
         <NavigationControl position="bottom-right" />

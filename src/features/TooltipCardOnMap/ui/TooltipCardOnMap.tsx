@@ -1,14 +1,17 @@
+import { type Position } from 'geojson';
 import { useDetailedCard } from 'app/providers/DetailedCardProvider';
 import { type PlaceProperties } from 'shared/types';
 import RatingWidget from 'shared/ui/RatingWidget/ui/RatingWidget';
 import instagramIcon from '../../../shared/assets/instagram.svg';
+import routeToIcon from '../../../shared/assets/route-to.svg';
 import cls from './TooltipCardOnMap.module.scss';
 
 interface TooltipCardOnMapProps {
   properties: PlaceProperties;
+  coordinates: Position;
 }
 
-export const TooltipCardOnMap = ({ properties }: TooltipCardOnMapProps) => {
+export const TooltipCardOnMap = ({ properties, coordinates }: TooltipCardOnMapProps) => {
   const { id, averageRating, name, address, instagram, image } = properties;
   const { setCurrentSelectedPlaceId } = useDetailedCard();
   return (
@@ -32,16 +35,28 @@ export const TooltipCardOnMap = ({ properties }: TooltipCardOnMapProps) => {
           >
             {name}
           </h4>
-          <a
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-            href={'https://www.instagram.com/' + instagram}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <img className={cls.instagram} src={instagramIcon} alt="" />
-          </a>
+          <div className={cls.iconsGroup}>
+            <a
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+              href={'https://www.instagram.com/' + instagram}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <img className={cls.icon} src={instagramIcon} alt="" />
+            </a>
+            <a
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+              href={`https://www.google.com/maps/dir/?api=1&destination=${coordinates[1]},${coordinates[0]}&travelmode=walking`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <img className={cls.icon} src={routeToIcon} alt="" />
+            </a>
+          </div>
         </div>
 
         <div className={cls.rating}>

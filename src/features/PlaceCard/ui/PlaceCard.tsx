@@ -126,6 +126,7 @@ export const PlaceCard = ({ properties, coordinates }: PlaceCardProps) => {
               <a
                 onClick={(e) => {
                   e.stopPropagation();
+                  e.preventDefault();
                   if (coordinates && setLocation) {
                     setLocation(coordinates);
                   }
