@@ -1,10 +1,14 @@
 // import { useContext } from 'react';
 // import { LocationContext } from 'app/providers/LocationProvider/lib/LocationContext';
 import { type Position } from 'geojson';
+import { useContext } from 'react';
 import { useDetailedCard } from 'app/providers/DetailedCardProvider';
+import { LocationContext } from 'app/providers/LocationProvider/lib/LocationContext';
 import { type PlaceProperties } from 'shared/types';
 import RatingWidget from 'shared/ui/RatingWidget/ui/RatingWidget';
 import instagram from '../../../shared/assets/instagram.svg';
+import roteToImage from '../../../shared/assets/route-to.svg';
+import showPlacePointOnMap from '../../../shared/assets/show-on-map.svg';
 import cls from './PlaceCard.module.scss';
 
 interface PlaceCardProps {
@@ -12,9 +16,11 @@ interface PlaceCardProps {
   coordinates: Position;
 }
 
-export const PlaceCard = ({ properties }: PlaceCardProps) => {
+export const PlaceCard = ({ properties, coordinates }: PlaceCardProps) => {
   const { id, averageRating } = properties;
   const { setCurrentSelectedPlaceId } = useDetailedCard();
+
+  const { setLocation } = useContext(LocationContext);
   // toglle favorite
 
   // interface FavoriteActionResult {
@@ -87,7 +93,7 @@ export const PlaceCard = ({ properties }: PlaceCardProps) => {
           }}
         ></div>
         <div className={cls.content}>
-          <div className={cls.nameAndInst}>
+          <div className={cls.cardHeader}>
             <h4
               onClick={() => {
                 setCurrentSelectedPlaceId(id);
@@ -96,17 +102,39 @@ export const PlaceCard = ({ properties }: PlaceCardProps) => {
             >
               {properties.name}
             </h4>
-            <a
-              onClick={(e) => {
-                e.stopPropagation();
-              }}
-              className={cls.header}
-              href={'https://www.instagram.com/' + properties.instagram}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <img className={cls.instagram} src={instagram} alt="" />
-            </a>
+            <div className={cls.iconsGroup}>
+              <a
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
+                href={'https://www.instagram.com/' + properties.instagram}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <img className={cls.icon} src={instagram} alt="" />
+              </a>
+              <a
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
+                href={`https://www.google.com/maps/dir/?api=1&destination=${coordinates[1]},${coordinates[0]}&travelmode=walking`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <img className={cls.icon} src={roteToImage} alt="" />
+              </a>
+              <a
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (coordinates && setLocation) {
+                    setLocation(coordinates);
+                  }
+                }}
+                rel="noreferrer"
+              >
+                <img className={cls.icon} src={showPlacePointOnMap} alt="" />
+              </a>
+            </div>
           </div>
           <div className={cls.rating}>
             <RatingWidget isClickable={false} rating={averageRating} id={id} />{' '}

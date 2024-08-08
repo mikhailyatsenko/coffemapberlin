@@ -29,11 +29,11 @@ export const LoadMap = ({ placesGeo }: LoadMapProps) => {
 
   useEffect(() => {
     if (location) {
-      mapRef?.current?.easeTo({
+      mapRef?.current?.flyTo({
         center: location as LngLatLike,
         zoom: 15,
-        duration: 500,
-        offset: [screenWidth < 768 ? 0 : 300, 0],
+        // duration: 500,
+        offset: [screenWidth < 768 ? 0 : 220, 0],
       });
     }
   }, [location, screenWidth]);
