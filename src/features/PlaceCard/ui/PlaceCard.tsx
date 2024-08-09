@@ -1,9 +1,8 @@
-// import { useContext } from 'react';
-// import { LocationContext } from 'app/providers/LocationProvider/lib/LocationContext';
 import { type Position } from 'geojson';
 import { useContext } from 'react';
 import { useDetailedCard } from 'app/providers/DetailedCardProvider';
 import { LocationContext } from 'app/providers/LocationProvider/lib/LocationContext';
+import LazyImage from 'shared/lib/LazyImage/LazyImage';
 import { type PlaceProperties } from 'shared/types';
 import RatingWidget from 'shared/ui/RatingWidget/ui/RatingWidget';
 import instagram from '../../../shared/assets/instagram.svg';
@@ -86,12 +85,9 @@ export const PlaceCard = ({ properties, coordinates }: PlaceCardProps) => {
         }}
         className={`${cls.placeCard} `}
       >
-        <div
-          className={cls.image}
-          style={{
-            backgroundImage: `url('./places-images/${properties.image || 'default-place.jpg'}')`,
-          }}
-        ></div>
+        <div className={cls.image}>
+          <LazyImage src={`./places-images/${properties.image || 'default-place.jpg'}`} alt="Place image" />
+        </div>
         <div className={cls.content}>
           <div className={cls.cardHeader}>
             <h4

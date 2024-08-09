@@ -1,5 +1,6 @@
 import { type Position } from 'geojson';
 import { useDetailedCard } from 'app/providers/DetailedCardProvider';
+import LazyImage from 'shared/lib/LazyImage/LazyImage';
 import { type PlaceProperties } from 'shared/types';
 import RatingWidget from 'shared/ui/RatingWidget/ui/RatingWidget';
 import instagramIcon from '../../../shared/assets/instagram.svg';
@@ -21,10 +22,9 @@ export const TooltipCardOnMap = ({ properties, coordinates }: TooltipCardOnMapPr
           setCurrentSelectedPlaceId(id);
         }}
         className={cls.image}
-        style={{
-          backgroundImage: `url('./places-images/${image || 'default-place.jpg'}')`,
-        }}
-      ></div>
+      >
+        <LazyImage src={`./places-images/${image || 'default-place.jpg'}`} alt="Place image" />
+      </div>
       <div className={cls.content}>
         <div className={cls.header}>
           <h4

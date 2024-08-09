@@ -1,4 +1,5 @@
 import BeanIcon from 'shared/ui/RatingWidget/ui/BeanIcon';
+import defaultUserAvatar from '../../../assets/user-default-icon.svg';
 import cls from './ReviewCard.module.scss';
 
 interface ReviewCardProps {
@@ -23,12 +24,7 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({
   return (
     <div className={cls.reviewCard}>
       <div className={cls.userInfo}>
-        <img
-          src={userAvatar ?? '/default-avatar.png'}
-          alt={userName}
-          className={cls.avatar}
-          referrerPolicy="no-referrer"
-        />
+        <img src={userAvatar ?? defaultUserAvatar} alt={userName} className={cls.avatar} referrerPolicy="no-referrer" />
         <span className={cls.userName}>{userName}</span>
         {rating && (
           <div className={cls.userRate}>
