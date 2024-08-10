@@ -9,7 +9,7 @@ import { type PlaceResponse } from 'shared/types';
 import { InstagramEmbedProfile } from 'shared/ui/InstagramEmbed';
 import { Loader } from 'shared/ui/Loader';
 import { PortalToBody } from 'shared/ui/Portals/PortalToBody';
-import { type PlaceDetailsData } from '../../../features/RateNow/api/interactions/useReview';
+import { type PlaceDetailsData } from '../../../shared/lib/hooks/interactions/useReview';
 import cls from './DetailedPaceCard.module.scss';
 
 interface DetailedPaceCardProps {

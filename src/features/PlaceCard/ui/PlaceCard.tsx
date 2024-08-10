@@ -1,9 +1,11 @@
 import { type Position } from 'geojson';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useDetailedCard } from 'app/providers/DetailedCardProvider';
 import { LocationContext } from 'app/providers/LocationProvider/lib/LocationContext';
+import { useToggleFavorite } from 'shared/lib/hooks/interactions/useToggleFavorite';
 import LazyImage from 'shared/lib/LazyImage/LazyImage';
 import { type PlaceProperties } from 'shared/types';
+import { AddToFavButton } from 'shared/ui/AddToFavButton';
 import RatingWidget from 'shared/ui/RatingWidget/ui/RatingWidget';
 import instagram from '../../../shared/assets/instagram.svg';
 import roteToImage from '../../../shared/assets/route-to.svg';
@@ -16,72 +18,29 @@ interface PlaceCardProps {
 }
 
 export const PlaceCard = ({ properties, coordinates }: PlaceCardProps) => {
-  const { id, averageRating } = properties;
-  const { setCurrentSelectedPlaceId } = useDetailedCard();
-
   const { setLocation } = useContext(LocationContext);
-  // toglle favorite
+  const { setCurrentSelectedPlaceId } = useDetailedCard();
+  const { toggleFavorite } = useToggleFavorite();
 
-  // interface FavoriteActionResult {
-  //   success: boolean;
-  //   message: string | null;
-  //   requiresAuth: boolean;
-  //   place: PlaceResponse | null;
-  // }§
+  const [isFavorite, setIsFavorite] = useState(properties.isFavorite);
 
-  // interface ToggleFavoriteMutationData {
-  //   toggleFavorite: FavoriteActionResult;
-  // }
-
-  // interface ToggleFavoriteMutationVariables {
-  //   placeId: string;
-  // }
-
-  // const [toggleFavorite, { loading }] = useMutation<ToggleFavoriteMutationData, ToggleFavoriteMutationVariables>(
-  //   TOGGLE_FAVORITE,
-  //   {
-  //     onCompleted: (data) => {
-  //       // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-  //       if (data?.toggleFavorite) {
-  //         if (data.toggleFavorite.requiresAuth) {
-  //           alert(data.toggleFavorite.message ?? 'Authentication required');
-  //         } else if (!data.toggleFavorite.success) {
-  //           console.error('Failed to toggle favorite:', data.toggleFavorite.message);
-  //         }
-  //       }
-  //     },
-  //     onError: (error) => {
-  //       console.error('Error toggling favorite:', error);
-  //     },
-  //   },
-  // );
-
-  // const handleToggle = async () => {
-  //   await toggleFavorite({
-  //     variables: { placeId: id },
-  //     update: (cache, { data }) => {
-  //       if (data?.toggleFavorite.success && data.toggleFavorite.place) {
-  //         cache.modify({
-  //           id: cache.identify({ __typename: 'Place', id }),
-  //           fields: {
-  //             isFavorite: () => data.toggleFavorite.place!.isFavorite,
-  //             favoriteCount: () => data.toggleFavorite.place!.favoriteCount,
-  //           },
-  //         });
-  //       }
-  //     },
-  //   });
-  // };
-
-  // toglle favorite
-
-  /// /////test
+  const handleToggleFavorite = async () => {
+    try {
+      const result = await toggleFavorite(properties.id);
+      if (result) {
+        setIsFavorite(result.isFavorite);
+        // setFavoriteCount(result.favoriteCount);
+      }
+    } catch (error) {
+      console.error('Error toggling favorite:', error);
+    }
+  };
 
   return (
     <>
       <div
         onClick={() => {
-          setCurrentSelectedPlaceId(id);
+          setCurrentSelectedPlaceId(properties.id);
         }}
         className={`${cls.placeCard} `}
       >
@@ -92,7 +51,7 @@ export const PlaceCard = ({ properties, coordinates }: PlaceCardProps) => {
           <div className={cls.cardHeader}>
             <h4
               onClick={() => {
-                setCurrentSelectedPlaceId(id);
+                setCurrentSelectedPlaceId(properties.id);
               }}
               className={cls.name}
             >
@@ -109,6 +68,24 @@ export const PlaceCard = ({ properties, coordinates }: PlaceCardProps) => {
               >
                 <img className={cls.icon} src={instagram} alt="" />
               </a>
+              <div
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
+                className={cls.icon}
+              >
+                <AddToFavButton handleFavoriteToggle={handleToggleFavorite} isFavorite={isFavorite} />
+              </div>
+            </div>
+          </div>
+          <div className={cls.rating}>
+            <RatingWidget isClickable={false} rating={properties.averageRating} id={properties.id} />{' '}
+            {Boolean(properties.averageRating) && properties.averageRating}
+          </div>
+          <div className={cls.description}>{properties.description}</div>
+          <div className={cls.address}>
+            <p>{properties.address}</p>
+            <div className={cls.iconsGroup}>
               <a
                 onClick={(e) => {
                   e.stopPropagation();
@@ -133,12 +110,6 @@ export const PlaceCard = ({ properties, coordinates }: PlaceCardProps) => {
               </a>
             </div>
           </div>
-          <div className={cls.rating}>
-            <RatingWidget isClickable={false} rating={averageRating} id={id} />{' '}
-            {Boolean(averageRating) && averageRating}
-          </div>
-          <div className={cls.description}>{properties.description}</div>
-          <div className={cls.address}>{properties.address}</div>
         </div>
       </div>
     </>

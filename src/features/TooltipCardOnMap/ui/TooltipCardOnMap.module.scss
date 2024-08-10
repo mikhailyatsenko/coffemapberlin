@@ -1,7 +1,7 @@
 .TooltipCardOnMap {
   display: flex;
   flex-shrink: 0;
-  width: 300px;
+  width: 320px;
   background: #fff;
   min-height: 80px;
   border-radius: 10px;
@@ -14,7 +14,7 @@
 
   .image {
     flex-shrink: 0;
-    width: 140px;
+    width: 100px;
     min-height: 100%;
     position: relative;
     overflow: hidden;

@@ -4,7 +4,7 @@ import { ReviewForm } from 'entities/ReviewForm';
 import { type Review } from 'shared/types';
 import RatingWidget from 'shared/ui/RatingWidget/ui/RatingWidget';
 import { RegularButton } from 'shared/ui/RegularButton';
-import { useReview } from '../api/interactions/useReview';
+import { useReview } from '../../../shared/lib/hooks/interactions/useReview';
 import cls from './RateNow.module.scss';
 
 interface RateNowProps {

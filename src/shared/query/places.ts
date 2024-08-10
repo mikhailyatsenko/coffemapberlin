@@ -59,14 +59,9 @@ export const GET_ALL_PLACES = gql`
 export const TOGGLE_FAVORITE = gql`
   mutation ToggleFavorite($placeId: ID!) {
     toggleFavorite(placeId: $placeId) {
-      success
-      message
-      requiresAuth
-      place {
-        id
-        isFavorite
-        favoriteCount
-      }
+      id
+      isFavorite
+      favoriteCount
     }
   }
 `;
