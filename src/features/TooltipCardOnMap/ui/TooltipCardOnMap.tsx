@@ -26,6 +26,9 @@ export const TooltipCardOnMap = ({ properties, coordinates }: TooltipCardOnMapPr
     try {
       const result = await toggleFavorite(properties.id);
       if (result) {
+        if (navigator.vibrate) {
+          navigator.vibrate(10);
+        }
         setIsFavorite(result.isFavorite);
         // setFavoriteCount(result.favoriteCount);
       }
