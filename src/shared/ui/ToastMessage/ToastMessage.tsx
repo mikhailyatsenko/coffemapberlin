@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-import { createPortal } from "react-dom";
-import cls from "./ToastMessage.module.scss";
+import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
+import cls from './ToastMessage.module.scss';
 
 interface ToastMessageProps {
   message?: string;
@@ -23,10 +23,10 @@ const ToastMessage = ({ message }: ToastMessageProps) => {
     }
   }, [message]);
   return createPortal(
-    <div className={`${cls.ToastMessage} ${isVisible ? cls.show : ""}`} data-testid="toast">
+    <div className={`${cls.ToastMessage} ${isVisible ? cls.show : ''}`} data-testid="toast">
       <div>{message}</div>
     </div>,
-    document.body
+    document.body,
   );
 };
 

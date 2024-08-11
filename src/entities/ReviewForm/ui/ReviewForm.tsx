@@ -29,7 +29,6 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({ onSubmit, isLoading, onB
   } = form;
 
   const handleFormSubmit: SubmitHandler<ReviewFormData> = (data) => {
-    console.log(data);
     if (data.review.trim()) {
       onSubmit(data.review);
       reset();
@@ -37,8 +36,6 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({ onSubmit, isLoading, onB
   };
 
   if (isLoading) return <Loader />;
-
-  console.log(errors.review?.message, 'errors');
 
   return (
     <FormProvider {...form}>
