@@ -7,11 +7,25 @@
   padding: 8px;
   background-color: rgba(0, 0, 0, 0.062);
   z-index: 10;
-  @media (width <= 767px) {
-    padding: 2px;
-    .detailsContainer {
-      height: calc(100dvh - 64px);
-    }
+}
+
+.addressCopmactView {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  padding-left: 20px;
+  line-height: 60px;
+  height: 60px;
+  min-width: 200px;
+  background-color: #fafafa;
+  font-weight: 200;
+  font-size: 16px;
+  font-style: italic;
+
+  z-index: 21;
+  @media (width >= 501px) {
+    display: none;
   }
 }
 
@@ -30,12 +44,14 @@
   padding: 20px;
   animation: ease-out 0.3s fadeIn;
   z-index: 11;
+
   .name {
-    margin-top: 16px;
+    margin-top: 18px;
     color: #fff;
   }
   .address {
     position: absolute;
+    display: block;
     top: 8px;
     left: 16px;
     line-height: 28px;
@@ -44,6 +60,9 @@
     font-size: 12px;
     font-style: italic;
     text-shadow: 1px 0px #303030;
+    @media (max-width: 500px) {
+      display: none;
+    }
   }
 
   @media (width <= 767px) {
@@ -65,6 +84,69 @@
 
 .detailsContent {
   position: relative;
+}
+
+.iconsRow {
+  position: absolute;
+  top: 8px;
+  right: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 12px;
+  .iconFavWrapper {
+    cursor: pointer;
+    background-color: #f6f6f6;
+    height: 28px;
+    width: 28px;
+    padding: 8px;
+    border-radius: 50%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.18) 0px 0.5px 1.5px;
+    transition: background-color 0.2s;
+    &:hover,
+    &:active {
+      background-color: #fff;
+    }
+  }
+
+  .viewInstagramButton {
+    color: #fafafa;
+    font-weight: 200;
+    border: 1px solid white;
+    border-radius: 30px;
+    padding: 0 10px;
+    height: 28px;
+    background: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: color 0.3s ease;
+    width: fit-content;
+    z-index: 13;
+    &:hover,
+    &:active {
+      color: #fafafa;
+      border-color: #fafafa;
+      transform: scale(0.99);
+    }
+
+    &:focus {
+      outline: none;
+    }
+    &.darkColor {
+      color: #303030;
+      border-color: #303030;
+    }
+  }
+  @media (width <= 500px) {
+    right: initial;
+    left: 12px;
+  }
 }
 
 .closeButton {
@@ -113,39 +195,5 @@
 
   &::after {
     transform: rotate(-45deg);
-  }
-}
-
-.viewInstagramButton {
-  position: absolute;
-  top: 8px;
-  right: 48px;
-  color: #fafafa;
-  font-weight: 200;
-  border: 1px solid white;
-  border-radius: 30px;
-  padding: 0 10px;
-  height: 28px;
-  background: none;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: color 0.3s ease;
-  width: fit-content;
-  z-index: 13;
-  &:hover,
-  &:active {
-    color: #fafafa;
-    border-color: #fafafa;
-    transform: scale(0.99);
-  }
-
-  &:focus {
-    outline: none;
-  }
-  &.darkColor {
-    color: #303030;
-    border-color: #303030;
   }
 }

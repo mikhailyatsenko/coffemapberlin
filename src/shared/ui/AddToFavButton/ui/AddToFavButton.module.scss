@@ -12,8 +12,8 @@
   text-align: center;
   */
   color: #787878;
-  height: 100%;
-  width: 100%;
+  min-height: 16px;
+  min-width: 16px;
   &.filled {
     background-image: url('../icons/favorite-filled.svg');
   }

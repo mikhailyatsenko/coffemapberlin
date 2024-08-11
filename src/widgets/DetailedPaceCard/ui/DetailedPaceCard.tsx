@@ -4,8 +4,10 @@ import { LocationContext } from 'app/providers/LocationProvider/lib/LocationCont
 import { RateNow } from 'features/RateNow';
 import { ReviewList } from 'features/ReviewList';
 import { HeaderDetailedPlacCard } from 'entities/HeaderDetailedPlacCard';
+import { useToggleFavorite } from 'shared/lib/hooks/interactions/useToggleFavorite';
 import { GET_ALL_PLACES, GET_PLACE_DETAILS } from 'shared/query/places';
 import { type PlaceResponse } from 'shared/types';
+import { AddToFavButton } from 'shared/ui/AddToFavButton';
 import { InstagramEmbedProfile } from 'shared/ui/InstagramEmbed';
 import { Loader } from 'shared/ui/Loader';
 import { PortalToBody } from 'shared/ui/Portals/PortalToBody';
@@ -24,6 +26,8 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ onClose, pla
 
   const detailedCardRef = useRef<HTMLDivElement>(null);
 
+  const { toggleFavorite } = useToggleFavorite();
+
   const { data: allPlacesData } = useQuery<{ places: PlaceResponse[] }>(GET_ALL_PLACES);
   const { data: placeDetailsData, loading } = useQuery<PlaceDetailsData>(GET_PLACE_DETAILS, {
     variables: { placeId },
@@ -31,6 +35,23 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ onClose, pla
 
   const place = allPlacesData?.places.find((p) => p.properties.id === placeId);
   const reviews = placeDetailsData?.placeDetails.reviews ?? [];
+
+  const [isFavorite, setIsFavorite] = useState(place?.properties.isFavorite);
+
+  const handleToggleFavorite = async () => {
+    try {
+      const result = await toggleFavorite(placeId);
+      if (result) {
+        if (navigator.vibrate) {
+          navigator.vibrate(10);
+        }
+        setIsFavorite(result.isFavorite);
+        // setFavoriteCount(result.favoriteCount);
+      }
+    } catch (error) {
+      console.error('Error toggling favorite:', error);
+    }
+  };
 
   useEffect(() => {
     if (place?.geometry.coordinates && setLocation) {
@@ -57,6 +78,7 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ onClose, pla
 
   return (
     <PortalToBody>
+      <div className={cls.addressCopmactView}>{address}</div>
       <div onClick={onClose} className={cls.backDrop}>
         <div
           onClick={(e) => {
@@ -65,29 +87,40 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ onClose, pla
           ref={detailedCardRef}
           className={cls.detailsContainer}
         >
-          <InstagramEmbedProfile normalView={isViewInstProfile} username={instagram} />
-          <button
-            className={`${cls.viewInstagramButton} ${isViewInstProfile ? cls.darkColor : ''}`}
-            onClick={() => {
-              setIsViewInstProfile((prev) => !prev);
-            }}
-          >
-            {isViewInstProfile ? 'Back to place info' : 'View Instagram'}
-          </button>
           <p className={cls.address}>{address}</p>
+
+          <InstagramEmbedProfile normalView={isViewInstProfile} username={instagram} />
+
           <button className={cls.closeButton} onClick={onClose}></button>
+          <div className={cls.iconsRow}>
+            <div
+              title={isFavorite ? 'Remove this place from favorites' : 'Add this place to favorites'}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleToggleFavorite();
+              }}
+              className={cls.iconFavWrapper}
+            >
+              <AddToFavButton isFavorite={Boolean(isFavorite)} />
+            </div>
+            <button
+              className={`${cls.viewInstagramButton} ${isViewInstProfile ? cls.darkColor : ''}`}
+              onClick={() => {
+                setIsViewInstProfile((prev) => !prev);
+              }}
+            >
+              {isViewInstProfile ? 'Back to place info' : 'View Instagram'}
+            </button>
+          </div>
 
           <h2 className={cls.name}>{name}</h2>
-
           <HeaderDetailedPlacCard
             averageRating={averageRating}
             description={description}
             placeId={placeId}
             isHeaderVisible={isHeaderVisible}
           />
-
           <RateNow placeId={placeId} reviews={reviews} />
-
           <ReviewList
             reviews={reviews}
             placeId={placeId}

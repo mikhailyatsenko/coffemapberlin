@@ -36,6 +36,7 @@ export const TooltipCardOnMap = ({ properties, coordinates }: TooltipCardOnMapPr
       console.error('Error toggling favorite:', error);
     }
   };
+
   return (
     <div className={cls.TooltipCardOnMap}>
       <div
@@ -81,6 +82,7 @@ export const TooltipCardOnMap = ({ properties, coordinates }: TooltipCardOnMapPr
             href={'https://www.instagram.com/' + instagram}
             target="_blank"
             rel="noreferrer"
+            title="Open the place's Instagram profile"
           >
             <img className={cls.icon} src={instagramIcon} alt="" />
           </a>
@@ -92,6 +94,7 @@ export const TooltipCardOnMap = ({ properties, coordinates }: TooltipCardOnMapPr
             href={`https://www.google.com/maps/dir/?api=1&destination=${coordinates[1]},${coordinates[0]}&travelmode=walking`}
             target="_blank"
             rel="noreferrer"
+            title="Get directions on Google Maps"
           >
             <img className={cls.icon} src={routeToIcon} alt="" />
           </a>
@@ -101,6 +104,7 @@ export const TooltipCardOnMap = ({ properties, coordinates }: TooltipCardOnMapPr
               handleToggleFavorite();
             }}
             className={cls.iconWrapper}
+            title={isFavorite ? 'Remove this place from favorites' : 'Add this place to favorites'}
           >
             <AddToFavButton isFavorite={isFavorite} />
           </div>

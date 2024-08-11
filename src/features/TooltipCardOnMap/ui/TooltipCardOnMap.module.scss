@@ -111,6 +111,9 @@
     &:hover,
     &:active {
       background-color: #fff;
+      .icon {
+        filter: none;
+      }
     }
   }
 }

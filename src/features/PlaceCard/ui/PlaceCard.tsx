@@ -62,6 +62,7 @@ export const PlaceCard = ({ properties, coordinates }: PlaceCardProps) => {
             </h4>
             <div className={cls.iconsGroup}>
               <div
+                title={isFavorite ? 'Remove this place from favorites' : 'Add this place to favorites'}
                 onClick={(e) => {
                   e.stopPropagation();
                   handleToggleFavorite();
@@ -88,6 +89,7 @@ export const PlaceCard = ({ properties, coordinates }: PlaceCardProps) => {
                 href={'https://www.instagram.com/' + properties.instagram}
                 target="_blank"
                 rel="noreferrer"
+                title="Open the place's Instagram profile"
               >
                 <img className={cls.icon} src={instagram} alt="" />
               </a>
@@ -101,6 +103,7 @@ export const PlaceCard = ({ properties, coordinates }: PlaceCardProps) => {
                   }
                 }}
                 rel="noreferrer"
+                title="Show location on the map"
                 className={cls.iconWrapper}
               >
                 <img className={cls.icon} src={showPlacePointOnMap} alt="" />
@@ -113,6 +116,7 @@ export const PlaceCard = ({ properties, coordinates }: PlaceCardProps) => {
                 href={`https://www.google.com/maps/dir/?api=1&destination=${coordinates[1]},${coordinates[0]}&travelmode=walking`}
                 target="_blank"
                 rel="noreferrer"
+                title="Get directions on Google Maps"
                 className={cls.iconWrapper}
               >
                 <img className={cls.icon} src={roteToImage} alt="" />
