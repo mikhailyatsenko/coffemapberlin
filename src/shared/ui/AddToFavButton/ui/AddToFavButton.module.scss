@@ -1,18 +1,19 @@
 .AddToFavButton {
   position: relative;
+  top: 0.5px;
   background-image: url('../icons/favorite-empty.svg');
   background-repeat: no-repeat;
   background-position: center;
+  background-size: 16px;
   /*
-  background-size: 20px;
   display: flex;
   justify-content: flex-end;
   flex-direction: column;
   text-align: center;
   */
   color: #787878;
-  height: 20px;
-  width: 20px;
+  height: 100%;
+  width: 100%;
   &.filled {
     background-image: url('../icons/favorite-filled.svg');
   }

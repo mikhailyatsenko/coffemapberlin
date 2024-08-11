@@ -59,6 +59,7 @@ export const PlaceCard = ({ properties, coordinates }: PlaceCardProps) => {
             </h4>
             <div className={cls.iconsGroup}>
               <a
+                className={cls.iconWrapper}
                 onClick={(e) => {
                   e.stopPropagation();
                 }}
@@ -72,7 +73,7 @@ export const PlaceCard = ({ properties, coordinates }: PlaceCardProps) => {
                 onClick={(e) => {
                   e.stopPropagation();
                 }}
-                className={cls.icon}
+                className={cls.iconWrapper}
               >
                 <AddToFavButton handleFavoriteToggle={handleToggleFavorite} isFavorite={isFavorite} />
               </div>
@@ -93,6 +94,7 @@ export const PlaceCard = ({ properties, coordinates }: PlaceCardProps) => {
                 href={`https://www.google.com/maps/dir/?api=1&destination=${coordinates[1]},${coordinates[0]}&travelmode=walking`}
                 target="_blank"
                 rel="noreferrer"
+                className={cls.iconWrapper}
               >
                 <img className={cls.icon} src={roteToImage} alt="" />
               </a>
@@ -105,6 +107,7 @@ export const PlaceCard = ({ properties, coordinates }: PlaceCardProps) => {
                   }
                 }}
                 rel="noreferrer"
+                className={cls.iconWrapper}
               >
                 <img className={cls.icon} src={showPlacePointOnMap} alt="" />
               </a>
