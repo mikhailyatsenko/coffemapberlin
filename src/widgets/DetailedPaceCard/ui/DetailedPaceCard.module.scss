@@ -94,6 +94,7 @@
   align-items: center;
   justify-content: end;
   gap: 12px;
+  z-index: 13;
   .iconFavWrapper {
     cursor: pointer;
     background-color: #f6f6f6;
@@ -107,6 +108,7 @@
     align-items: center;
     box-shadow: rgba(0, 0, 0, 0.18) 0px 0.5px 1.5px;
     transition: background-color 0.2s;
+
     &:hover,
     &:active {
       background-color: #fff;
@@ -127,7 +129,7 @@
     align-items: center;
     transition: color 0.3s ease;
     width: fit-content;
-    z-index: 13;
+
     &:hover,
     &:active {
       color: #fafafa;
@@ -145,7 +147,7 @@
   }
   @media (width <= 500px) {
     right: initial;
-    left: 12px;
+    left: 16px;
   }
 }
 
