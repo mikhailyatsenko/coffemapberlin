@@ -44,20 +44,6 @@
       .name {
         cursor: pointer;
       }
-      .iconsGroup {
-        display: flex;
-        margin-right: 10px;
-        .icon {
-          cursor: pointer;
-          height: 20px;
-          width: 20px;
-          margin-left: 10px;
-          transition: filter 0.2s;
-          &:hover {
-            transform: scale(0.97);
-          }
-        }
-      }
       .rating {
         display: flex;
         align-items: center;
@@ -77,18 +63,54 @@
     }
     .moreButton {
       cursor: pointer;
-      align-self: center;
       font-weight: 200;
-      margin-top: 4px;
       color: #ff4b34;
       font-size: 12px;
       line-height: 1;
-      padding: 4px 6px;
-      border-radius: 4px;
+      background-color: #f6f6f6;
+      height: 28px;
+      padding: 8px;
+      border-radius: 15px;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      box-shadow: rgba(0, 0, 0, 0.18) 0px 0.5px 1.5px;
+      transition: background-color 0.2s;
       &:hover,
       &:active {
-        font-weight: 400;
+        background-color: #fff;
       }
+    }
+  }
+}
+
+.iconsGroup {
+  display: flex;
+  margin: 0 auto;
+  gap: 8px;
+  .iconWrapper {
+    cursor: pointer;
+    background-color: #f6f6f6;
+    height: 28px;
+    width: 28px;
+    padding: 8px;
+    border-radius: 50%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.18) 0px 0.5px 1.5px;
+    transition: background-color 0.2s;
+    .icon {
+      max-height: 100%;
+      max-width: 100%;
+      filter: grayscale(25%);
+    }
+    &:hover,
+    &:active {
+      background-color: #fff;
     }
   }
 }

@@ -86,7 +86,7 @@
   margin-left: auto;
   margin-right: 4px;
   .iconWrapper {
-    background-color: #fbfbfb;
+    background-color: #f6f6f6;
     height: 30px;
     width: 30px;
     margin-left: 10px;
@@ -98,14 +98,15 @@
     justify-content: center;
     align-items: center;
     overflow: hidden; /* Прячет все, что выходит за пределы круга */
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 0.5px 1.5px;
+    box-shadow: rgba(0, 0, 0, 0.18) 0px 0.5px 1.5px;
     transition: background-color 0.2s;
     .icon {
       max-height: 100%; /* Иконка будет масштабироваться, сохраняя свои пропорции */
       max-width: 100%;
       filter: grayscale(25%); /* Применяет фильтр к изображению */
     }
-    &:hover {
+    &:hover,
+    &:active {
       background-color: #fff;
     }
   }

@@ -58,24 +58,14 @@ export const PlaceCard = ({ properties, coordinates }: PlaceCardProps) => {
               {properties.name}
             </h4>
             <div className={cls.iconsGroup}>
-              <a
-                className={cls.iconWrapper}
-                onClick={(e) => {
-                  e.stopPropagation();
-                }}
-                href={'https://www.instagram.com/' + properties.instagram}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <img className={cls.icon} src={instagram} alt="" />
-              </a>
               <div
                 onClick={(e) => {
                   e.stopPropagation();
+                  handleToggleFavorite();
                 }}
                 className={cls.iconWrapper}
               >
-                <AddToFavButton handleFavoriteToggle={handleToggleFavorite} isFavorite={isFavorite} />
+                <AddToFavButton isFavorite={isFavorite} />
               </div>
             </div>
           </div>
@@ -88,16 +78,17 @@ export const PlaceCard = ({ properties, coordinates }: PlaceCardProps) => {
             <p>{properties.address}</p>
             <div className={cls.iconsGroup}>
               <a
+                className={cls.iconWrapper}
                 onClick={(e) => {
                   e.stopPropagation();
                 }}
-                href={`https://www.google.com/maps/dir/?api=1&destination=${coordinates[1]},${coordinates[0]}&travelmode=walking`}
+                href={'https://www.instagram.com/' + properties.instagram}
                 target="_blank"
                 rel="noreferrer"
-                className={cls.iconWrapper}
               >
-                <img className={cls.icon} src={roteToImage} alt="" />
+                <img className={cls.icon} src={instagram} alt="" />
               </a>
+
               <a
                 onClick={(e) => {
                   e.stopPropagation();
@@ -110,6 +101,18 @@ export const PlaceCard = ({ properties, coordinates }: PlaceCardProps) => {
                 className={cls.iconWrapper}
               >
                 <img className={cls.icon} src={showPlacePointOnMap} alt="" />
+              </a>
+
+              <a
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
+                href={`https://www.google.com/maps/dir/?api=1&destination=${coordinates[1]},${coordinates[0]}&travelmode=walking`}
+                target="_blank"
+                rel="noreferrer"
+                className={cls.iconWrapper}
+              >
+                <img className={cls.icon} src={roteToImage} alt="" />
               </a>
             </div>
           </div>

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import cls from './AddToFavButton.module.scss';
 
 interface AddToFavButtonProps {
-  handleFavoriteToggle: () => void;
+  handleFavoriteToggle?: () => void;
   isFavorite: boolean;
 }
 
@@ -11,7 +11,7 @@ export const AddToFavButton = ({ handleFavoriteToggle, isFavorite }: AddToFavBut
 
   const handleClick = () => {
     setIsAnimating(true);
-    handleFavoriteToggle();
+    if (handleFavoriteToggle) handleFavoriteToggle();
   };
 
   useEffect(() => {
