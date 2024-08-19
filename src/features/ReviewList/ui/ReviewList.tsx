@@ -1,6 +1,5 @@
-import { useMutation } from '@apollo/client';
 import { useCallback, useEffect, useRef } from 'react';
-import { DELETE_REVIEW, GET_PLACE_DETAILS } from 'shared/query/places';
+import { useDeleteReview } from 'shared/lib/hooks/interactions/useDeleteReview';
 import { type Review } from 'shared/types';
 import { ReviewCard } from 'shared/ui/ReviewCard';
 import { sortReviews } from '../lib/sortReviews';
@@ -14,24 +13,9 @@ interface ReviewListProps {
 }
 
 export const ReviewList = ({ reviews, placeId, isCompactView, setCompactView }: ReviewListProps) => {
-  const [deleteReview] = useMutation(DELETE_REVIEW, {
-    refetchQueries: [{ query: GET_PLACE_DETAILS, variables: { placeId } }],
-  });
-
   const reviewsListRef = useRef<HTMLDivElement>(null);
 
-  const handleDeleteReview = async (reviewId: string) => {
-    try {
-      const { data } = await deleteReview({ variables: { reviewId } });
-      if (data.deleteReview.success) {
-        console.log(data.deleteReview.message);
-      } else {
-        console.error(data.deleteReview.message);
-      }
-    } catch (err) {
-      console.error('Error deleting review:', err);
-    }
-  };
+  const { handleDeleteReview } = useDeleteReview(placeId);
 
   const handleScrollReviewsDown = useCallback(() => {
     if (reviewsListRef.current && isCompactView) {

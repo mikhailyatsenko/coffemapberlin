@@ -24,7 +24,6 @@ const RatingWidget: React.FC<RatingProps> = ({ rating, handleRating, isClickable
   const handleClick = (index: number) => {
     if (handleRating) {
       handleRating(undefined, index + 1);
-      console.log('set rating', index + 1);
     }
   };
 

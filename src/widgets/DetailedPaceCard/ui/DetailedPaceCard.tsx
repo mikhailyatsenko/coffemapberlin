@@ -11,7 +11,7 @@ import { AddToFavButton } from 'shared/ui/AddToFavButton';
 import { InstagramEmbedProfile } from 'shared/ui/InstagramEmbed';
 import { Loader } from 'shared/ui/Loader';
 import { PortalToBody } from 'shared/ui/Portals/PortalToBody';
-import { type PlaceDetailsData } from '../../../shared/lib/hooks/interactions/useReview';
+import { type PlaceDetailsData } from '../../../shared/lib/hooks/interactions/useAddReview';
 import cls from './DetailedPaceCard.module.scss';
 
 interface DetailedPaceCardProps {
@@ -26,27 +26,20 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ onClose, pla
 
   const detailedCardRef = useRef<HTMLDivElement>(null);
 
-  const { toggleFavorite } = useToggleFavorite();
+  const { toggleFavorite } = useToggleFavorite(placeId);
 
   const { data: allPlacesData } = useQuery<{ places: PlaceResponse[] }>(GET_ALL_PLACES);
   const { data: placeDetailsData, loading } = useQuery<PlaceDetailsData>(GET_PLACE_DETAILS, {
     variables: { placeId },
   });
-
   const place = allPlacesData?.places.find((p) => p.properties.id === placeId);
   const reviews = placeDetailsData?.placeDetails.reviews ?? [];
 
-  const [isFavorite, setIsFavorite] = useState(place?.properties.isFavorite);
-
   const handleToggleFavorite = async () => {
     try {
-      const result = await toggleFavorite(placeId);
-      if (result) {
-        if (navigator.vibrate) {
-          navigator.vibrate(10);
-        }
-        setIsFavorite(result.isFavorite);
-        // setFavoriteCount(result.favoriteCount);
+      await toggleFavorite();
+      if (navigator.vibrate) {
+        navigator.vibrate(10);
       }
     } catch (error) {
       console.error('Error toggling favorite:', error);
@@ -75,7 +68,6 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ onClose, pla
   if (!place?.properties || loading) return <Loader />;
 
   const { averageRating, description, name, address, instagram } = place.properties;
-
   return (
     <PortalToBody>
       <div className={cls.addressCopmactView}>{address}</div>
@@ -94,14 +86,14 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ onClose, pla
           <button className={cls.closeButton} onClick={onClose}></button>
           <div className={cls.iconsRow}>
             <div
-              title={isFavorite ? 'Remove this place from favorites' : 'Add this place to favorites'}
-              onClick={(e) => {
+              title={place.properties.isFavorite ? 'Remove this place from favorites' : 'Add this place to favorites'}
+              onClick={async (e) => {
                 e.stopPropagation();
-                handleToggleFavorite();
+                await handleToggleFavorite();
               }}
               className={cls.iconFavWrapper}
             >
-              <AddToFavButton isFavorite={Boolean(isFavorite)} />
+              <AddToFavButton isFavorite={Boolean(place.properties.isFavorite)} />
             </div>
             <button
               className={`${cls.viewInstagramButton} ${isViewInstProfile ? cls.darkColor : ''}`}

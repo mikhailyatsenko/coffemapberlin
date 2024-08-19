@@ -1,10 +1,12 @@
 import { type Position } from 'geojson';
+// import { useState } from 'react';
 import { useState } from 'react';
 import { useDetailedCard } from 'app/providers/DetailedCardProvider';
 import { useToggleFavorite } from 'shared/lib/hooks/interactions/useToggleFavorite';
 import { type PlaceProperties } from 'shared/types';
 import { AddToFavButton } from 'shared/ui/AddToFavButton';
 import RatingWidget from 'shared/ui/RatingWidget/ui/RatingWidget';
+// import Toast from 'shared/ui/ToastMessage/Toast';
 import instagramIcon from '../../../shared/assets/instagram.svg';
 import routeToIcon from '../../../shared/assets/route-to.svg';
 import cls from './TooltipCardOnMap.module.scss';
@@ -18,19 +20,13 @@ export const TooltipCardOnMap = ({ properties, coordinates }: TooltipCardOnMapPr
   const { id, averageRating, name, address, instagram, image } = properties;
   const { setCurrentSelectedPlaceId } = useDetailedCard();
 
-  const { toggleFavorite } = useToggleFavorite();
-
-  const [isFavorite, setIsFavorite] = useState(properties.isFavorite);
+  const { toggleFavorite } = useToggleFavorite(id);
 
   const handleToggleFavorite = async () => {
     try {
-      const result = await toggleFavorite(properties.id);
-      if (result) {
-        if (navigator.vibrate) {
-          navigator.vibrate(10);
-        }
-        setIsFavorite(result.isFavorite);
-        // setFavoriteCount(result.favoriteCount);
+      await toggleFavorite();
+      if (navigator.vibrate) {
+        navigator.vibrate(10);
       }
     } catch (error) {
       console.error('Error toggling favorite:', error);
@@ -104,12 +100,13 @@ export const TooltipCardOnMap = ({ properties, coordinates }: TooltipCardOnMapPr
               handleToggleFavorite();
             }}
             className={cls.iconWrapper}
-            title={isFavorite ? 'Remove this place from favorites' : 'Add this place to favorites'}
+            title={properties.isFavorite ? 'Remove this place from favorites' : 'Add this place to favorites'}
           >
-            <AddToFavButton isFavorite={isFavorite} />
+            <AddToFavButton isFavorite={properties.isFavorite} />
           </div>
         </div>
       </div>
+      {/* {toastMessage && <Toast message={toastMessage} />} */}
     </div>
   );
 };

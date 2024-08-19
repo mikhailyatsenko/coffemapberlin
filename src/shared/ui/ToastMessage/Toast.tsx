@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import cls from './ToastMessage.module.scss';
 
-interface ToastMessageProps {
+interface ToastProps {
   message?: string;
 }
 
-const ToastMessage = ({ message }: ToastMessageProps) => {
+const Toast = ({ message }: ToastProps) => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -30,4 +30,4 @@ const ToastMessage = ({ message }: ToastMessageProps) => {
   );
 };
 
-export default ToastMessage;
+export default Toast;

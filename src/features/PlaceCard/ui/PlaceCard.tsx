@@ -1,5 +1,5 @@
 import { type Position } from 'geojson';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { useDetailedCard } from 'app/providers/DetailedCardProvider';
 import { LocationContext } from 'app/providers/LocationProvider/lib/LocationContext';
 import { useToggleFavorite } from 'shared/lib/hooks/interactions/useToggleFavorite';
@@ -7,6 +7,7 @@ import LazyImage from 'shared/lib/LazyImage/LazyImage';
 import { type PlaceProperties } from 'shared/types';
 import { AddToFavButton } from 'shared/ui/AddToFavButton';
 import RatingWidget from 'shared/ui/RatingWidget/ui/RatingWidget';
+// import Toast from 'shared/ui/ToastMessage/Toast';
 import instagram from '../../../shared/assets/instagram.svg';
 import roteToImage from '../../../shared/assets/route-to.svg';
 import showPlacePointOnMap from '../../../shared/assets/show-on-map.svg';
@@ -20,19 +21,13 @@ interface PlaceCardProps {
 export const PlaceCard = ({ properties, coordinates }: PlaceCardProps) => {
   const { setLocation } = useContext(LocationContext);
   const { setCurrentSelectedPlaceId } = useDetailedCard();
-  const { toggleFavorite } = useToggleFavorite();
-
-  const [isFavorite, setIsFavorite] = useState(properties.isFavorite);
+  const { toggleFavorite } = useToggleFavorite(properties.id);
 
   const handleToggleFavorite = async () => {
     try {
-      const result = await toggleFavorite(properties.id);
-      if (result) {
-        if (navigator.vibrate) {
-          navigator.vibrate(10);
-        }
-        setIsFavorite(result.isFavorite);
-        // setFavoriteCount(result.favoriteCount);
+      await toggleFavorite();
+      if (navigator.vibrate) {
+        navigator.vibrate(10);
       }
     } catch (error) {
       console.error('Error toggling favorite:', error);
@@ -62,14 +57,14 @@ export const PlaceCard = ({ properties, coordinates }: PlaceCardProps) => {
             </h4>
             <div className={cls.iconsGroup}>
               <div
-                title={isFavorite ? 'Remove this place from favorites' : 'Add this place to favorites'}
+                title={properties.isFavorite ? 'Remove this place from favorites' : 'Add this place to favorites'}
                 onClick={(e) => {
                   e.stopPropagation();
                   handleToggleFavorite();
                 }}
                 className={cls.iconWrapper}
               >
-                <AddToFavButton isFavorite={isFavorite} />
+                <AddToFavButton isFavorite={properties.isFavorite} />
               </div>
             </div>
           </div>
@@ -97,6 +92,19 @@ export const PlaceCard = ({ properties, coordinates }: PlaceCardProps) => {
               <a
                 onClick={(e) => {
                   e.stopPropagation();
+                }}
+                href={`https://www.google.com/maps/dir/?api=1&destination=${coordinates[1]},${coordinates[0]}&travelmode=walking`}
+                target="_blank"
+                rel="noreferrer"
+                title="Get directions on Google Maps"
+                className={cls.iconWrapper}
+              >
+                <img className={cls.icon} src={roteToImage} alt="" />
+              </a>
+
+              <a
+                onClick={(e) => {
+                  e.stopPropagation();
                   e.preventDefault();
                   if (coordinates && setLocation) {
                     setLocation(coordinates);
@@ -108,23 +116,11 @@ export const PlaceCard = ({ properties, coordinates }: PlaceCardProps) => {
               >
                 <img className={cls.icon} src={showPlacePointOnMap} alt="" />
               </a>
-
-              <a
-                onClick={(e) => {
-                  e.stopPropagation();
-                }}
-                href={`https://www.google.com/maps/dir/?api=1&destination=${coordinates[1]},${coordinates[0]}&travelmode=walking`}
-                target="_blank"
-                rel="noreferrer"
-                title="Get directions on Google Maps"
-                className={cls.iconWrapper}
-              >
-                <img className={cls.icon} src={roteToImage} alt="" />
-              </a>
             </div>
           </div>
         </div>
       </div>
+      {/* {toastMessage && <Toast message={toastMessage} />} */}
     </>
   );
 };

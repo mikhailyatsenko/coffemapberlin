@@ -22,8 +22,8 @@ export const LoadMap = ({ placesGeo }: LoadMapProps) => {
 
   type MyMapboxGeoJSONFeature = MapboxGeoJSONFeature & PlaceResponse;
 
-  const [popupData, setPopupData] = useState<PlaceProperties | null>(null);
-  const [selectedPacePosition, setSelectedPacePosition] = useState<Position | null>(null);
+  const [eventFeatureData, setEventFeatureData] = useState<MyMapboxGeoJSONFeature | null>(null);
+  const [tooltipCurrentData, setTooltipCurrentData] = useState<PlaceProperties | null>(null);
 
   const screenWidth = useWidth();
 
@@ -41,51 +41,61 @@ export const LoadMap = ({ placesGeo }: LoadMapProps) => {
   const onClick = (event: MapLayerMouseEvent) => {
     event.originalEvent.stopPropagation();
 
-    const feature = event.features?.[0] as MyMapboxGeoJSONFeature;
+    const featureFromEvent = event.features?.[0] as MyMapboxGeoJSONFeature;
 
-    if (!feature) {
-      setPopupData(null);
+    if (!featureFromEvent) {
+      setEventFeatureData(null);
       return;
     }
 
-    const {
-      properties,
-      geometry: { coordinates },
-    } = feature;
+    // const {
+    //   properties,
+    //   geometry: { coordinates },
+    // } = feature;
 
-    switch (feature?.layer?.id) {
+    switch (featureFromEvent?.layer?.id) {
       case 'clusters': {
-        const clusterId: number = feature.properties?.cluster_id;
+        const clusterId: number = featureFromEvent.properties?.cluster_id;
 
         const mapboxSource = mapRef.current!.getSource('places') as GeoJSONSource;
 
         mapboxSource.getClusterExpansionZoom(clusterId, (err: Error | null, zoom) => {
           if (!err) {
             mapRef?.current?.easeTo({
-              center: feature.geometry.coordinates as LngLatLike,
+              center: featureFromEvent.geometry.coordinates as LngLatLike,
               zoom,
               duration: 500,
             });
           }
         });
-        setPopupData(null);
+        setEventFeatureData(null);
         break;
       }
       case 'unclustered-point':
-        if (feature.geometry.type === 'Point') {
-          setPopupData(null);
+        if (featureFromEvent.geometry.type === 'Point') {
+          setEventFeatureData(null);
         }
         break;
       case 'place_title':
-        if (feature.geometry.type === 'Point') {
-          setPopupData(properties);
-          setSelectedPacePosition(coordinates);
+        if (featureFromEvent.geometry.type === 'Point') {
+          setEventFeatureData(featureFromEvent);
         }
         break;
       default:
         break;
     }
   };
+
+  useEffect(() => {
+    if (eventFeatureData?.properties) {
+      const currentData = placesGeo.features.find(
+        (propsFeature) => propsFeature.properties.id === eventFeatureData.properties.id,
+      );
+      if (currentData) {
+        setTooltipCurrentData(currentData.properties);
+      }
+    }
+  }, [eventFeatureData, placesGeo.features]);
 
   return (
     <>
@@ -119,18 +129,18 @@ export const LoadMap = ({ placesGeo }: LoadMapProps) => {
           <Layer {...unclusteredPointLayer} />
           <Layer {...namesLayer} />
         </Source>
-        {popupData && selectedPacePosition && (
+        {eventFeatureData && tooltipCurrentData && (
           <Popup
             closeButton={false}
             closeOnClick={false}
             anchor="top"
-            longitude={Number(selectedPacePosition[0])}
-            latitude={Number(selectedPacePosition[1])}
+            longitude={Number(eventFeatureData.geometry.coordinates[0])}
+            latitude={Number(eventFeatureData.geometry.coordinates[1])}
             onClose={() => {
-              setPopupData(null);
+              setEventFeatureData(null);
             }}
           >
-            <TooltipCardOnMap properties={popupData} coordinates={selectedPacePosition} />
+            <TooltipCardOnMap properties={tooltipCurrentData} coordinates={eventFeatureData.geometry.coordinates} />
           </Popup>
         )}
         <NavigationControl position="bottom-right" />

@@ -4,7 +4,7 @@ import { ReviewForm } from 'entities/ReviewForm';
 import { type Review } from 'shared/types';
 import RatingWidget from 'shared/ui/RatingWidget/ui/RatingWidget';
 import { RegularButton } from 'shared/ui/RegularButton';
-import { useReview } from '../../../shared/lib/hooks/interactions/useReview';
+import { useAddReview } from '../../../shared/lib/hooks/interactions/useAddReview';
 import cls from './RateNow.module.scss';
 
 interface RateNowProps {
@@ -13,7 +13,7 @@ interface RateNowProps {
 }
 
 export const RateNow = ({ reviews, placeId }: RateNowProps) => {
-  const { handleAddReview, loading: reviewLoading } = useReview(placeId);
+  const { handleAddReview, loading: reviewLoading } = useAddReview(placeId);
 
   const [showReviewForm, setShowReviewForm] = useState(false);
 

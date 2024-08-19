@@ -1,6 +1,5 @@
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { useQuery } from '@apollo/client';
-import { useEffect, useState } from 'react';
 import { LoadMap } from 'features/LoadMap';
 import { GET_ALL_PLACES } from 'shared/query/places';
 import { type PlaceProperties, type PlaceResponse } from 'shared/types';
@@ -17,20 +16,29 @@ export interface PlacesDataWithGeo extends GeoJSON.FeatureCollection<GeoJSON.Geo
 export const MainMap = () => {
   const { data, loading, error } = useQuery<PlacesData>(GET_ALL_PLACES);
 
-  const [placesGeo, setPlacesGeo] = useState<undefined | PlacesDataWithGeo>(undefined);
+  // const [placesGeo, setPlacesGeo] = useState<undefined | PlacesDataWithGeo>(undefined);
 
-  useEffect(() => {
-    if (data && !loading) {
-      setPlacesGeo({
-        type: 'FeatureCollection',
-        features: data.places,
-      });
-    }
-  }, [data, loading]);
+  // useEffect(() => {
+  //   if (data && !loading) {
+  //     setPlacesGeo({
+  //       type: 'FeatureCollection',
+  //       features: data.places,
+  //     });
+  //   }
+  // }, [data, loading]);
 
   if (loading) {
     return <Loader />;
   }
+
+  if (!data?.places) return null;
+
+  const placesGeo: PlacesDataWithGeo =
+    {
+      type: 'FeatureCollection',
+      features: data.places,
+    } || [];
+
   if (error) {
     return <div>Error: {error.message}</div>;
   }
