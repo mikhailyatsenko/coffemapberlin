@@ -1,12 +1,11 @@
 import { type Position } from 'geojson';
-// import { useState } from 'react';
-import { useState } from 'react';
 import { useDetailedCard } from 'app/providers/DetailedCardProvider';
 import { useToggleFavorite } from 'shared/lib/hooks/interactions/useToggleFavorite';
 import { type PlaceProperties } from 'shared/types';
 import { AddToFavButton } from 'shared/ui/AddToFavButton';
 import RatingWidget from 'shared/ui/RatingWidget/ui/RatingWidget';
-// import Toast from 'shared/ui/ToastMessage/Toast';
+
+import Toast from 'shared/ui/ToastMessage/Toast';
 import instagramIcon from '../../../shared/assets/instagram.svg';
 import routeToIcon from '../../../shared/assets/route-to.svg';
 import cls from './TooltipCardOnMap.module.scss';
@@ -20,7 +19,7 @@ export const TooltipCardOnMap = ({ properties, coordinates }: TooltipCardOnMapPr
   const { id, averageRating, name, address, instagram, image } = properties;
   const { setCurrentSelectedPlaceId } = useDetailedCard();
 
-  const { toggleFavorite } = useToggleFavorite(id);
+  const { toggleFavorite, toastMessage } = useToggleFavorite(id);
 
   const handleToggleFavorite = async () => {
     try {
@@ -106,7 +105,7 @@ export const TooltipCardOnMap = ({ properties, coordinates }: TooltipCardOnMapPr
           </div>
         </div>
       </div>
-      {/* {toastMessage && <Toast message={toastMessage} />} */}
+      {toastMessage && <Toast message={toastMessage} />}
     </div>
   );
 };

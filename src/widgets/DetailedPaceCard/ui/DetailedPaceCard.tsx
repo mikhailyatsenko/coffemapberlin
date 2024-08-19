@@ -11,6 +11,7 @@ import { AddToFavButton } from 'shared/ui/AddToFavButton';
 import { InstagramEmbedProfile } from 'shared/ui/InstagramEmbed';
 import { Loader } from 'shared/ui/Loader';
 import { PortalToBody } from 'shared/ui/Portals/PortalToBody';
+import Toast from 'shared/ui/ToastMessage/Toast';
 import { type PlaceDetailsData } from '../../../shared/lib/hooks/interactions/useAddReview';
 import cls from './DetailedPaceCard.module.scss';
 
@@ -26,7 +27,7 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ onClose, pla
 
   const detailedCardRef = useRef<HTMLDivElement>(null);
 
-  const { toggleFavorite } = useToggleFavorite(placeId);
+  const { toggleFavorite, toastMessage } = useToggleFavorite(placeId);
 
   const { data: allPlacesData } = useQuery<{ places: PlaceResponse[] }>(GET_ALL_PLACES);
   const { data: placeDetailsData, loading } = useQuery<PlaceDetailsData>(GET_PLACE_DETAILS, {
@@ -121,6 +122,7 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ onClose, pla
           />
         </div>
       </div>
+      {toastMessage && <Toast message={toastMessage} />}
     </PortalToBody>
   );
 };

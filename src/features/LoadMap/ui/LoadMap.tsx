@@ -1,4 +1,3 @@
-import { type Position } from 'geojson';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { Map, Source, Layer, Popup, GeolocateControl, NavigationControl } from 'react-map-gl';
 import type { MapRef, GeoJSONSource, MapLayerMouseEvent, LngLatLike, MapboxGeoJSONFeature } from 'react-map-gl';

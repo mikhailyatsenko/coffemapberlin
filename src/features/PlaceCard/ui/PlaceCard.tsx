@@ -7,7 +7,7 @@ import LazyImage from 'shared/lib/LazyImage/LazyImage';
 import { type PlaceProperties } from 'shared/types';
 import { AddToFavButton } from 'shared/ui/AddToFavButton';
 import RatingWidget from 'shared/ui/RatingWidget/ui/RatingWidget';
-// import Toast from 'shared/ui/ToastMessage/Toast';
+import Toast from 'shared/ui/ToastMessage/Toast';
 import instagram from '../../../shared/assets/instagram.svg';
 import roteToImage from '../../../shared/assets/route-to.svg';
 import showPlacePointOnMap from '../../../shared/assets/show-on-map.svg';
@@ -21,7 +21,7 @@ interface PlaceCardProps {
 export const PlaceCard = ({ properties, coordinates }: PlaceCardProps) => {
   const { setLocation } = useContext(LocationContext);
   const { setCurrentSelectedPlaceId } = useDetailedCard();
-  const { toggleFavorite } = useToggleFavorite(properties.id);
+  const { toggleFavorite, toastMessage } = useToggleFavorite(properties.id);
 
   const handleToggleFavorite = async () => {
     try {
@@ -120,7 +120,7 @@ export const PlaceCard = ({ properties, coordinates }: PlaceCardProps) => {
           </div>
         </div>
       </div>
-      {/* {toastMessage && <Toast message={toastMessage} />} */}
+      {toastMessage && <Toast message={toastMessage} />}
     </>
   );
 };

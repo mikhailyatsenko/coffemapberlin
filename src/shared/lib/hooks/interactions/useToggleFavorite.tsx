@@ -1,4 +1,5 @@
 import { type ApolloCache, useMutation } from '@apollo/client';
+import { useState } from 'react';
 import { useAuth } from 'app/providers/AuthProvider';
 import { TOGGLE_FAVORITE, GET_ALL_PLACES } from 'shared/query/places';
 import { type PlaceResponse } from 'shared/types';
@@ -9,6 +10,7 @@ interface PlacesData {
 
 export const useToggleFavorite = (placeId: string) => {
   const { user, showLoginPopup } = useAuth();
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   const [toggleFavoriteMutation] = useMutation<{ toggleFavorite: boolean }>(TOGGLE_FAVORITE, {
     update(cache, { data }) {
@@ -24,6 +26,11 @@ export const useToggleFavorite = (placeId: string) => {
     if (existingData?.places) {
       const updatedPlaces = existingData.places.map((place) => {
         if (place.properties.id === placeId) {
+          if (!place.properties.isFavorite) {
+            setToastMessage(`${place.properties.name} was added to favorites`);
+          } else {
+            setToastMessage(`${place.properties.name} was removed from favorites`);
+          }
           return {
             ...place,
             properties: {
@@ -57,5 +64,5 @@ export const useToggleFavorite = (placeId: string) => {
     }
   };
 
-  return { toggleFavorite };
+  return { toggleFavorite, toastMessage };
 };
