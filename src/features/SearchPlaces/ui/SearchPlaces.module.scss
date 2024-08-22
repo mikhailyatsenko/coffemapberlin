@@ -1,0 +1,41 @@
+.SearchPlaces {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin: 0 20px 0 auto;
+  padding: 4px;
+  border: 1px solid #030303;
+  border-radius: 6px;
+  @media (width <= 959px) {
+    display: none;
+  }
+}
+
+.searchInput {
+  border: none;
+  outline: none;
+  font-size: 18px;
+  color: #555;
+  padding: 3px;
+  width: 0px;
+  background: none;
+  z-index: 3;
+  transition: width 0.4s cubic-bezier(0, 0.795, 0, 1);
+  cursor: pointer;
+  &.active {
+    width: 300px;
+    margin-right: 10px;
+    z-index: 1;
+    cursor: text;
+  }
+}
+
+.searchIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  flex: 1 0 auto;
+  width: 24px;
+  height: 24px;
+}

@@ -6,6 +6,7 @@ import { ApolloProviderWrapper } from 'app/providers/ApolloProviderWrapper';
 import { AuthProvider } from 'app/providers/AuthProvider';
 import { DetailedCardProvider } from 'app/providers/DetailedCardProvider';
 import { LocationProvider } from 'app/providers/LocationProvider';
+import { PlacesDataProvider } from 'app/providers/PlacesDataProvider';
 import App from './app/App';
 
 if (!process.env.GOOGLE_CLIENT_ID) {
@@ -19,7 +20,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <BrowserRouter>
           <DetailedCardProvider>
             <LocationProvider>
-              <App />
+              <PlacesDataProvider>
+                <App />
+              </PlacesDataProvider>
             </LocationProvider>
           </DetailedCardProvider>
         </BrowserRouter>

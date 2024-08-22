@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Auth } from 'features/Auth';
+import { SearchPlaces } from 'features/SearchPlaces';
 import { Logo } from 'shared/ui/Logo';
 import cls from './Navbar.module.scss';
 
@@ -35,6 +36,7 @@ export const Navbar = () => {
           <Logo />
         </div>
       </NavLink>
+      <SearchPlaces />
       <ul className={`${cls.navMenu} ${isBurgerActive ? cls.active : ''}`}>
         <li className={cls.navItem}>
           <NavLink

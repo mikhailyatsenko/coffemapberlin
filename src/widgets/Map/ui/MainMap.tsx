@@ -1,5 +1,6 @@
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { useQuery } from '@apollo/client';
+import { usePlaces } from 'app/providers/PlacesDataProvider/ui/PlacesDataProvider';
 import { LoadMap } from 'features/LoadMap';
 import { GET_ALL_PLACES } from 'shared/query/places';
 import { type PlaceProperties, type PlaceResponse } from 'shared/types';
@@ -14,34 +15,24 @@ export interface PlacesDataWithGeo extends GeoJSON.FeatureCollection<GeoJSON.Geo
 }
 
 export const MainMap = () => {
-  const { data, loading, error } = useQuery<PlacesData>(GET_ALL_PLACES);
-
-  // const [placesGeo, setPlacesGeo] = useState<undefined | PlacesDataWithGeo>(undefined);
-
-  // useEffect(() => {
-  //   if (data && !loading) {
-  //     setPlacesGeo({
-  //       type: 'FeatureCollection',
-  //       features: data.places,
-  //     });
-  //   }
-  // }, [data, loading]);
+  const { filteredPlaces, loading } = usePlaces();
+  // const { data, loading, error } = useQuery<PlacesData>(GET_ALL_PLACES);
 
   if (loading) {
     return <Loader />;
   }
 
-  if (!data?.places) return null;
+  if (!filteredPlaces) return null;
 
   const placesGeo: PlacesDataWithGeo =
     {
       type: 'FeatureCollection',
-      features: data.places,
+      features: filteredPlaces,
     } || [];
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
+  // if (error) {
+  //   return <div>Error: {error.message}</div>;
+  // }
 
   return (
     <div style={{ width: '100dvw', height: 'calc(100dvh - 60px)' }}>
