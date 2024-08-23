@@ -3,7 +3,6 @@ import { useDetailedCard } from 'app/providers/DetailedCardProvider';
 import { usePlaces } from 'app/providers/PlacesDataProvider/ui/PlacesDataProvider';
 import { PlaceCard } from 'features/PlaceCard';
 // import { GET_ALL_PLACES } from 'shared/query/places';
-import { type PlaceResponse } from 'shared/types';
 import cls from './PlacesList.module.scss';
 
 // interface PlacesData {

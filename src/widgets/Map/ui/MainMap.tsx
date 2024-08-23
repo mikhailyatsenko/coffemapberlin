@@ -1,14 +1,8 @@
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { useQuery } from '@apollo/client';
 import { usePlaces } from 'app/providers/PlacesDataProvider/ui/PlacesDataProvider';
 import { LoadMap } from 'features/LoadMap';
-import { GET_ALL_PLACES } from 'shared/query/places';
 import { type PlaceProperties, type PlaceResponse } from 'shared/types';
 import { Loader } from 'shared/ui/Loader';
-
-interface PlacesData {
-  places: PlaceResponse[];
-}
 
 export interface PlacesDataWithGeo extends GeoJSON.FeatureCollection<GeoJSON.Geometry, PlaceProperties> {
   features: PlaceResponse[];
