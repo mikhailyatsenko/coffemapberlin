@@ -52,7 +52,7 @@ export const SearchPlacesForm = ({ searchValue, setValueHandler }: SearchPlacesP
         />
       </form>
       <div
-        className={cls.searchIcon}
+        className={`${cls.searchIcon} ${isActive ? cls.activeInput : ''}`}
         onClick={() => {
           setIsActive((prev) => !prev);
         }}
