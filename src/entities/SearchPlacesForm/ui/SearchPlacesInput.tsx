@@ -15,6 +15,7 @@ export const SearchPlacesInput = ({ searchValue, setValueHandler, isActive }: Se
           setValueHandler(e.target.value);
         }}
         className={`${cls.searchInput} ${isActive ? cls.active : ''}`}
+        autoComplete="off"
         id="search"
         name="search"
         type="text"

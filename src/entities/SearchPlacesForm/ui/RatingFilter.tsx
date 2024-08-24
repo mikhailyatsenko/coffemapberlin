@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import RatingWidget from 'shared/ui/RatingWidget/ui/RatingWidget';
 import cls from './RatingFilter.module.scss';
 
 // export interface RatingFilterProps {
@@ -21,16 +22,19 @@ export const RatingFilter = () => {
       </button>
       <ul className={cls.dropdownContent} role="menu">
         <li>
-          <a href="#">React</a>
+          <RatingWidget rating={1} isClickable={false} />
         </li>
         <li>
-          <a href="#">Angular</a>
+          <RatingWidget rating={2} isClickable={false} />
         </li>
         <li>
-          <a href="#">Vue</a>
+          <RatingWidget rating={3} isClickable={false} />
         </li>
         <li>
-          <a href="#">Svelte</a>
+          <RatingWidget rating={4} isClickable={false} />
+        </li>
+        <li>
+          <RatingWidget rating={5} isClickable={false} />
         </li>
       </ul>
     </div>
