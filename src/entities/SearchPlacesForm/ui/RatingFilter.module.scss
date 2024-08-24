@@ -1,5 +1,16 @@
 .dropdown {
   position: relative;
+  &.viewFilters {
+    .dropdownContent {
+      visibility: visible;
+      li {
+        left: 0;
+      }
+    }
+    .arrow {
+      transform: rotate(180deg);
+    }
+  }
 }
 
 .dropdownBtn {
@@ -7,9 +18,9 @@
   font-size: 14px;
   width: 100%;
   height: 36px;
-  padding: 0 10px 0 6px;
   border: none;
   color: #fff;
+  border-radius: 0 20px 20px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -32,6 +43,12 @@
   width: 100%;
   visibility: hidden;
   overflow: hidden;
+  &.viewFilters {
+    visibility: visible;
+    li {
+      left: 0;
+    }
+  }
 }
 
 .dropdownContent li {
@@ -39,20 +56,19 @@
   border-radius: 6px;
   position: relative;
   left: 100%;
-  transition: 0.5s;
-  transition-delay: calc(60ms * var(--delay));
-}
-
-.dropdownBtn:focus + .dropdownContent li {
-  left: 0;
-}
-
-.dropdownBtn:focus + .dropdownContent {
-  visibility: visible;
-}
-
-.dropdownBtn:focus > .arrow {
-  transform: rotate(180deg);
+  transition: 0.2s;
+  &:nth-child(1) {
+    transition-delay: 0.05s;
+  }
+  &:nth-child(2) {
+    transition-delay: 0.1s;
+  }
+  &:nth-child(3) {
+    transition-delay: 0.15s;
+  }
+  &:nth-child(4) {
+    transition-delay: 0.2s;
+  }
 }
 
 .dropdownContent li:hover {

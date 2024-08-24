@@ -57,7 +57,11 @@ export const SearchPlaces = () => {
       ref={SearchPlacesRef}
     >
       <SearchPlacesForm searchValue={searchValue} setValueHandler={setValueHandler} isActive={isActive} />
-      <RatingFilter isActive={isActive} />
+      {isActive && (
+        <div className={cls.filter}>
+          <RatingFilter />
+        </div>
+      )}
     </div>
   );
 };
