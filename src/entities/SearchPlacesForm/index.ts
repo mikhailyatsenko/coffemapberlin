@@ -1,1 +1,1 @@
-export { SearchPlacesForm } from './ui/SearchPlacesForm';
+export { SearchPlacesInput as SearchPlacesForm } from './ui/SearchPlacesInput';

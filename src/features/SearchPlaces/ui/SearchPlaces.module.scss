@@ -1,0 +1,13 @@
+.SearchPlaces {
+  display: flex;
+  align-items: center;
+  margin: 0 auto 0 20px;
+
+  border-radius: 20px;
+  border: 0.5px solid #bfbfbf;
+  overflow: hidden;
+
+  @media (width <= 959px) {
+    display: none;
+  }
+}
