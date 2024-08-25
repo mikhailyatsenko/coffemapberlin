@@ -5,20 +5,7 @@ import { RatingFilter } from 'entities/SearchPlacesForm/ui/RatingFilter';
 import cls from './SearchPlaces.module.scss';
 
 export const SearchPlaces = () => {
-  const { filterPlaces } = usePlaces();
-  const [searchValue, setSearchValue] = useState<string>('');
-
-  useEffect(() => {
-    if (searchValue) {
-      filterPlaces(searchValue);
-    } else {
-      filterPlaces('');
-    }
-  }, [searchValue, filterPlaces]);
-
-  const setValueHandler = (value: string) => {
-    setSearchValue(value);
-  };
+  const { setMinRating, setSearchTerm, searchTerm, minRating } = usePlaces();
 
   const [isActive, setIsActive] = useState<boolean>(false);
   const SearchPlacesRef = useRef<HTMLInputElement>(null);
@@ -56,10 +43,10 @@ export const SearchPlaces = () => {
       className={cls.SearchPlaces}
       ref={SearchPlacesRef}
     >
-      <SearchPlacesForm searchValue={searchValue} setValueHandler={setValueHandler} isActive={isActive} />
+      <SearchPlacesForm searchValue={searchTerm} setValueHandler={setSearchTerm} isActive={isActive} />
       {isActive && (
         <div className={cls.filter}>
-          <RatingFilter />
+          <RatingFilter filterRating={minRating} setFilterRating={setMinRating} />
         </div>
       )}
     </div>

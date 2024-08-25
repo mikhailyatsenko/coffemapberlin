@@ -1,13 +1,17 @@
 import { useState } from 'react';
+import BeanIcon from 'shared/ui/RatingWidget/ui/BeanIcon';
 import RatingWidget from 'shared/ui/RatingWidget/ui/RatingWidget';
 import cls from './RatingFilter.module.scss';
 
-// export interface RatingFilterProps {
-//   isActive: boolean;
-// }
+interface RatingFilterProps {
+  filterRating: number;
+  setFilterRating: (rating: number) => void;
+}
 
-export const RatingFilter = () => {
+export const RatingFilter = ({ setFilterRating, filterRating }: RatingFilterProps) => {
   const [isViewFilters, setIsViewFilters] = useState(false);
+
+  const ratings = [1, 2, 3, 4, 5];
   return (
     <div className={`${cls.dropdown} ${isViewFilters ? cls.viewFilters : ''}`}>
       <button
@@ -17,25 +21,38 @@ export const RatingFilter = () => {
         className={cls.dropdownBtn}
         aria-haspopup="menu"
       >
-        <span>with rating</span>
-        <span className={cls.arrow}></span>
+        <div>
+          {filterRating === 0 ? (
+            'min. rating'
+          ) : (
+            <div className={cls.beanAndRating}>
+              <BeanIcon color="#ffffff" filled={false} /> {filterRating}
+            </div>
+          )}
+        </div>
+        <div className={cls.arrow}></div>
       </button>
       <ul className={cls.dropdownContent} role="menu">
-        <li>
-          <RatingWidget rating={1} isClickable={false} />
+        <li
+          onClick={() => {
+            setFilterRating(0);
+            setIsViewFilters(false);
+          }}
+        >
+          Any
         </li>
-        <li>
-          <RatingWidget rating={2} isClickable={false} />
-        </li>
-        <li>
-          <RatingWidget rating={3} isClickable={false} />
-        </li>
-        <li>
-          <RatingWidget rating={4} isClickable={false} />
-        </li>
-        <li>
-          <RatingWidget rating={5} isClickable={false} />
-        </li>
+
+        {ratings.map((rating) => (
+          <li
+            key={rating}
+            onClick={() => {
+              setFilterRating(rating);
+              setIsViewFilters(false);
+            }}
+          >
+            <RatingWidget rating={rating} isClickable={false} />
+          </li>
+        ))}
       </ul>
     </div>
   );
