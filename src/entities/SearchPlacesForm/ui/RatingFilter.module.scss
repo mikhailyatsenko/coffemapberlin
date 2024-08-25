@@ -16,13 +16,15 @@
 .dropdownBtn {
   position: relative;
   background: #ee7c6d;
-  font-size: 14px;
+  font-size: 12px;
+  text-wrap: nowrap;
+  font-weight: 300;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 36px;
-  width: 106px;
-  padding: 0 20px 0 6px;
+  width: fit-content;
+  padding: 0 26px 0 10px;
   border: none;
   color: #fff;
   border-radius: 0 20px 20px 0;
@@ -30,11 +32,13 @@
 }
 
 .beanAndRating {
+  padding: 0 12px;
   display: flex;
   align-items: center;
   gap: 2px;
   font-size: 20px;
 }
+
 .arrow {
   position: absolute;
   right: 10px;
@@ -48,6 +52,10 @@
 
 .dropdownContent {
   list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   position: absolute;
   visibility: hidden;
   overflow: hidden;
@@ -66,6 +74,7 @@
   background-color: #f6f6f6;
   padding: 2px 8px;
   margin-top: 2px;
+  left: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -73,9 +82,8 @@
   border-radius: 20px;
   box-sizing: border-box;
   overflow: hidden;
-  min-height: 35px;
+  height: 28px;
   position: relative;
-  left: 100%;
   box-shadow: rgba(0, 0, 0, 0.18) 0px 0.5px 1.5px;
   transition:
     left 0.2s,
@@ -98,7 +106,33 @@
   &:nth-child(5) {
     transition-delay: 0.25s;
   }
-  &:nth-child(6) {
-    transition-delay: 0.3s;
+}
+
+.clearFilterRating {
+  position: absolute;
+  right: 10px;
+  top: calc(50%);
+  cursor: pointer;
+  font-size: 14px;
+  background-color: #ebebeb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  overflow: hidden;
+  height: 28px;
+  box-shadow: rgba(0, 0, 0, 0.18) 0px 0.5px 1.5px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  &:hover,
+  &:active {
+    background-color: #fff;
+  }
+  .clearIcon {
+    padding: 1px;
+    height: 8px;
+    width: 8px;
   }
 }

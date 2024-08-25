@@ -11,6 +11,7 @@ const BeanIcon: React.FC<StarIconProps> = ({ filled, color, clickable = false })
     viewBox="20 20 60 60"
     xmlSpace="preserve"
     preserveAspectRatio="xMidYMid meet"
+    style={{ flexShrink: 0 }}
   >
     <path
       fill={color}
