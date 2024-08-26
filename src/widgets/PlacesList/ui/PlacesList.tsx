@@ -1,35 +1,34 @@
-// import { useQuery } from '@apollo/client';
 import { useDetailedCard } from 'app/providers/DetailedCardProvider';
 import { usePlaces } from 'app/providers/PlacesDataProvider/ui/PlacesDataProvider';
 import { PlaceCard } from 'features/PlaceCard';
-// import { GET_ALL_PLACES } from 'shared/query/places';
 import cls from './PlacesList.module.scss';
 
-// interface PlacesData {
-//   places: PlaceResponse[];
-// }
-
 export function PlacesList() {
-  // const { data } = useQuery<PlacesData>(GET_ALL_PLACES);
   const { filteredPlaces } = usePlaces();
   const { currentSelectedPlaceId } = useDetailedCard();
+  const { searchTerm } = usePlaces();
 
   if (!filteredPlaces.length) return null;
 
   const sortedPlaces = [...filteredPlaces].sort((a, b) => {
-    // Сначала показываем избранные места
-    if (a.properties.isFavorite) return -1; // a перед b
-    if (b.properties.isFavorite) return 1; // b перед a
-    return 0; // Если оба или ни одно не избранное, сохраняем порядок
+    if (a.properties.isFavorite) return -1;
+    if (b.properties.isFavorite) return 1;
+    return 0;
   });
 
   return (
-    <div className={`${cls.placesData}`}>
-      <div className={`${cls.PlacesList} ${currentSelectedPlaceId ? cls.detailsOpen : ''}`}>
-        {sortedPlaces?.map((place) => (
-          <PlaceCard properties={place.properties} coordinates={place.geometry.coordinates} key={place.properties.id} />
-        ))}
+    !searchTerm && (
+      <div className={`${cls.placesData}`}>
+        <div className={`${cls.PlacesList} ${currentSelectedPlaceId ? cls.detailsOpen : ''}`}>
+          {sortedPlaces?.map((place) => (
+            <PlaceCard
+              properties={place.properties}
+              coordinates={place.geometry.coordinates}
+              key={place.properties.id}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+    )
   );
 }

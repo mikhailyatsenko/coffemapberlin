@@ -1,4 +1,6 @@
-import searchIcon from '../../../shared/assets/search-icon.svg';
+// import searchIcon from '../../../shared/assets/search-icon.svg';
+import filtersIcon from '../../../shared/assets/filter-icon.svg';
+
 import cls from './SearchPlacesInput.module.scss';
 
 interface SearchPlacesProps {
@@ -7,23 +9,24 @@ interface SearchPlacesProps {
   setValueHandler: (value: string) => void;
 }
 
-export const SearchPlacesInput = ({ searchValue, setValueHandler, isActive }: SearchPlacesProps) => {
+export const SearchPlacesInput = ({ setValueHandler, isActive, searchValue }: SearchPlacesProps) => {
   return (
     <>
       <input
         onChange={(e) => {
           setValueHandler(e.target.value);
         }}
+        value={searchValue}
         className={`${cls.searchInput} ${isActive ? cls.active : ''}`}
         autoComplete="off"
         id="search"
         name="search"
         type="text"
-        placeholder="Type to search stop by name"
+        placeholder="Type to search"
       />
 
       <div className={`${cls.searchIcon} ${isActive ? cls.activeInput : ''}`}>
-        <img src={searchIcon} alt="Search icon" />
+        <img src={filtersIcon} alt="Search icon" />
       </div>
     </>
   );

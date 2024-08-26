@@ -60,6 +60,8 @@
   visibility: hidden;
   overflow: hidden;
   right: 0;
+  padding-top: 2px;
+  z-index: 2;
   &.viewFilters {
     visibility: visible;
     li {
@@ -114,7 +116,7 @@
   top: calc(50%);
   cursor: pointer;
   font-size: 14px;
-  background-color: #ebebeb;
+  background-color: #fafafa;
   display: flex;
   justify-content: center;
   align-items: center;

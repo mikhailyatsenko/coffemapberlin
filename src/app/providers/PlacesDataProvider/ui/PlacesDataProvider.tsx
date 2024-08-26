@@ -26,14 +26,9 @@ export const PlacesDataProvider: React.FC<{ children: React.ReactNode }> = ({ ch
 
   const places = data?.places ?? [];
 
-  const filterPlaces = (term: string = '', rating: number = 0) => {
-    setSearchTerm(term);
-    setMinRating(rating);
-  };
-
   const filteredPlaces = places.filter(
     (place) =>
-      place.properties.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+      place.properties.name.toLowerCase().includes(searchTerm.toLowerCase().trim()) &&
       (place.properties.averageRating || 0) >= minRating,
   );
 

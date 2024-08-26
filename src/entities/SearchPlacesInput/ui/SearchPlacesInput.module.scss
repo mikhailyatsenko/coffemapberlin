@@ -21,6 +21,10 @@
     height: auto;
     z-index: 1;
     cursor: text;
+    @media (width <= 975px) {
+      width: 200px;
+      font-size: 14px;
+    }
   }
 }
 
@@ -34,7 +38,7 @@
   height: 34px;
   background-color: #f6f6f6;
   padding: 8px;
-  border: 0px solid #767676;
+
   border-radius: 50%;
   box-sizing: border-box;
   overflow: hidden;

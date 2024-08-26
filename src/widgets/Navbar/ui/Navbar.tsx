@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { Auth } from 'features/Auth';
 import { SearchPlaces } from 'features/SearchPlaces';
 import { Logo } from 'shared/ui/Logo';
@@ -7,6 +7,7 @@ import cls from './Navbar.module.scss';
 
 export const Navbar = () => {
   const [isBurgerActive, setIsBurgerActive] = useState(false);
+  const location = useLocation();
   useEffect(() => {
     window.addEventListener('scroll', () => {
       setIsBurgerActive(false);
@@ -36,7 +37,7 @@ export const Navbar = () => {
           <Logo />
         </div>
       </NavLink>
-      <SearchPlaces />
+      {location.pathname === '/' && <SearchPlaces />}
       <ul className={`${cls.navMenu} ${isBurgerActive ? cls.active : ''}`}>
         <li className={cls.navItem}>
           <NavLink
