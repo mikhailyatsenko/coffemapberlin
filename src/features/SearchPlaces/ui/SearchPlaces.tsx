@@ -50,7 +50,7 @@ export const SearchPlaces = () => {
       onClick={() => {
         setIsActive(true);
       }}
-      className={cls.SearchPlaces}
+      className={`${cls.SearchPlaces} ${isActive ? cls.smallScreensSearch : ''}`}
       ref={SearchPlacesRef}
     >
       <SearchPlacesInput searchValue={searchTerm} setValueHandler={setSearchTerm} isActive={isActive} />

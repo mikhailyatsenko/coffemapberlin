@@ -5,18 +5,20 @@
   background-color: #fafafa;
   border-radius: 20px;
   border: 0.5px solid #dcdcdc;
-  @media (width <= 565px) {
-    display: none;
-    position: absolute;
 
-    top: 68px;
-    right: 10px;
-    margin: 0 auto;
-    transform: translateX(-50%);
-  }
   .filter {
     background: #ee7c6d;
     height: 36px;
     border-radius: 0 20px 20px 0;
+  }
+}
+
+.smallScreensSearch {
+  @media (width <= 565px) {
+    position: absolute;
+    top: 64px;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
   }
 }

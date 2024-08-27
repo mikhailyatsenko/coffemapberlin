@@ -14,6 +14,11 @@
   @media (width <= 975px) {
     width: 300px;
   }
+  @media (width <= 565px) {
+    top: 42px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
 
 .resultPlace {

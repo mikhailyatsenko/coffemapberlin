@@ -10,8 +10,8 @@
   background: none;
   z-index: 3;
   transition:
-    width 0.4s cubic-bezier(0, 0.795, 0, 1),
-    opacity 0.4s 0.1s;
+    width 0.2s cubic-bezier(0, 0.795, 0, 1),
+    opacity 0.2s 0.1s;
   cursor: pointer;
   &.active {
     position: static;
@@ -26,6 +26,9 @@
       font-size: 14px;
     }
   }
+  &:hover + .searchIcon {
+    background-color: #fff;
+  }
 }
 
 .searchIcon {
@@ -38,7 +41,7 @@
   height: 34px;
   background-color: #f6f6f6;
   padding: 8px;
-
+  padding-top: 9px;
   border-radius: 50%;
   box-sizing: border-box;
   overflow: hidden;
