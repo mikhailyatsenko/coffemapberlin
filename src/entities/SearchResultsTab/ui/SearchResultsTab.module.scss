@@ -10,7 +10,6 @@
   border-radius: 10px;
   box-shadow: 0 6px 30px -10px #d5dbed;
   overflow-y: scroll;
-  transition: height 359ms cubic-bezier(0.27, 0.7, 0, 0.99);
   @media (width <= 975px) {
     width: 300px;
   }
@@ -22,8 +21,8 @@
 }
 
 .resultPlace {
-  width: 100%;
   cursor: pointer;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -31,7 +30,6 @@
   padding: 8px 12px;
   border-radius: 10px;
   background-color: #fafafa;
-
   &:hover {
     background-color: #fff;
   }
@@ -43,6 +41,7 @@
   line-height: 1;
   font-weight: 400;
 }
+
 .placeAddress {
   font-size: 12px;
   line-height: 1;
@@ -51,7 +50,7 @@
 }
 
 .resultPlaceActive {
-  animation: displayList 699ms cubic-bezier(0.6, 0.18, 0.5, 0.99) forwards;
+  animation: displayList 0.3s cubic-bezier(0.6, 0.18, 0.5, 0.99) forwards;
   transform: translatey(40px);
   opacity: 0;
 }

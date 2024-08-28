@@ -37,7 +37,7 @@ export const Navbar = () => {
           <Logo />
         </div>
       </NavLink>
-      {location.pathname === '/' && <SearchPlaces />}
+      {location.pathname === '/' && !isBurgerActive && <SearchPlaces />}
       <ul className={`${cls.navMenu} ${isBurgerActive ? cls.active : ''}`}>
         <li className={cls.navItem}>
           <NavLink

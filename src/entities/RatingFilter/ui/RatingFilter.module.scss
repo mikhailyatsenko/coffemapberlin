@@ -1,5 +1,6 @@
 .dropdown {
   position: relative;
+  width: 94px;
   &.viewFilters {
     .dropdownContent {
       visibility: visible;
@@ -23,6 +24,7 @@
   align-items: center;
   justify-content: center;
   height: 36px;
+
   width: fit-content;
   padding: 0 26px 0 10px;
   border: none;

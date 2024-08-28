@@ -1,0 +1,54 @@
+.FavoritesIndicator {
+  position: absolute;
+  bottom: 200px;
+  right: 10px;
+  cursor: pointer;
+  background-image: url('../../../shared/assets/favorite-filled.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+  font-size: 12px;
+  font-weight: 300;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1 0 auto;
+  width: 30px;
+  height: 30px;
+  overflow: visible;
+  transition: background-size 0.3s;
+  z-index: 3;
+  &:hover {
+    background-size: 0%;
+    .favoritesNumber {
+      display: none;
+    }
+    .indicatorText {
+      clip-path: inset(0 0 0 0);
+    }
+  }
+}
+
+.favoritesNumber {
+  position: relative;
+  top: -2px;
+}
+
+.indicatorText {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 2px 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ff4b34;
+  height: 28px;
+  width: 150px;
+  clip-path: inset(14px 14px 14px 155px);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: 0.3s;
+  z-index: 4;
+}

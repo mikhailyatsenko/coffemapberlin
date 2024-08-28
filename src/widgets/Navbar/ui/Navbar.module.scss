@@ -46,6 +46,7 @@ li {
 .hamburger {
   display: none;
   cursor: pointer;
+  z-index: 5;
 }
 .bar {
   width: 25px;
