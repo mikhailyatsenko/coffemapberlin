@@ -11,8 +11,7 @@ export interface PlacesDataWithGeo extends GeoJSON.FeatureCollection<GeoJSON.Geo
 }
 
 export const MainMap = () => {
-  const { filterablePlaces, loading } = usePlaces();
-  // const { data, loading, error } = useQuery<PlacesData>(GET_ALL_PLACES);
+  const { filterablePlaces, favoritePlaces, showFavorites, loading } = usePlaces();
 
   if (loading) {
     return <Loader />;
@@ -23,12 +22,8 @@ export const MainMap = () => {
   const placesGeo: PlacesDataWithGeo =
     {
       type: 'FeatureCollection',
-      features: filterablePlaces,
+      features: showFavorites && favoritePlaces ? favoritePlaces : filterablePlaces,
     } || [];
-
-  // if (error) {
-  //   return <div>Error: {error.message}</div>;
-  // }
 
   return (
     <>

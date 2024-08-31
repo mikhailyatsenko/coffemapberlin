@@ -1,3 +1,4 @@
+import { usePlaces } from 'app/providers/PlacesDataProvider/ui/PlacesDataProvider';
 import cls from './FavoritesIndicator.module.scss';
 
 interface FavoritesIndicatorProps {
@@ -6,12 +7,20 @@ interface FavoritesIndicatorProps {
 }
 
 export const FavoritesIndicator = ({ favoritesQuantity, onClickHandler }: FavoritesIndicatorProps) => {
-  return (
+  const { showFavorites } = usePlaces();
+  return !showFavorites ? (
     <div className={cls.FavoritesIndicator} onClick={onClickHandler}>
       <div className={cls.favoritesNumber}>{favoritesQuantity}</div>
       <div className={cls.indicatorText}>
         Show {favoritesQuantity} {favoritesQuantity === 1 ? 'favorite place' : 'favorite places'}
       </div>
+    </div>
+  ) : (
+    <div className={cls.facoriteInfoFloat} onClick={onClickHandler}>
+      <p>
+        <b>Showing favorite places only.</b>
+      </p>
+      <span>Click here</span> to see all places.
     </div>
   );
 };

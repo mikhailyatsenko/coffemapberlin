@@ -1,7 +1,5 @@
 import { PlaceCard } from 'features/PlaceCard';
-import { TooltipCardOnMap } from 'features/TooltipCardOnMap';
 import { type PlaceResponse } from 'shared/types';
-import RatingWidget from 'shared/ui/RatingWidget/ui/RatingWidget';
 import cls from './FavoritesList.module.scss';
 
 interface FavoritesListProps {
