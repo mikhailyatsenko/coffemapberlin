@@ -1,1 +1,1 @@
-export { ShowFavoritesPlaces } from './ui/ShowFavoritesPlaces';
+export { ShowFavoritePlaces as ShowFavoritesPlaces } from './ui/ShowFavoritePlaces';

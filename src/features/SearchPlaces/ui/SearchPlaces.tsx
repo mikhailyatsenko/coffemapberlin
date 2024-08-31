@@ -7,7 +7,7 @@ import { SearchResultsTab } from 'entities/SearchResultsTab';
 import cls from './SearchPlaces.module.scss';
 
 export const SearchPlaces = () => {
-  const { setMinRating, setSearchTerm, searchTerm, minRating, filteredPlaces } = usePlaces();
+  const { setMinRating, setSearchTerm, searchTerm, minRating, filterablePlaces } = usePlaces();
   const { setCurrentSelectedPlaceId } = useDetailedCard();
   const [isActive, setIsActive] = useState<boolean>(false);
   const SearchPlacesRef = useRef<HTMLInputElement>(null);
@@ -59,7 +59,7 @@ export const SearchPlaces = () => {
           <RatingFilter filterRating={minRating} setFilterRating={setMinRating} />
         </div>
       )}
-      {searchTerm && <SearchResultsTab filterdPlaces={filteredPlaces} onSelect={onResultSelectHandler} />}
+      {searchTerm && <SearchResultsTab filterdPlaces={filterablePlaces} onSelect={onResultSelectHandler} />}
     </div>
   );
 };

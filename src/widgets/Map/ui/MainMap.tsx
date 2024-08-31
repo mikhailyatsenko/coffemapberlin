@@ -11,19 +11,19 @@ export interface PlacesDataWithGeo extends GeoJSON.FeatureCollection<GeoJSON.Geo
 }
 
 export const MainMap = () => {
-  const { filteredPlaces, loading } = usePlaces();
+  const { filterablePlaces, loading } = usePlaces();
   // const { data, loading, error } = useQuery<PlacesData>(GET_ALL_PLACES);
 
   if (loading) {
     return <Loader />;
   }
 
-  if (!filteredPlaces) return null;
+  if (!filterablePlaces) return null;
 
   const placesGeo: PlacesDataWithGeo =
     {
       type: 'FeatureCollection',
-      features: filteredPlaces,
+      features: filterablePlaces,
     } || [];
 
   // if (error) {

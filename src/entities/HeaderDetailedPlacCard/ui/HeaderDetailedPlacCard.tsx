@@ -18,7 +18,11 @@ export const HeaderDetailedPlacCard = ({
     <div className={`${cls.detailsHeader} ${!isHeaderVisible && cls.hideDetailsHeader}`}>
       <div className={cls.descriptionAndRating}>
         <div className={cls.ratingContainer}>
-          <h4>Average Rating</h4>
+          {averageRating ? (
+            <h4>Average Rating</h4>
+          ) : (
+            <p className={cls.noRatingText}>This place has not been rated yet</p>
+          )}
           <div className={cls.ratingNumber}>
             {averageRating}
             <span>/5</span>

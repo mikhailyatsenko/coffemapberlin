@@ -31,7 +31,6 @@ export const LoadMap = ({ placesGeo }: LoadMapProps) => {
       mapRef?.current?.flyTo({
         center: location as LngLatLike,
         zoom: 15.6,
-        // duration: 500,
         offset: [screenWidth < 768 ? 0 : 220, 0],
       });
     }

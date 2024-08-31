@@ -2,6 +2,7 @@ import { type Position } from 'geojson';
 import { useContext } from 'react';
 import { useDetailedCard } from 'app/providers/DetailedCardProvider';
 import { LocationContext } from 'app/providers/LocationProvider/lib/LocationContext';
+import { usePlaces } from 'app/providers/PlacesDataProvider/ui/PlacesDataProvider';
 import { useToggleFavorite } from 'shared/lib/hooks/interactions/useToggleFavorite';
 import LazyImage from 'shared/lib/LazyImage/LazyImage';
 import { type PlaceProperties } from 'shared/types';
@@ -22,6 +23,7 @@ export const PlaceCard = ({ properties, coordinates }: PlaceCardProps) => {
   const { setLocation } = useContext(LocationContext);
   const { setCurrentSelectedPlaceId } = useDetailedCard();
   const { toggleFavorite, toastMessage } = useToggleFavorite(properties.id);
+  const { setShowFavorite, showFavorites } = usePlaces();
 
   const handleToggleFavorite = async () => {
     try {
@@ -108,6 +110,7 @@ export const PlaceCard = ({ properties, coordinates }: PlaceCardProps) => {
                   e.preventDefault();
                   if (coordinates && setLocation) {
                     setLocation(coordinates);
+                    if (showFavorites) setShowFavorite(false);
                   }
                 }}
                 rel="noreferrer"

@@ -1,0 +1,72 @@
+.FavoritesList {
+  position: absolute;
+  background-color: #fafafa;
+  top: 64px;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 4px;
+  height: calc(100vh - 60px);
+  width: 100%;
+  max-width: 350px;
+  border-radius: 10px;
+  box-shadow: 0 6px 30px -10px #d5dbed;
+  overflow-y: scroll;
+  @media (width <= 975px) {
+    width: 300px;
+  }
+  @media (width <= 565px) {
+    top: 42px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+.resultPlace {
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background-color: #fafafa;
+  &:hover {
+    background-color: #fff;
+  }
+}
+
+.placeName {
+  color: #ff4b34;
+  font-size: 14px;
+  line-height: 1;
+  font-weight: 400;
+}
+
+.placeAddress {
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 200;
+  font-style: italic;
+}
+
+.resultPlaceActive {
+  animation: displayList 0.3s cubic-bezier(0.6, 0.18, 0.5, 0.99) forwards;
+  transform: translatey(40px);
+  opacity: 0;
+}
+
+@keyframes displayList {
+  0% {
+    opacity: 0;
+    transform: translatey(40px);
+  }
+  20% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translatey(0px);
+  }
+}

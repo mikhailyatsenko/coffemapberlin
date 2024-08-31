@@ -49,6 +49,7 @@
   clip-path: inset(14px 14px 14px 155px);
   border-radius: 10px;
   overflow: hidden;
+  user-select: none;
   transition: 0.3s;
   z-index: 4;
 }

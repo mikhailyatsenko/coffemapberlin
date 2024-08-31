@@ -3,6 +3,82 @@
   top: 60px;
   display: flex;
   left: 0;
+  max-width: 100%;
+  @media (width <= 767px) {
+    display: none;
+  }
+  &.showFavorites {
+    display: flex;
+    z-index: 22;
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 22px;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.1), transparent);
+      pointer-events: none;
+      z-index: 31;
+    }
+
+    & + .backdrop {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.62);
+      z-index: 21;
+      .closeButton {
+        position: absolute;
+        top: 15px;
+        left: 50%;
+        transform: translate(-50%, -20px);
+        background-image: url('../../../shared/assets/clear-icon.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 35%;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: 1 0 auto;
+        width: 30px;
+        height: 30px;
+        background-color: #f6f6f6;
+        padding: 8px;
+        border-radius: 50%;
+        box-shadow: rgba(0, 0, 0, 0.18) 0px 0.5px 1.5px;
+        opacity: 0;
+        animation: slideDown 0.3s ease forwards;
+        transition:
+          width 0.2s,
+          height 0.2s;
+        &:hover,
+        &:active {
+          height: 31px;
+          width: 31px;
+        }
+
+        @keyframes slideDown {
+          0% {
+            transform: translate(-50%, -20px);
+            opacity: 0;
+          }
+          100% {
+            transform: translate(-50%, 0);
+            opacity: 1;
+          }
+        }
+      }
+    }
+
+    @media (width <= 767px) {
+      width: 100%;
+      justify-content: center;
+    }
+  }
 }
 
 .detailsOpen {
@@ -13,13 +89,10 @@
   display: flex;
   gap: 8px;
   flex-direction: column;
-  height: calc(100dvh - 60px);
+  max-height: calc(100dvh - 60px);
   overflow-y: scroll;
   overflow-x: hidden;
   padding: 8px 5px 5px;
   transition: margin-left 0.3s ease-in-out;
   z-index: 1;
-  @media (width <= 767px) {
-    display: none;
-  }
 }

@@ -2,7 +2,7 @@
   cursor: pointer;
   display: flex;
   flex-shrink: 0;
-  width: 480px;
+  max-width: 480px;
   overflow: hidden;
   background: #fff;
   min-height: 120px;
@@ -39,7 +39,7 @@
   }
   .content {
     padding: 10px;
-    width: 100%;
+    width: calc(100% - 140px);
     display: flex;
     flex-direction: column;
     gap: 2px;
