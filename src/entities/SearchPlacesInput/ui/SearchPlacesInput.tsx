@@ -1,5 +1,5 @@
 // import searchIcon from '../../../shared/assets/search-icon.svg';
-import filtersIcon from '../../../shared/assets/filter-icon.svg';
+import filterIcon from '../../../shared/assets/filter-icon.svg';
 
 import cls from './SearchPlacesInput.module.scss';
 
@@ -25,8 +25,8 @@ export const SearchPlacesInput = ({ setValueHandler, isActive, searchValue }: Se
         placeholder="Type to search"
       />
 
-      <div className={`${cls.searchIcon} ${isActive ? cls.activeInput : ''}`}>
-        <img src={filtersIcon} alt="Search icon" />
+      <div className={`${cls.filterIconContainer} ${isActive ? cls.activeInput : ''}`}>
+        <img className={cls.filterIcon} src={filterIcon} alt="Search icon" />
       </div>
     </>
   );
