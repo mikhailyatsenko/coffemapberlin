@@ -38,7 +38,7 @@ export const RateNow = ({ reviews, placeId }: RateNowProps) => {
                 setShowReviewForm(true);
               }}
             >
-              Rate it now
+              {hasRating ? 'Leave a review' : 'Rate it now'}
             </span>
           </h4>
         </div>
