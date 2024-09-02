@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useDetailedCard } from 'app/providers/DetailedCardProvider';
+import { createSearchParams, useNavigate } from 'react-router-dom';
 import { usePlaces } from 'app/providers/PlacesDataProvider/ui/PlacesDataProvider';
 import { RatingFilter } from 'entities/RatingFilter';
 import { SearchPlacesInput } from 'entities/SearchPlacesInput';
@@ -8,9 +8,10 @@ import cls from './SearchPlaces.module.scss';
 
 export const SearchPlaces = () => {
   const { setMinRating, setSearchTerm, searchTerm, minRating, filterablePlaces } = usePlaces();
-  const { setCurrentSelectedPlaceId } = useDetailedCard();
   const [isActive, setIsActive] = useState<boolean>(false);
   const SearchPlacesRef = useRef<HTMLInputElement>(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isActive) {
@@ -42,7 +43,10 @@ export const SearchPlaces = () => {
   const onResultSelectHandler = (placeId: string) => {
     setIsActive(false);
     setSearchTerm('');
-    setCurrentSelectedPlaceId(placeId);
+    navigate({
+      pathname: '/details',
+      search: createSearchParams({ id: placeId }).toString(),
+    });
   };
 
   return (

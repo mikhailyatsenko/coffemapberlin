@@ -8,7 +8,7 @@ interface PlacesData {
   places: PlaceResponse[];
 }
 
-export const useToggleFavorite = (placeId: string) => {
+export const useToggleFavorite = (placeId: string | null) => {
   const { user, showLoginPopup } = useAuth();
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
@@ -50,6 +50,7 @@ export const useToggleFavorite = (placeId: string) => {
   };
 
   const toggleFavorite = async () => {
+    if (!placeId) return;
     if (!user) {
       showLoginPopup();
       return;

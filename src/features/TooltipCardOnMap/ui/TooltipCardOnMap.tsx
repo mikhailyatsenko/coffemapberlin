@@ -1,5 +1,6 @@
 import { type Position } from 'geojson';
-import { useDetailedCard } from 'app/providers/DetailedCardProvider';
+// import { useDetailedCard } from 'app/providers/DetailedCardProvider';
+import { createSearchParams, useNavigate } from 'react-router-dom';
 import { useToggleFavorite } from 'shared/lib/hooks/interactions/useToggleFavorite';
 import { type PlaceProperties } from 'shared/types';
 import { AddToFavButton } from 'shared/ui/AddToFavButton';
@@ -16,8 +17,8 @@ interface TooltipCardOnMapProps {
 }
 
 export const TooltipCardOnMap = ({ properties, coordinates }: TooltipCardOnMapProps) => {
+  const navigate = useNavigate();
   const { id, averageRating, name, address, instagram, image } = properties;
-  const { setCurrentSelectedPlaceId } = useDetailedCard();
 
   const { toggleFavorite, toastMessage } = useToggleFavorite(id);
 
@@ -32,24 +33,21 @@ export const TooltipCardOnMap = ({ properties, coordinates }: TooltipCardOnMapPr
     }
   };
 
+  const handleClickDetails = () => {
+    navigate({
+      pathname: '/details',
+      search: createSearchParams({ id: properties.id }).toString(),
+    });
+  };
+
   return (
     <div className={cls.TooltipCardOnMap}>
-      <div
-        onClick={() => {
-          setCurrentSelectedPlaceId(id);
-        }}
-        className={cls.image}
-      >
+      <div onClick={handleClickDetails} className={cls.image}>
         <img src={`./places-images/${image || 'default-place.jpg'}`} alt="Place image" />
       </div>
       <div className={cls.content}>
         <div className={cls.header}>
-          <h4
-            onClick={() => {
-              setCurrentSelectedPlaceId(id);
-            }}
-            className={cls.name}
-          >
+          <h4 onClick={handleClickDetails} className={cls.name}>
             {name}
           </h4>
           <div className={cls.iconsGroup}></div>
@@ -60,12 +58,7 @@ export const TooltipCardOnMap = ({ properties, coordinates }: TooltipCardOnMapPr
         </div>
         <div className={cls.address}>{address}</div>
         <div className={cls.iconsGroup}>
-          <div
-            onClick={() => {
-              setCurrentSelectedPlaceId(id);
-            }}
-            className={cls.moreButton}
-          >
+          <div onClick={handleClickDetails} className={cls.moreButton}>
             More details
           </div>
 

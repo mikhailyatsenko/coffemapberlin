@@ -1,5 +1,7 @@
 import { useQuery } from '@apollo/client';
-import React, { useContext, useEffect, useState, useRef } from 'react';
+import React, { useContext, useEffect, useState, useRef, useCallback } from 'react';
+import { useSearchParams, useNavigate } from 'react-router-dom';
+// import { useDetailedCard } from 'app/providers/DetailedCardProvider';
 import { LocationContext } from 'app/providers/LocationProvider/lib/LocationContext';
 import { RateNow } from 'features/RateNow';
 import { ReviewList } from 'features/ReviewList';
@@ -15,24 +17,23 @@ import Toast from 'shared/ui/ToastMessage/Toast';
 import { type PlaceDetailsData } from '../../../shared/lib/hooks/interactions/useAddReview';
 import cls from './DetailedPaceCard.module.scss';
 
-interface DetailedPaceCardProps {
-  placeId: string;
-  onClose: () => void;
-}
+export const DetailedPaceCard: React.FC = () => {
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
 
-export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ onClose, placeId }) => {
   const { setLocation } = useContext(LocationContext);
   const [isViewInstProfile, setIsViewInstProfile] = useState(false);
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
-
   const detailedCardRef = useRef<HTMLDivElement>(null);
+  const placeId = searchParams.get('id');
 
   const { toggleFavorite, toastMessage } = useToggleFavorite(placeId);
 
   const { data: allPlacesData } = useQuery<{ places: PlaceResponse[] }>(GET_ALL_PLACES);
   const { data: placeDetailsData, loading } = useQuery<PlaceDetailsData>(GET_PLACE_DETAILS, {
-    variables: { placeId },
+    variables: { placeId, skip: !placeId },
   });
+
   const place = allPlacesData?.places.find((p) => p.properties.id === placeId);
   const reviews = placeDetailsData?.placeDetails.reviews ?? [];
 
@@ -53,6 +54,10 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ onClose, pla
     }
   }, [place?.geometry.coordinates, setLocation]);
 
+  const onClose = useCallback(() => {
+    navigate({ pathname: '/' });
+  }, [navigate]);
+
   useEffect(() => {
     const handleEscKey = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -66,13 +71,19 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ onClose, pla
     };
   }, [onClose]);
 
+  if (!placeId) return null;
   if (!place?.properties || loading) return <Loader />;
 
   const { averageRating, description, name, address, instagram } = place.properties;
   return (
     <PortalToBody>
       <div className={cls.addressCopmactView}>{address}</div>
-      <div onClick={onClose} className={cls.backDrop}>
+      <div
+        onClick={() => {
+          onClose();
+        }}
+        className={cls.backDrop}
+      >
         <div
           onClick={(e) => {
             e.stopPropagation();
@@ -84,7 +95,12 @@ export const DetailedPaceCard: React.FC<DetailedPaceCardProps> = ({ onClose, pla
 
           <InstagramEmbedProfile normalView={isViewInstProfile} username={instagram} />
 
-          <button className={cls.closeButton} onClick={onClose}></button>
+          <button
+            className={cls.closeButton}
+            onClick={() => {
+              onClose();
+            }}
+          ></button>
           <div className={cls.iconsRow}>
             <div
               title={place.properties.isFavorite ? 'Remove this place from favorites' : 'Add this place to favorites'}

@@ -1,6 +1,6 @@
 import { type Position } from 'geojson';
 import { useContext } from 'react';
-import { useDetailedCard } from 'app/providers/DetailedCardProvider';
+import { createSearchParams, useNavigate } from 'react-router-dom';
 import { LocationContext } from 'app/providers/LocationProvider/lib/LocationContext';
 import { usePlaces } from 'app/providers/PlacesDataProvider/ui/PlacesDataProvider';
 import { useToggleFavorite } from 'shared/lib/hooks/interactions/useToggleFavorite';
@@ -21,9 +21,9 @@ interface PlaceCardProps {
 
 export const PlaceCard = ({ properties, coordinates }: PlaceCardProps) => {
   const { setLocation } = useContext(LocationContext);
-  const { setCurrentSelectedPlaceId } = useDetailedCard();
   const { toggleFavorite, toastMessage } = useToggleFavorite(properties.id);
   const { setShowFavorite, showFavorites } = usePlaces();
+  const navigate = useNavigate();
 
   const handleToggleFavorite = async () => {
     try {
@@ -36,25 +36,22 @@ export const PlaceCard = ({ properties, coordinates }: PlaceCardProps) => {
     }
   };
 
+  const handleClickDetails = () => {
+    navigate({
+      pathname: '/details',
+      search: createSearchParams({ id: properties.id }).toString(),
+    });
+  };
+
   return (
     <>
-      <div
-        onClick={() => {
-          setCurrentSelectedPlaceId(properties.id);
-        }}
-        className={`${cls.placeCard} `}
-      >
+      <div onClick={handleClickDetails} className={`${cls.placeCard} `}>
         <div className={cls.image}>
           <LazyImage src={`./places-images/${properties.image || 'default-place.jpg'}`} alt="Place image" />
         </div>
         <div className={cls.content}>
           <div className={cls.cardHeader}>
-            <h4
-              onClick={() => {
-                setCurrentSelectedPlaceId(properties.id);
-              }}
-              className={cls.name}
-            >
+            <h4 onClick={handleClickDetails} className={cls.name}>
               {properties.name}
             </h4>
             <div className={cls.iconsGroup}>

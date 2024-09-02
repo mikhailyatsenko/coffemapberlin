@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom/client';
 import { HashRouter as BrowserRouter } from 'react-router-dom';
 import { ApolloProviderWrapper } from 'app/providers/ApolloProviderWrapper';
 import { AuthProvider } from 'app/providers/AuthProvider';
-import { DetailedCardProvider } from 'app/providers/DetailedCardProvider';
 import { LocationProvider } from 'app/providers/LocationProvider';
 import { PlacesDataProvider } from 'app/providers/PlacesDataProvider';
 import App from './app/App';
@@ -18,13 +17,11 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <GoogleOAuthProvider clientId={process.env.GOOGLE_CLIENT_ID}>
       <AuthProvider>
         <BrowserRouter>
-          <DetailedCardProvider>
-            <LocationProvider>
-              <PlacesDataProvider>
-                <App />
-              </PlacesDataProvider>
-            </LocationProvider>
-          </DetailedCardProvider>
+          <LocationProvider>
+            <PlacesDataProvider>
+              <App />
+            </PlacesDataProvider>
+          </LocationProvider>
         </BrowserRouter>
       </AuthProvider>
     </GoogleOAuthProvider>

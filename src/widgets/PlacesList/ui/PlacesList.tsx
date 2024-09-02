@@ -1,11 +1,11 @@
-import { useDetailedCard } from 'app/providers/DetailedCardProvider';
+import { useLocation } from 'react-router-dom';
 import { usePlaces } from 'app/providers/PlacesDataProvider/ui/PlacesDataProvider';
 import { PlaceCard } from 'features/PlaceCard';
 import cls from './PlacesList.module.scss';
 
 export function PlacesList() {
+  const location = useLocation();
   const { filterablePlaces, favoritePlaces, showFavorites } = usePlaces();
-  const { currentSelectedPlaceId } = useDetailedCard();
   const { searchTerm, setShowFavorite } = usePlaces();
 
   if (!filterablePlaces.length) return null;
@@ -14,9 +14,9 @@ export function PlacesList() {
     !searchTerm && (
       <>
         <div
-          className={`${cls.placesData} ${showFavorites && favoritePlaces?.length && !currentSelectedPlaceId ? cls.showFavorites : ''}`}
+          className={`${cls.placesData} ${showFavorites && favoritePlaces?.length && location.pathname !== '/details' ? cls.showFavorites : ''}`}
         >
-          <div className={`${cls.PlacesList} ${currentSelectedPlaceId ? cls.detailsOpen : ''}`}>
+          <div className={`${cls.PlacesList} ${location.pathname === '/details' ? cls.detailsOpen : ''}`}>
             {(showFavorites && favoritePlaces?.length ? favoritePlaces : filterablePlaces).map((place) => (
               <PlaceCard
                 properties={place.properties}
