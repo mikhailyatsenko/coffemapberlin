@@ -1,6 +1,5 @@
 import { type Position } from 'geojson';
-// import { useDetailedCard } from 'app/providers/DetailedCardProvider';
-import { createSearchParams, useNavigate } from 'react-router-dom';
+import { createSearchParams, NavLink } from 'react-router-dom';
 import { useToggleFavorite } from 'shared/lib/hooks/interactions/useToggleFavorite';
 import { type PlaceProperties } from 'shared/types';
 import { AddToFavButton } from 'shared/ui/AddToFavButton';
@@ -17,7 +16,6 @@ interface TooltipCardOnMapProps {
 }
 
 export const TooltipCardOnMap = ({ properties, coordinates }: TooltipCardOnMapProps) => {
-  const navigate = useNavigate();
   const { id, averageRating, name, address, instagram, image } = properties;
 
   const { toggleFavorite, toastMessage } = useToggleFavorite(id);
@@ -33,23 +31,29 @@ export const TooltipCardOnMap = ({ properties, coordinates }: TooltipCardOnMapPr
     }
   };
 
-  const handleClickDetails = () => {
-    navigate({
-      pathname: '/details',
-      search: createSearchParams({ id: properties.id }).toString(),
-    });
-  };
-
   return (
     <div className={cls.TooltipCardOnMap}>
-      <div onClick={handleClickDetails} className={cls.image}>
-        <img src={`./places-images/${image || 'default-place.jpg'}`} alt="Place image" />
-      </div>
+      <NavLink
+        to={{
+          pathname: '/details',
+          search: createSearchParams({ id: properties.id }).toString(),
+        }}
+      >
+        <div className={cls.image}>
+          <img src={`./places-images/${image || 'default-place.jpg'}`} alt="Place image" />
+        </div>
+      </NavLink>
+
       <div className={cls.content}>
         <div className={cls.header}>
-          <h4 onClick={handleClickDetails} className={cls.name}>
-            {name}
-          </h4>
+          <NavLink
+            to={{
+              pathname: '/details',
+              search: createSearchParams({ id: properties.id }).toString(),
+            }}
+          >
+            <h4 className={cls.name}>{name}</h4>
+          </NavLink>
           <div className={cls.iconsGroup}></div>
         </div>
 
@@ -58,9 +62,14 @@ export const TooltipCardOnMap = ({ properties, coordinates }: TooltipCardOnMapPr
         </div>
         <div className={cls.address}>{address}</div>
         <div className={cls.iconsGroup}>
-          <div onClick={handleClickDetails} className={cls.moreButton}>
-            More details
-          </div>
+          <NavLink
+            to={{
+              pathname: '/details',
+              search: createSearchParams({ id: properties.id }).toString(),
+            }}
+          >
+            <button className={cls.moreButton}>More details</button>
+          </NavLink>
 
           <a
             className={cls.iconWrapper}

@@ -1,6 +1,6 @@
 import { type Position } from 'geojson';
 import { useContext } from 'react';
-import { createSearchParams, useNavigate } from 'react-router-dom';
+import { createSearchParams, NavLink, useNavigate } from 'react-router-dom';
 import { LocationContext } from 'app/providers/LocationProvider/lib/LocationContext';
 import { usePlaces } from 'app/providers/PlacesDataProvider/ui/PlacesDataProvider';
 import { useToggleFavorite } from 'shared/lib/hooks/interactions/useToggleFavorite';
@@ -51,9 +51,14 @@ export const PlaceCard = ({ properties, coordinates }: PlaceCardProps) => {
         </div>
         <div className={cls.content}>
           <div className={cls.cardHeader}>
-            <h4 onClick={handleClickDetails} className={cls.name}>
-              {properties.name}
-            </h4>
+            <NavLink
+              to={{
+                pathname: '/details',
+                search: createSearchParams({ id: properties.id }).toString(),
+              }}
+            >
+              <h4 className={cls.name}>{properties.name}</h4>
+            </NavLink>
             <div className={cls.iconsGroup}>
               <div
                 title={properties.isFavorite ? 'Remove this place from favorites' : 'Add this place to favorites'}

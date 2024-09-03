@@ -2,6 +2,7 @@
   position: fixed;
   bottom: 180px;
   right: -160px;
+  opacity: 0;
   cursor: pointer;
   background-image: url('../../../shared/assets/favorite-filled.svg');
   background-repeat: no-repeat;
@@ -104,6 +105,10 @@
 @keyframes slideLeft {
   0% {
     right: -160px;
+    opacity: 0;
+  }
+  20% {
+    right: -100px;
     opacity: 0;
   }
   100% {

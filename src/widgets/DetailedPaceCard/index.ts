@@ -1,1 +1,1 @@
-export { DetailedPaceCard } from './ui/DetailedPaceCard';
+export { DetailedPaceCardLazy as DetailedPaceCard } from './ui/DetailedPaceCardLazy';

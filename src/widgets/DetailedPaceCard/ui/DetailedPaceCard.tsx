@@ -17,7 +17,7 @@ import Toast from 'shared/ui/ToastMessage/Toast';
 import { type PlaceDetailsData } from '../../../shared/lib/hooks/interactions/useAddReview';
 import cls from './DetailedPaceCard.module.scss';
 
-export const DetailedPaceCard: React.FC = () => {
+const DetailedPaceCard: React.FC = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
@@ -70,6 +70,14 @@ export const DetailedPaceCard: React.FC = () => {
       document.removeEventListener('keydown', handleEscKey);
     };
   }, [onClose]);
+
+  useEffect(() => {
+    document.title = place?.properties.name ?? 'Berlin Coffee Map';
+
+    return () => {
+      document.title = 'Berlin Coffee Map';
+    };
+  }, [place?.properties.name]);
 
   if (!placeId) return null;
   if (!place?.properties || loading) return <Loader />;
@@ -142,3 +150,5 @@ export const DetailedPaceCard: React.FC = () => {
     </PortalToBody>
   );
 };
+
+export default DetailedPaceCard;
