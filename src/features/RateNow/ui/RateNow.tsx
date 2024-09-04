@@ -22,7 +22,7 @@ export const RateNow = ({ reviews, placeId }: RateNowProps) => {
 
   const onSubmitTextReview = async (reviewText: string) => {
     await handleAddReview(reviewText);
-    setShowReviewForm(false);
+    // setShowReviewForm(false);
   };
 
   if (hasRating && hasReviewWithText) return null;

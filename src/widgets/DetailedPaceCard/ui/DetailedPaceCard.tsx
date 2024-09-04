@@ -1,7 +1,6 @@
 import { useQuery } from '@apollo/client';
 import React, { useContext, useEffect, useState, useRef, useCallback } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-// import { useDetailedCard } from 'app/providers/DetailedCardProvider';
 import { LocationContext } from 'app/providers/LocationProvider/lib/LocationContext';
 import { RateNow } from 'features/RateNow';
 import { ReviewList } from 'features/ReviewList';

@@ -18,20 +18,18 @@ interface ReviewFormData {
 }
 
 export const ReviewForm: React.FC<ReviewFormProps> = ({ onSubmit, isLoading, onBack }) => {
-  // const [reviewText, setReviewText] = useState('');
-
   const form = useForm<ReviewFormData>({ mode: 'onChange' });
 
   const {
     handleSubmit,
     formState: { errors, isValid },
-    reset,
+    // reset,
   } = form;
 
   const handleFormSubmit: SubmitHandler<ReviewFormData> = (data) => {
     if (data.review.trim()) {
       onSubmit(data.review);
-      reset();
+      // reset();
     }
   };
 
@@ -40,15 +38,6 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({ onSubmit, isLoading, onB
   return (
     <FormProvider {...form}>
       <form className={`${cls.reviewForm}`} onSubmit={handleSubmit(handleFormSubmit)}>
-        {/* <textarea
-        className={cls.reviewInput}
-        value={reviewText}
-        onChange={(e) => {
-          setReviewText(e.target.value);
-        }}
-        placeholder="Write your review here..."
-        rows={4}
-      /> */}
         <FormField fieldName="review" type="textarea" maxLength={MAX_REVIEW_LENGTH} labelText="Review" />
         {errors.review && <p className={cls.formError}>{errors.review.message}</p>}
         <div className={cls.buttons}>

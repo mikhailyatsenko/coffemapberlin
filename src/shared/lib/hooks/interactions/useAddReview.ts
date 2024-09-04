@@ -24,6 +24,7 @@ export function useAddReview(placeId: string) {
   const [addReview, { loading: addReviewLoading, error: addReviewError }] = useMutation<AddReviewResponse>(ADD_REVIEW, {
     update(cache, { data }) {
       if (data) {
+        console.log(data);
         updateAllPlacesCache(cache, data.addReview);
         updatePlaceDetailsCache(cache, data.addReview);
       }
