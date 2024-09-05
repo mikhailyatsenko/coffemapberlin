@@ -101,8 +101,8 @@ export const DELETE_REVIEW = gql`
   mutation DeleteReview($reviewId: ID!) {
     deleteReview(reviewId: $reviewId) {
       reviewId
-      success
-      message
+      averageRating
+      ratingCount
     }
   }
 `;

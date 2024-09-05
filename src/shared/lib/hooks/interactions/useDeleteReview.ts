@@ -1,7 +1,7 @@
 import { type ApolloCache, useMutation } from '@apollo/client';
 import { useAuth } from 'app/providers/AuthProvider';
-import { GET_PLACE_DETAILS, DELETE_REVIEW } from 'shared/query/places';
-import { type Review } from 'shared/types';
+import { GET_PLACE_DETAILS, DELETE_REVIEW, GET_ALL_PLACES } from 'shared/query/places';
+import { type PlaceResponse, type Review } from 'shared/types';
 
 export interface PlaceDetailsData {
   placeDetails: {
@@ -15,8 +15,8 @@ export interface PlaceDetailsData {
 interface DeleteReviewResponce {
   deleteReview: {
     reviewId: string;
-    success: boolean;
-    message: string;
+    averageRating: number;
+    ratingCount: number;
   };
 }
 
@@ -27,8 +27,9 @@ export function useDeleteReview(placeId: string) {
     DELETE_REVIEW,
     {
       update(cache, { data }) {
-        if (data && data.deleteReview.success && data.deleteReview.reviewId) {
+        if (data) {
           updatePlaceDetailsCacheAfterDelete(cache, data.deleteReview.reviewId);
+          updateAllPlacesCache(cache, data.deleteReview);
         }
       },
     },
@@ -59,16 +60,38 @@ export function useDeleteReview(placeId: string) {
     }
   };
 
+  const updateAllPlacesCache = (cache: ApolloCache<unknown>, newData: DeleteReviewResponce['deleteReview']) => {
+    const existingData = cache.readQuery<{ places: PlaceResponse[] }>({ query: GET_ALL_PLACES });
+
+    if (existingData?.places) {
+      const updatedPlaces = existingData.places.map((place) => {
+        if (place.properties.id === placeId) {
+          return {
+            ...place,
+            properties: {
+              ...place.properties,
+              averageRating: newData.averageRating,
+              ratingCount: newData.ratingCount,
+            },
+          };
+        }
+        return place;
+      });
+
+      cache.writeQuery({
+        query: GET_ALL_PLACES,
+        data: { places: updatedPlaces },
+      });
+    }
+  };
+
   const handleDeleteReview = async (reviewId: string): Promise<void> => {
     if (!user) {
       showLoginPopup();
       return;
     }
     try {
-      const { data } = await deleteReview({ variables: { reviewId } });
-      if (!data?.deleteReview.success) {
-        throw new Error(data?.deleteReview.message);
-      }
+      await deleteReview({ variables: { reviewId } });
     } catch (err) {
       console.error('Error deleting review:', err);
       throw err;
@@ -79,6 +102,5 @@ export function useDeleteReview(placeId: string) {
     handleDeleteReview,
     loading: deleteReviewLoading,
     error: deleteReviewError,
-    // placeData: allPlacesData?.places.find((place) => place.properties.id === placeId),
   };
 }

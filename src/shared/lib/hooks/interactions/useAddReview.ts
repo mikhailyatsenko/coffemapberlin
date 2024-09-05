@@ -24,7 +24,6 @@ export function useAddReview(placeId: string) {
   const [addReview, { loading: addReviewLoading, error: addReviewError }] = useMutation<AddReviewResponse>(ADD_REVIEW, {
     update(cache, { data }) {
       if (data) {
-        console.log(data);
         updateAllPlacesCache(cache, data.addReview);
         updatePlaceDetailsCache(cache, data.addReview);
       }
@@ -36,7 +35,7 @@ export function useAddReview(placeId: string) {
 
     if (existingData?.places) {
       const updatedPlaces = existingData.places.map((place) => {
-        if (place.properties.id === newData.review.placeId) {
+        if (place.properties.id === placeId) {
           return {
             ...place,
             properties: {
