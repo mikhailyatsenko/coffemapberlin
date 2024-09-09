@@ -6,7 +6,7 @@ import { RateNow } from 'features/RateNow';
 import { ReviewList } from 'features/ReviewList';
 import { HeaderDetailedPlacCard } from 'entities/HeaderDetailedPlacCard';
 import { useToggleFavorite } from 'shared/lib/hooks/interactions/useToggleFavorite';
-import { GET_ALL_PLACES, GET_PLACE_DETAILS } from 'shared/query/places';
+import { GET_ALL_PLACES, GET_PLACE_DETAILS } from 'shared/query/apolloQuries';
 import { type PlaceResponse } from 'shared/types';
 import { AddToFavButton } from 'shared/ui/AddToFavButton';
 import { InstagramEmbedProfile } from 'shared/ui/InstagramEmbed';

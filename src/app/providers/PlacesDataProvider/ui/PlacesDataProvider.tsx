@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import React, { createContext, useContext, useState } from 'react';
-import { GET_ALL_PLACES } from 'shared/query/places';
+import { GET_ALL_PLACES } from 'shared/query/apolloQuries';
 import { type PlaceResponse } from 'shared/types';
 
 interface PlacesContextType {

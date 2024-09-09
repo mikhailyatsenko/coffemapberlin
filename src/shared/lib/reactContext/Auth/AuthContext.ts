@@ -4,8 +4,8 @@ import { type User } from 'shared/types';
 interface AuthContextType {
   loading: boolean;
   user: User | null;
-  login: () => void;
-
+  continueWithGoogle: () => void;
+  checkAuth: () => void;
   isLoginPopup: boolean;
   showLoginPopup: () => void;
   closeLoginPopup: () => void;

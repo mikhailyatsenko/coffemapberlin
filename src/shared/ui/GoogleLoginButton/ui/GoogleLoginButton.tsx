@@ -1,13 +1,15 @@
+import { useAuth } from 'shared/lib/reactContext/Auth/useAuth';
 import './GoogleLoginButton.scss';
 
 interface GoogleLoginButtonProps {
-  buttonHandler: () => void;
+  textButton?: string;
 }
 
-export const GoogleLoginButton = ({ buttonHandler }: GoogleLoginButtonProps) => {
+export const GoogleLoginButton = ({ textButton }: GoogleLoginButtonProps) => {
+  const { continueWithGoogle } = useAuth();
   return (
-    <button onClick={buttonHandler} type="button" className="login-with-google-btn">
-      Sign in
+    <button onClick={continueWithGoogle} type="button" className="login-with-google-btn">
+      {textButton || 'Sign in'}
     </button>
   );
 };

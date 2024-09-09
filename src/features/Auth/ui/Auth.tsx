@@ -1,11 +1,11 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
 import React, { useState, useRef, useEffect } from 'react';
-import { useAuth } from 'app/providers/AuthProvider';
+import { useAuth } from 'shared/lib/reactContext/Auth/useAuth';
 import { GoogleLoginButton } from 'shared/ui/GoogleLoginButton';
+import defaultUserAvatar from '../../../shared/assets/user-default-icon.svg';
 import cls from './Auth.module.scss';
 
 export const Auth: React.FC = () => {
-  const { user, logout, login } = useAuth();
+  const { user, logout } = useAuth();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -27,19 +27,13 @@ export const Auth: React.FC = () => {
   };
 
   if (!user) {
-    return (
-      <GoogleLoginButton
-        buttonHandler={() => {
-          login();
-        }}
-      />
-    );
+    return <GoogleLoginButton />;
   }
 
   return (
     <div className={cls.authIndicator} ref={dropdownRef}>
       <div className={cls.userAvatar} onClick={toggleDropdown}>
-        <img src={user?.avatar ?? '/default-avatar.png'} alt="User avatar" referrerPolicy="no-referrer" />
+        <img src={user?.avatar || defaultUserAvatar} alt="User avatar" referrerPolicy="no-referrer" />
       </div>
 
       <span

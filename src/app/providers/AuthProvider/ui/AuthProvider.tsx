@@ -4,10 +4,9 @@ import { useApolloClient, useMutation } from '@apollo/client';
 import { useGoogleLogin } from '@react-oauth/google';
 import { useCallback, type FC, type PropsWithChildren } from 'react';
 import { useState, useEffect } from 'react';
-import { LOGIN_WITH_GOOGLE_MUTATION, CURRENT_USER_QUERY, LOGOUT_MUTATION } from 'shared/query/places';
+import { AuthContext } from 'shared/lib/reactContext/Auth/AuthContext';
+import { LOGIN_WITH_GOOGLE_MUTATION, CURRENT_USER_QUERY, LOGOUT_MUTATION } from 'shared/query/apolloQuries';
 import { type User } from 'shared/types';
-
-import { AuthContext } from '../lib/AuthContext';
 
 interface LoginWithGoogleData {
   loginWithGoogle: {
@@ -54,7 +53,7 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
     };
   }, [checkAuth]);
 
-  const login = useGoogleLogin({
+  const continueWithGoogle = useGoogleLogin({
     flow: 'auth-code',
     onSuccess: async (tokenResponse) => {
       if (isLoginPopup) setIsLoginPopup(false);
@@ -108,7 +107,17 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, login, isLoginPopup, showLoginPopup, closeLoginPopup, logout, loading, error }}
+      value={{
+        checkAuth,
+        user,
+        continueWithGoogle,
+        isLoginPopup,
+        showLoginPopup,
+        closeLoginPopup,
+        logout,
+        loading,
+        error,
+      }}
     >
       {children}
     </AuthContext.Provider>

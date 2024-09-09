@@ -33,6 +33,7 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': 'warn',
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
+    '@typescript-eslint/prefer-nullish-coalescing': 'off',
     'react/prop-types': 'off',
     'react/display-name': 'off',
     '@typescript-eslint/no-explicit-any': 'error',

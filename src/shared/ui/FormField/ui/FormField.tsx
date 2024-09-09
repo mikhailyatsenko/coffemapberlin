@@ -8,8 +8,17 @@ interface FormFieldProps {
   value?: string;
   labelText?: string;
   maxLength?: number;
+  validateFunction?: () => boolean | string;
 }
-export const FormField: React.FC<FormFieldProps> = ({ fieldName, type, value, error, labelText, maxLength }) => {
+export const FormField: React.FC<FormFieldProps> = ({
+  fieldName,
+  type,
+  value,
+  error,
+  labelText,
+  maxLength,
+  validateFunction,
+}) => {
   const { register } = useFormContext();
   const parameters = {
     placeholder: fieldName,
@@ -18,6 +27,7 @@ export const FormField: React.FC<FormFieldProps> = ({ fieldName, type, value, er
     id: fieldName,
     ...register(fieldName, {
       required: `${labelText} is required`,
+      validate: validateFunction,
       ...(maxLength !== undefined && {
         maxLength: { value: maxLength, message: `${labelText} field must be ${maxLength} characters or less` },
       }),
@@ -35,9 +45,9 @@ export const FormField: React.FC<FormFieldProps> = ({ fieldName, type, value, er
         {labelText}
       </label>
 
-      {/* <div className={cls.errorContainer}>
+      <div className={cls.errorContainer}>
         <p className={`error-message${error ? ' show-error' : ''}`}>{error && error}</p>
-      </div> */}
+      </div>
     </div>
   );
 };

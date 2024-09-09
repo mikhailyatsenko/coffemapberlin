@@ -24,7 +24,7 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({
   return (
     <div className={cls.reviewCard}>
       <div className={cls.userInfo}>
-        <img src={userAvatar ?? defaultUserAvatar} alt={userName} className={cls.avatar} referrerPolicy="no-referrer" />
+        <img src={userAvatar || defaultUserAvatar} alt={userName} className={cls.avatar} referrerPolicy="no-referrer" />
         <span className={cls.userName}>{userName}</span>
         {rating && (
           <div className={cls.userRate}>

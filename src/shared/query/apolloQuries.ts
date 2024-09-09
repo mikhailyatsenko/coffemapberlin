@@ -62,20 +62,17 @@ export const TOGGLE_FAVORITE = gql`
   }
 `;
 
-// export const GET_PLACE_REVIEWS = gql`
-//   query GetPlaceReviews($placeId: ID!) {
-//     placeReviews(placeId: $placeId) {
-//       id
-//       userName
-//       userAvatar
-//       text
-//       userId
-//       userRating
-//       createdAt
-//       isOwnReview
-//     }
-//   }
-// `;
+export const REGISTER_USER = gql`
+  mutation RegisterUser($email: String!, $displayName: String!, $password: String!) {
+    registerUser(email: $email, displayName: $displayName, password: $password) {
+      user {
+        id
+        displayName
+        email
+      }
+    }
+  }
+`;
 
 export const ADD_REVIEW = gql`
   mutation AddReview($placeId: ID!, $text: String, $rating: Float) {

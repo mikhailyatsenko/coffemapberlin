@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { FormProvider, useForm, type SubmitHandler } from 'react-hook-form';
-import { FormButton } from 'shared/ui/FormButton';
 import { FormField } from 'shared/ui/FormField';
+import { WhiteButton } from 'shared/ui/WhiteButton';
 import cls from './ContactForm.module.scss';
 
 export interface ContactFormData {
@@ -53,7 +53,9 @@ export const ContactForm = ({ onSubmit }: ContactFormProps) => {
           </div>
           <FormField fieldName="recaptcha" type="hidden" error={errors.recaptcha?.message} value={captchaValue ?? ''} />
 
-          <FormButton disabled={!isValid}>Send message</FormButton>
+          <WhiteButton type="submit" disabled={!isValid}>
+            Send message
+          </WhiteButton>
           {/* <div className="disable-button-text">{isValid ? '' : 'all fields are required'}</div> */}
         </form>
       </FormProvider>

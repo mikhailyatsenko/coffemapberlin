@@ -1,6 +1,6 @@
-import { useAuth } from 'app/providers/AuthProvider';
 import { usePlaces } from 'app/providers/PlacesDataProvider/ui/PlacesDataProvider';
 import { FavoritesIndicator } from 'entities/FavoritesIndicator';
+import { useAuth } from 'shared/lib/reactContext/Auth/useAuth';
 
 export const ShowFavoritePlaces = () => {
   const { user } = useAuth();
