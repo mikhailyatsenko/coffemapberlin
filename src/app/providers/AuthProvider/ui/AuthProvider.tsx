@@ -80,14 +80,6 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
     },
   });
 
-  const showLoginPopup = () => {
-    setIsLoginPopup(true);
-  };
-
-  const closeLoginPopup = () => {
-    if (isLoginPopup) setIsLoginPopup(false);
-  };
-
   const logout = async () => {
     setLoading(true);
     setError(null);
@@ -112,8 +104,7 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
         user,
         continueWithGoogle,
         isLoginPopup,
-        showLoginPopup,
-        closeLoginPopup,
+        setIsLoginPopup,
         logout,
         loading,
         error,

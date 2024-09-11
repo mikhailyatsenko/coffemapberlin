@@ -1,15 +1,16 @@
-import { useState } from 'react';
+import { yupResolver } from '@hookform/resolvers/yup';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { FormProvider, useForm, type SubmitHandler } from 'react-hook-form';
 import { FormField } from 'shared/ui/FormField';
 import { WhiteButton } from 'shared/ui/WhiteButton';
+import { validationSchema } from '../lib/validationSchema';
 import cls from './ContactForm.module.scss';
 
 export interface ContactFormData {
-  name: string | undefined;
-  email: string | undefined;
-  message: string | undefined;
-  recaptcha: string | undefined;
+  name: string;
+  email: string;
+  message: string;
+  recaptcha: string;
 }
 
 interface ContactFormProps {
@@ -17,8 +18,7 @@ interface ContactFormProps {
 }
 
 export const ContactForm = ({ onSubmit }: ContactFormProps) => {
-  const [captchaValue, setCaptchaValue] = useState<string | null>(null);
-  const form = useForm<ContactFormData>({ mode: 'onBlur' });
+  const form = useForm<ContactFormData>({ mode: 'onBlur', resolver: yupResolver(validationSchema) });
 
   const {
     handleSubmit,
@@ -28,8 +28,7 @@ export const ContactForm = ({ onSubmit }: ContactFormProps) => {
   } = form;
 
   const handleCaptchaChange = (value: string | null) => {
-    setCaptchaValue(value);
-    setValue('recaptcha', value ?? '');
+    setValue('recaptcha', value || '');
     trigger('recaptcha');
   };
 
@@ -49,9 +48,8 @@ export const ContactForm = ({ onSubmit }: ContactFormProps) => {
               }
               onChange={handleCaptchaChange}
             />
-            {errors.recaptcha && <p>Please complete the reCAPTCHA</p>}
           </div>
-          <FormField fieldName="recaptcha" type="hidden" error={errors.recaptcha?.message} value={captchaValue ?? ''} />
+          <FormField fieldName="recaptcha" type="hidden" error={errors.recaptcha?.message} value={''} />
 
           <WhiteButton type="submit" disabled={!isValid}>
             Send message

@@ -1,4 +1,5 @@
 import { useMutation } from '@apollo/client';
+import { yupResolver } from '@hookform/resolvers/yup';
 import React, { useState } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { FormProvider, useForm, type SubmitHandler } from 'react-hook-form';
@@ -8,6 +9,8 @@ import { REGISTER_USER } from 'shared/query/apolloQuries';
 import { RegularButton } from 'shared/ui/RegularButton';
 import { FormField } from '../../FormField';
 import { GoogleLoginButton } from '../../GoogleLoginButton';
+
+import { validationSchema } from '../lib/validationSchema';
 import cls from './RegisterWithEmail.module.scss';
 
 interface RegisterWithEmailData {
@@ -15,30 +18,32 @@ interface RegisterWithEmailData {
   email: string;
   password: string;
   repeatPassword: string;
-  recaptcha: string | undefined;
+  recaptcha: string;
 }
 
 export const RegisterWithEmail: React.FC = () => {
   const navigate = useNavigate();
 
   const [registrationError, setRegistrationError] = useState<string | null>(null);
-  const [captchaValue, setCaptchaValue] = useState<string | null>(null);
-
-  const [registerUser, { loading, error }] = useMutation(REGISTER_USER);
-  const { checkAuth } = useAuth();
-  const form = useForm<RegisterWithEmailData>({ mode: 'onBlur' });
+  const [
+    registerUser,
+    {
+      // loading,
+      error,
+    },
+  ] = useMutation(REGISTER_USER);
+  const { checkAuth, setIsLoginPopup } = useAuth();
+  const form = useForm<RegisterWithEmailData>({ mode: 'onBlur', resolver: yupResolver(validationSchema) });
 
   const {
     handleSubmit,
-    getValues,
     setValue,
     trigger,
     formState: { errors, isValid },
   } = form;
 
   const handleCaptchaChange = (value: string | null) => {
-    setCaptchaValue(value);
-    setValue('recaptcha', value ?? '');
+    setValue('recaptcha', value || '');
     trigger('recaptcha');
   };
 
@@ -53,6 +58,7 @@ export const RegisterWithEmail: React.FC = () => {
       });
       if (response) {
         checkAuth();
+        setIsLoginPopup(false);
         navigate('/');
       }
     } catch (err) {
@@ -60,14 +66,6 @@ export const RegisterWithEmail: React.FC = () => {
       setRegistrationError(`Registration error: ${errorMessage}`);
       console.error('Registration error:', errorMessage);
     }
-  };
-
-  const validatePassword = () => {
-    const { password, repeatPassword } = getValues();
-    if (password !== repeatPassword) {
-      return 'Passwords must match';
-    }
-    return true;
   };
 
   return (
@@ -80,14 +78,14 @@ export const RegisterWithEmail: React.FC = () => {
 
       <FormProvider {...form}>
         <form className={cls.registerWithEmail} onSubmit={handleSubmit(onSubmit)}>
-          <FormField fieldName="displayName" type="text" labelText="Name" />
-          <FormField fieldName="email" type="email" labelText="E-mail" />
-          <FormField maxLength={8} fieldName="password" type="password" labelText="Password" />
+          <FormField fieldName="displayName" type="text" labelText="Name" error={errors.displayName?.message} />
+          <FormField fieldName="email" type="email" labelText="E-mail" error={errors.email?.message} />
+          <FormField fieldName="password" type="password" labelText="Password" error={errors.password?.message} />
           <FormField
-            validateFunction={validatePassword}
             fieldName="repeatPassword"
             type="password"
             labelText="Repeat password"
+            error={errors?.repeatPassword?.message}
           />
           <div className={cls.recaptcha}>
             <ReCAPTCHA
@@ -100,10 +98,11 @@ export const RegisterWithEmail: React.FC = () => {
             />
             {errors.recaptcha && <p>Please complete the reCAPTCHA</p>}
           </div>
-          <FormField fieldName="recaptcha" type="hidden" error={errors.recaptcha?.message} value={captchaValue ?? ''} />{' '}
+          <FormField fieldName="recaptcha" type="hidden" error={errors.recaptcha?.message} value={''} />
           <RegularButton disabled={!isValid}>Sign up</RegularButton>
         </form>
       </FormProvider>
+      {error?.message}
     </div>
   );
 };

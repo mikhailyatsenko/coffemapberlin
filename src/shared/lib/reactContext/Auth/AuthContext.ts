@@ -7,9 +7,7 @@ interface AuthContextType {
   continueWithGoogle: () => void;
   checkAuth: () => void;
   isLoginPopup: boolean;
-  showLoginPopup: () => void;
-  closeLoginPopup: () => void;
-
+  setIsLoginPopup: React.Dispatch<React.SetStateAction<boolean>>;
   logout: () => Promise<void>;
 
   error: Error | null;

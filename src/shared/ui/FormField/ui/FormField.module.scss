@@ -1,6 +1,6 @@
 .formGroup {
   position: relative;
-  padding: 15px 0 10px;
+  padding: 10px 0;
   width: 100%;
 }
 
@@ -56,14 +56,20 @@
   top: 0;
   display: block;
   transition: 0.2s;
-  font-size: 14px;
+  font-size: 10px;
   color: #000;
 }
 
 .error {
   border-color: #fd5353;
 }
+
 .errorContainer {
+  height: 14px;
+  .errorMessage {
+    font-size: 10px;
+    color: #fd5353;
+  }
 }
 
 .hiddenGroup {

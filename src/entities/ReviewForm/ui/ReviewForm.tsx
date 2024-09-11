@@ -1,8 +1,10 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import React from 'react';
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form';
 import { FormField } from 'shared/ui/FormField';
 import { Loader } from 'shared/ui/Loader';
 import { RegularButton } from 'shared/ui/RegularButton';
+import { validationSchema } from '../lib/validationSchema';
 import cls from './ReviewForm.module.scss';
 
 interface ReviewFormProps {
@@ -11,14 +13,12 @@ interface ReviewFormProps {
   isLoading: boolean;
 }
 
-const MAX_REVIEW_LENGTH = 1000; // Максимальная длина отзыва
-
 interface ReviewFormData {
   review: string;
 }
 
 export const ReviewForm: React.FC<ReviewFormProps> = ({ onSubmit, isLoading, onBack }) => {
-  const form = useForm<ReviewFormData>({ mode: 'onChange' });
+  const form = useForm<ReviewFormData>({ mode: 'onChange', resolver: yupResolver(validationSchema) });
 
   const {
     handleSubmit,
@@ -29,7 +29,6 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({ onSubmit, isLoading, onB
   const handleFormSubmit: SubmitHandler<ReviewFormData> = (data) => {
     if (data.review.trim()) {
       onSubmit(data.review);
-      // reset();
     }
   };
 
@@ -38,7 +37,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({ onSubmit, isLoading, onB
   return (
     <FormProvider {...form}>
       <form className={`${cls.reviewForm}`} onSubmit={handleSubmit(handleFormSubmit)}>
-        <FormField fieldName="review" type="textarea" maxLength={MAX_REVIEW_LENGTH} labelText="Review" />
+        <FormField fieldName="review" type="textarea" labelText="Review" />
         {errors.review && <p className={cls.formError}>{errors.review.message}</p>}
         <div className={cls.buttons}>
           <RegularButton theme="blank" type="button" clickHandler={onBack}>
