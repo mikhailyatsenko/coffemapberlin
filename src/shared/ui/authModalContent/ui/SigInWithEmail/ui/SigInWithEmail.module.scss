@@ -44,3 +44,15 @@
   align-items: center;
   justify-content: center;
 }
+
+.signUp {
+  padding-top: 20px;
+  font-size: 12px;
+  span {
+    cursor: pointer;
+    font-weight: 500;
+    &:hover {
+      border-bottom: 1px #303030 solid;
+    }
+  }
+}

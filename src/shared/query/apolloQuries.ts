@@ -13,6 +13,18 @@ export const LOGIN_WITH_GOOGLE_MUTATION = gql`
   }
 `;
 
+export const SIGN_IN_WITH_EMAIL = gql`
+  mutation SignInWithEmail($email: String!, $password: String!) {
+    signInWithEmail(email: $email, password: $password) {
+      user {
+        id
+        email
+        displayName
+      }
+    }
+  }
+`;
+
 export const CURRENT_USER_QUERY = gql`
   query CurrentUser {
     currentUser {

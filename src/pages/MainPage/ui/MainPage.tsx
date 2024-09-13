@@ -2,21 +2,23 @@ import { Outlet } from 'react-router-dom';
 import { MainMap } from 'widgets/Map';
 import { PlacesList } from 'widgets/PlacesList';
 import { useAuth } from 'shared/lib/reactContext/Auth/useAuth';
-import { LoginModal } from 'shared/ui/LoginPopup';
+import { AuthModalContent } from 'shared/ui/authModalContent/ui/AuthModalContent';
+import { Modal } from 'shared/ui/Modal';
 
 export const MainPage = () => {
-  const { isLoginPopup, setIsLoginPopup, continueWithGoogle } = useAuth();
+  const { isLoginPopup, setIsLoginPopup } = useAuth();
   return (
     <>
       <MainMap />
       <PlacesList />
       {isLoginPopup && (
-        <LoginModal
+        <Modal
           onClose={() => {
             setIsLoginPopup(false);
           }}
-          handleLogin={continueWithGoogle}
-        />
+        >
+          <AuthModalContent initialContent="LoginRequired" />
+        </Modal>
       )}
       <Outlet />
     </>

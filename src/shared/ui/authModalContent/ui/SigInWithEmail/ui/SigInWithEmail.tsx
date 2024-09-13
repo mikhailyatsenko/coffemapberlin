@@ -1,76 +1,69 @@
 import { useMutation } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
-import React, { useState } from 'react';
-import ReCAPTCHA from 'react-google-recaptcha';
+// import ReCAPTCHA from 'react-google-recaptcha';
 import { FormProvider, useForm, type SubmitHandler } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import { useAuth } from 'shared/lib/reactContext/Auth/useAuth';
-import { REGISTER_USER } from 'shared/query/apolloQuries';
+import { SIGN_IN_WITH_EMAIL } from 'shared/query/apolloQuries';
 import { RegularButton } from 'shared/ui/RegularButton';
-import { FormField } from '../../FormField';
-import { GoogleLoginButton } from '../../GoogleLoginButton';
+import { FormField } from '../../../../FormField';
+import { GoogleLoginButton } from '../../../../GoogleLoginButton';
 
 import { validationSchema } from '../lib/validationSchema';
-import cls from './RegisterWithEmail.module.scss';
+import cls from './SigInWithEmail.module.scss';
 
-interface RegisterWithEmailData {
-  displayName: string;
-  email: string;
-  password: string;
-  repeatPassword: string;
-  recaptcha: string;
+interface SignInWithEmailProps {
+  onSwitchToSignUp: () => void;
 }
 
-export const RegisterWithEmail: React.FC = () => {
-  const navigate = useNavigate();
+interface SigInWithEmailData {
+  email: string;
+  password: string;
+}
 
-  const [registrationError, setRegistrationError] = useState<string | null>(null);
+export const SignInWithEmail = ({ onSwitchToSignUp }: SignInWithEmailProps) => {
   const [
-    registerUser,
+    signInWithEmail,
     {
       // loading,
       error,
     },
-  ] = useMutation(REGISTER_USER);
+  ] = useMutation(SIGN_IN_WITH_EMAIL);
   const { checkAuth, setIsLoginPopup } = useAuth();
-  const form = useForm<RegisterWithEmailData>({ mode: 'onBlur', resolver: yupResolver(validationSchema) });
+  const form = useForm<SigInWithEmailData>({ mode: 'onBlur', resolver: yupResolver(validationSchema) });
 
   const {
     handleSubmit,
-    setValue,
-    trigger,
+    // setValue,
+    // trigger,
     formState: { errors, isValid },
   } = form;
 
-  const handleCaptchaChange = (value: string | null) => {
-    setValue('recaptcha', value || '');
-    trigger('recaptcha');
-  };
+  // const handleCaptchaChange = (value: string | null) => {
+  //   setValue('recaptcha', value || '');
+  //   trigger('recaptcha');
+  // };
 
-  const onSubmit: SubmitHandler<RegisterWithEmailData> = async (data) => {
+  const onSubmit: SubmitHandler<SigInWithEmailData> = async (data) => {
     try {
-      const response = await registerUser({
+      const response = await signInWithEmail({
         variables: {
           email: data.email,
-          displayName: data.displayName,
           password: data.password,
         },
       });
       if (response) {
         checkAuth();
         setIsLoginPopup(false);
-        navigate('/');
       }
     } catch (err) {
       const errorMessage = (err as Error).message || 'Unknown error';
-      setRegistrationError(`Registration error: ${errorMessage}`);
       console.error('Registration error:', errorMessage);
     }
   };
 
   return (
     <div className={cls.content}>
-      <h1>Create account</h1>
+      <h1>Sing in</h1>
       <div className={cls.withGoogle}>
         <GoogleLoginButton textButton="Continue with Google" />
       </div>
@@ -78,16 +71,9 @@ export const RegisterWithEmail: React.FC = () => {
 
       <FormProvider {...form}>
         <form className={cls.registerWithEmail} onSubmit={handleSubmit(onSubmit)}>
-          <FormField fieldName="displayName" type="text" labelText="Name" error={errors.displayName?.message} />
           <FormField fieldName="email" type="email" labelText="E-mail" error={errors.email?.message} />
           <FormField fieldName="password" type="password" labelText="Password" error={errors.password?.message} />
-          <FormField
-            fieldName="repeatPassword"
-            type="password"
-            labelText="Repeat password"
-            error={errors?.repeatPassword?.message}
-          />
-          <div className={cls.recaptcha}>
+          {/* <div className={cls.recaptcha}>
             <ReCAPTCHA
               sitekey={
                 process.env.VITE_ENV === 'development'
@@ -98,11 +84,14 @@ export const RegisterWithEmail: React.FC = () => {
             />
             {errors.recaptcha && <p>Please complete the reCAPTCHA</p>}
           </div>
-          <FormField fieldName="recaptcha" type="hidden" error={errors.recaptcha?.message} value={''} />
+          <FormField fieldName="recaptcha" type="hidden" error={errors.recaptcha?.message} value={''} /> */}
           <RegularButton disabled={!isValid}>Sign up</RegularButton>
         </form>
       </FormProvider>
       {error?.message}
+      <div className={cls.signUp}>
+        No account? <span onClick={onSwitchToSignUp}>Create one</span>
+      </div>
     </div>
   );
 };
