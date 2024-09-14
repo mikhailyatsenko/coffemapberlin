@@ -1,7 +1,7 @@
 # 3welle.com - Berlin Coffee Shop Finder
 
 ## Overview
-3welle.com is a web application designed to help Berlin residents and visitors discover the best specialty coffee shops in the city. Users can explore a map of coffee shops, read reviews, and find essential information about each location.
+3welle.com is a fullstack hobby application designed to help Berlin residents and visitors discover the best specialty coffee shops in the city. Users can explore a map of coffee shops, read reviews, and find essential information about each location.
 
 ## Technologies Used
 
