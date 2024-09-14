@@ -68,7 +68,7 @@ export const SignUpWithEmail = ({ onSwitchToSignIn }: SignUpWithEmailProps) => {
 
   return (
     <div className={cls.content}>
-      <h1>Create account</h1>
+      <h2>Create account</h2>
       <div className={cls.withGoogle}>
         <GoogleLoginButton textButton="Continue with Google" />
       </div>

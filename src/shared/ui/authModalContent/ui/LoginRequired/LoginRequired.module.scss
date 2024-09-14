@@ -1,7 +1,26 @@
+.LoginRequired {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
 .buttons {
   display: flex;
   justify-content: center;
   gap: 14px;
   flex-wrap: wrap;
-  margin-top: 20px;
+  padding: 20px 0;
+}
+
+.noAccount {
+  font-size: 12px;
+  span {
+    cursor: pointer;
+    font-weight: 500;
+    &:hover {
+      border-bottom: 1px #303030 solid;
+    }
+  }
 }

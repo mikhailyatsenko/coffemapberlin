@@ -50,7 +50,7 @@ export const SignInWithEmail = ({ onSwitchToSignUp }: SignInWithEmailProps) => {
 
   return (
     <div className={cls.content}>
-      <h1>Sign in</h1>
+      <h2>Sign in</h2>
       <div className={cls.withGoogle}>
         <GoogleLoginButton textButton="Continue with Google" />
       </div>
@@ -65,7 +65,7 @@ export const SignInWithEmail = ({ onSwitchToSignUp }: SignInWithEmailProps) => {
         </form>
       </FormProvider>
       <p className={cls.errorMessage}>{error?.message}</p>
-      <div className={cls.signUp}>
+      <div className={cls.noAccount}>
         No account? <span onClick={onSwitchToSignUp}>Create one</span>
       </div>
     </div>
