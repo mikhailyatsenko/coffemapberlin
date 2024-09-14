@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import cls from './AuthModalContent.module.scss';
 import { LoginRequired } from './LoginRequired/LoginRequired';
-import { SignInWithEmail } from './SigInWithEmail/ui/SigInWithEmail';
+import { SignInWithEmail } from './SigInWithEmail/ui/SignInWithEmail';
 import { SignUpWithEmail } from './SignUpWithEmail/ui/SignUpWithEmail';
 
-interface AuthModalContentProps {
+export interface AuthModalContentProps {
   initialContent: 'LoginRequired' | 'SignUpWithEmail' | 'SignInWithEmail';
 }
 

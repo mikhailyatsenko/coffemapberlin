@@ -61,6 +61,10 @@ li {
   font-weight: 200;
   padding: 0 10px;
 
+  &:nth-last-child(2) {
+    padding-right: 40px;
+  }
+
   &:hover,
   &:active {
     a {
@@ -116,6 +120,13 @@ li {
     &:active {
       transform: scale(0.97);
       color: #919191;
+    }
+    &:nth-last-child(2) {
+      padding-right: 0;
+      padding-bottom: 50px;
+    }
+    &:nth-last-child(1) {
+      padding: 0;
     }
   }
 

@@ -15,7 +15,7 @@ interface SignUpWithEmailProps {
   onSwitchToSignIn: () => void;
 }
 
-interface RegisterWithEmailData {
+interface RegisterWithEmailFormData {
   displayName: string;
   email: string;
   password: string;
@@ -31,8 +31,8 @@ export const SignUpWithEmail = ({ onSwitchToSignIn }: SignUpWithEmailProps) => {
       error,
     },
   ] = useMutation(REGISTER_USER);
-  const { checkAuth, setIsLoginPopup } = useAuth();
-  const form = useForm<RegisterWithEmailData>({ mode: 'onBlur', resolver: yupResolver(validationSchema) });
+  const { checkAuth, setIsAuthPopup } = useAuth();
+  const form = useForm<RegisterWithEmailFormData>({ mode: 'onBlur', resolver: yupResolver(validationSchema) });
 
   const {
     handleSubmit,
@@ -46,7 +46,7 @@ export const SignUpWithEmail = ({ onSwitchToSignIn }: SignUpWithEmailProps) => {
     trigger('recaptcha');
   };
 
-  const onSubmit: SubmitHandler<RegisterWithEmailData> = async (data) => {
+  const onSubmit: SubmitHandler<RegisterWithEmailFormData> = async (data) => {
     try {
       const response = await registerUser({
         variables: {
@@ -57,7 +57,7 @@ export const SignUpWithEmail = ({ onSwitchToSignIn }: SignUpWithEmailProps) => {
       });
       if (response) {
         checkAuth();
-        setIsLoginPopup(false);
+        setIsAuthPopup(null);
       }
     } catch (err) {
       const errorMessage = (err as Error).message || 'Unknown error';

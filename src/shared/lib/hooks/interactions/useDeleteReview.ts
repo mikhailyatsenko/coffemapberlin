@@ -21,7 +21,7 @@ interface DeleteReviewResponce {
 }
 
 export function useDeleteReview(placeId: string) {
-  const { user, setIsLoginPopup } = useAuth();
+  const { user, setIsAuthPopup } = useAuth();
 
   const [deleteReview, { loading: deleteReviewLoading, error: deleteReviewError }] = useMutation<DeleteReviewResponce>(
     DELETE_REVIEW,
@@ -87,7 +87,7 @@ export function useDeleteReview(placeId: string) {
 
   const handleDeleteReview = async (reviewId: string): Promise<void> => {
     if (!user) {
-      setIsLoginPopup(true);
+      setIsAuthPopup('LoginRequired');
       return;
     }
     try {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { Auth } from 'features/Auth';
+import { AuthIndicator } from 'features/AuthIndicator';
 import { SearchPlaces } from 'features/SearchPlaces';
 import { Logo } from 'shared/ui/Logo';
 import cls from './Navbar.module.scss';
@@ -72,7 +72,9 @@ export const Navbar = () => {
             Contact
           </NavLink>
         </li>
-        <Auth />
+        <li className={cls.navItem}>
+          <AuthIndicator />
+        </li>
       </ul>
       <div
         onClick={() => {

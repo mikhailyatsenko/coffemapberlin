@@ -1,11 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useAuth } from 'shared/lib/reactContext/Auth/useAuth';
 import { GoogleLoginButton } from 'shared/ui/GoogleLoginButton';
+import { RegularButton } from 'shared/ui/RegularButton';
 import defaultUserAvatar from '../../../shared/assets/user-default-icon.svg';
-import cls from './Auth.module.scss';
+import cls from './AuthIndicator.module.scss';
 
-export const Auth: React.FC = () => {
-  const { user, logout } = useAuth();
+export const AuthIndicator: React.FC = () => {
+  const { user, logout, isAuthPopup, setIsAuthPopup } = useAuth();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -27,7 +28,15 @@ export const Auth: React.FC = () => {
   };
 
   if (!user) {
-    return <GoogleLoginButton />;
+    return (
+      <RegularButton
+        clickHandler={() => {
+          setIsAuthPopup('SignInWithEmail');
+        }}
+      >
+        Sign in
+      </RegularButton>
+    );
   }
 
   return (

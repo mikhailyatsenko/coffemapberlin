@@ -19,7 +19,7 @@ interface AddReviewResponse {
 }
 
 export function useAddReview(placeId: string) {
-  const { user, setIsLoginPopup } = useAuth();
+  const { user, setIsAuthPopup } = useAuth();
 
   const [addReview, { loading: addReviewLoading, error: addReviewError }] = useMutation<AddReviewResponse>(ADD_REVIEW, {
     update(cache, { data }) {
@@ -86,7 +86,7 @@ export function useAddReview(placeId: string) {
 
   const handleAddReview = async (text?: string, rating?: number): Promise<Review | undefined> => {
     if (!user) {
-      setIsLoginPopup(true);
+      setIsAuthPopup('LoginRequired');
       return;
     }
     try {

@@ -13,7 +13,7 @@ export const LoginRequired = ({ onSwitchToSignUp }: LoginRequiredProps) => {
       <p>You need to be logged in to perform this action.</p>
       <div className={cls.buttons}>
         <GoogleLoginButton textButton="Continue with Google" />
-        <RegularButton clickHandler={onSwitchToSignUp}>Sign up with enail</RegularButton>
+        <RegularButton clickHandler={onSwitchToSignUp}>Sign in</RegularButton>
       </div>
     </>
   );

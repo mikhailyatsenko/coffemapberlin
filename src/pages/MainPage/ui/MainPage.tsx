@@ -6,18 +6,18 @@ import { AuthModalContent } from 'shared/ui/authModalContent/ui/AuthModalContent
 import { Modal } from 'shared/ui/Modal';
 
 export const MainPage = () => {
-  const { isLoginPopup, setIsLoginPopup } = useAuth();
+  const { isAuthPopup, setIsAuthPopup } = useAuth();
   return (
     <>
       <MainMap />
       <PlacesList />
-      {isLoginPopup && (
+      {isAuthPopup && (
         <Modal
           onClose={() => {
-            setIsLoginPopup(false);
+            setIsAuthPopup(null);
           }}
         >
-          <AuthModalContent initialContent="LoginRequired" />
+          <AuthModalContent initialContent={isAuthPopup} />
         </Modal>
       )}
       <Outlet />

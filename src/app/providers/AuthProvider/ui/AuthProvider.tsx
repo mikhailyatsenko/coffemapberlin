@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import { AuthContext } from 'shared/lib/reactContext/Auth/AuthContext';
 import { LOGIN_WITH_GOOGLE_MUTATION, CURRENT_USER_QUERY, LOGOUT_MUTATION } from 'shared/query/apolloQuries';
 import { type User } from 'shared/types';
+import { type AuthModalContentProps } from 'shared/ui/authModalContent/ui/AuthModalContent';
 
 interface LoginWithGoogleData {
   loginWithGoogle: {
@@ -24,7 +25,7 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
   const [error, setError] = useState<Error | null>(null);
   const [loginWithGoogle] = useMutation<LoginWithGoogleData>(LOGIN_WITH_GOOGLE_MUTATION);
 
-  const [isLoginPopup, setIsLoginPopup] = useState(false);
+  const [isAuthPopup, setIsAuthPopup] = useState<AuthModalContentProps['initialContent'] | null>(null);
 
   const client = useApolloClient();
 
@@ -56,7 +57,7 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
   const continueWithGoogle = useGoogleLogin({
     flow: 'auth-code',
     onSuccess: async (tokenResponse) => {
-      if (isLoginPopup) setIsLoginPopup(false);
+      if (isAuthPopup) setIsAuthPopup(null);
       setLoading(true);
       try {
         const { data } = await loginWithGoogle({
@@ -103,8 +104,8 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
         checkAuth,
         user,
         continueWithGoogle,
-        isLoginPopup,
-        setIsLoginPopup,
+        isAuthPopup,
+        setIsAuthPopup,
         logout,
         loading,
         error,
