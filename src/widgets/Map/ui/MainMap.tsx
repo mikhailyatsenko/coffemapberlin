@@ -22,7 +22,7 @@ export const MainMap = () => {
   const placesGeo: PlacesDataWithGeo =
     {
       type: 'FeatureCollection',
-      features: showFavorites && favoritePlaces ? favoritePlaces : filterablePlaces,
+      features: showFavorites && favoritePlaces?.length ? favoritePlaces : filterablePlaces,
     } || [];
 
   return (
