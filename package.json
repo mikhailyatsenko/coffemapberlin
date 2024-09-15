@@ -1,7 +1,8 @@
 {
   "name": "berlincoffeemap",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "homepage": "https://3welle.com",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -64,5 +65,9 @@
     "typescript": "^5.2.2",
     "vite": "^5.2.0",
     "vite-tsconfig-paths": "^4.3.2"
+  },
+  "overrides": {
+    "@typescript-eslint/parser": "^8.0.1",
+"@typescript-eslint/eslint-plugin": "^6.21.0"
   }
 }

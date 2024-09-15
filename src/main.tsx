@@ -1,7 +1,7 @@
 import './index.scss';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import ReactDOM from 'react-dom/client';
-import { HashRouter as BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { ApolloProviderWrapper } from 'app/providers/ApolloProviderWrapper';
 import { AuthProvider } from 'app/providers/AuthProvider';
 import { LocationProvider } from 'app/providers/LocationProvider';
