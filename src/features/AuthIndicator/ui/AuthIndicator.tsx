@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useAuth } from 'shared/lib/reactContext/Auth/useAuth';
 import { RegularButton } from 'shared/ui/RegularButton';
-import defaultUserAvatar from '../../../shared/assets/user-default-icon.svg';
 import cls from './AuthIndicator.module.scss';
 
 export const AuthIndicator: React.FC = () => {
@@ -41,7 +40,7 @@ export const AuthIndicator: React.FC = () => {
   return (
     <div className={cls.authIndicator} ref={dropdownRef}>
       <div className={cls.userAvatar} onClick={toggleDropdown}>
-        <img src={user?.avatar || defaultUserAvatar} alt="User avatar" referrerPolicy="no-referrer" />
+        <img src={user?.avatar || './user-default-icon.svg'} alt="User avatar" referrerPolicy="no-referrer" />
       </div>
 
       <span
