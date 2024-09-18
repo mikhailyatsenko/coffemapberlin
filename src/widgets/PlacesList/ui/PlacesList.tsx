@@ -10,6 +10,8 @@ export function PlacesList() {
 
   if (!filterablePlaces.length) return null;
 
+  console.log(filterablePlaces.map((place) => 'https://3welle.com/details?id=' + place.properties.id));
+
   return (
     !searchTerm && (
       <>
