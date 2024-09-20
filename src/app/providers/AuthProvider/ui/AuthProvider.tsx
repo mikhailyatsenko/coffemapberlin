@@ -12,6 +12,7 @@ import { type AuthModalContentProps } from 'shared/ui/authModalContent/ui/AuthMo
 interface LoginWithGoogleData {
   loginWithGoogle: {
     user: User | null;
+    isFirstLogin: boolean;
   };
 }
 
@@ -57,7 +58,6 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
   const continueWithGoogle = useGoogleLogin({
     flow: 'auth-code',
     onSuccess: async (tokenResponse) => {
-      if (isAuthPopup) setIsAuthPopup(null);
       setLoading(true);
       try {
         const { data } = await loginWithGoogle({
@@ -65,6 +65,11 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
         });
         if (data?.loginWithGoogle.user) {
           setUser(data.loginWithGoogle.user);
+          if (data.loginWithGoogle.isFirstLogin) {
+            setIsAuthPopup('SuccessfulSignUp');
+          } else {
+            setIsAuthPopup(null);
+          }
           await client.resetStore();
         }
       } catch (err) {

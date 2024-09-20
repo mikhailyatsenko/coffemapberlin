@@ -9,6 +9,7 @@ export const LOGIN_WITH_GOOGLE_MUTATION = gql`
         displayName
         avatar
       }
+      isFirstLogin
     }
   }
 `;
