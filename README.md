@@ -35,7 +35,7 @@ The backend is built with Express and Mongoose for MongoDB integration.
 
 
 ## Source
- You can access the frontend [here](https://github.com/mikhailyatsenko/coffemapberlin) and the backend [here](https://github.com/mikhailyatsenko/berlin-coffee-backend).
+ You can access the backend [here](https://github.com/mikhailyatsenko/berlin-coffee-backend).
 
  ## How It Works
 <img src="https://raw.githubusercontent.com/mikhailyatsenko/mikhailyatsenko/main/img/coffeemap-gif.gif" alt="bvg-gif" width="600"/>

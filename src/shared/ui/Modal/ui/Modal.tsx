@@ -1,5 +1,4 @@
 import { type ReactNode, useEffect } from 'react';
-import { PortalToBody } from 'shared/ui/Portals/PortalToBody';
 import cls from './Modal.module.scss';
 
 interface LoginPopupProps {
@@ -28,10 +27,8 @@ export const Modal = ({ children, onClose }: LoginPopupProps) => {
     }
   };
   return (
-    <PortalToBody>
-      <div className={cls.overlay} onClick={handleOverlayClick}>
-        <div className={cls.modal}>{children}</div>
-      </div>
-    </PortalToBody>
+    <div className={cls.overlay} onClick={handleOverlayClick}>
+      <div className={cls.modal}>{children}</div>
+    </div>
   );
 };

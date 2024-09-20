@@ -13,6 +13,7 @@ import cls from './SignUpWithEmail.module.scss';
 
 interface SignUpWithEmailProps {
   onSwitchToSignIn: () => void;
+  onSuccessfulSignUp: () => void;
 }
 
 interface RegisterWithEmailFormData {
@@ -23,7 +24,7 @@ interface RegisterWithEmailFormData {
   recaptcha: string;
 }
 
-export const SignUpWithEmail = ({ onSwitchToSignIn }: SignUpWithEmailProps) => {
+export const SignUpWithEmail = ({ onSwitchToSignIn, onSuccessfulSignUp }: SignUpWithEmailProps) => {
   const [
     registerUser,
     {
@@ -31,7 +32,7 @@ export const SignUpWithEmail = ({ onSwitchToSignIn }: SignUpWithEmailProps) => {
       error,
     },
   ] = useMutation(REGISTER_USER);
-  const { checkAuth, setIsAuthPopup } = useAuth();
+  const { checkAuth } = useAuth();
   const form = useForm<RegisterWithEmailFormData>({ mode: 'onBlur', resolver: yupResolver(validationSchema) });
 
   const {
@@ -57,7 +58,7 @@ export const SignUpWithEmail = ({ onSwitchToSignIn }: SignUpWithEmailProps) => {
       });
       if (response) {
         checkAuth();
-        setIsAuthPopup(null);
+        onSuccessfulSignUp();
       }
     } catch (err) {
       const errorMessage = (err as Error).message || 'Unknown error';

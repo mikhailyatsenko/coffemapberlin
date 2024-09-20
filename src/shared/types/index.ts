@@ -19,6 +19,7 @@ export interface User {
   displayName: string;
   email: string;
   avatar: string;
+  createdAt?: Date;
 }
 export interface PlaceResponse {
   type: 'Feature';

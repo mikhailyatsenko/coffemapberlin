@@ -2,7 +2,7 @@ import { usePlaces } from 'app/providers/PlacesDataProvider/ui/PlacesDataProvide
 import { FavoritesIndicator } from 'entities/FavoritesIndicator';
 import { useAuth } from 'shared/lib/reactContext/Auth/useAuth';
 
-export const ShowFavoritePlaces = () => {
+export const SwitchFavoritePlaces = () => {
   const { user } = useAuth();
   const { setShowFavorite, favoritePlaces } = usePlaces();
 
@@ -16,7 +16,7 @@ export const ShowFavoritePlaces = () => {
 
   return (
     <>
-      {favoritePlaces.length && (
+      {favoritePlaces.length > 0 && (
         <FavoritesIndicator favoritesQuantity={favoritePlaces.length} onClickHandler={onClickHandler} />
       )}
     </>
