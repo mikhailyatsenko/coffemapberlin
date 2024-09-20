@@ -28,7 +28,10 @@ export const Modal = ({ children, onClose }: LoginPopupProps) => {
   };
   return (
     <div className={cls.overlay} onClick={handleOverlayClick}>
-      <div className={cls.modal}>{children}</div>
+      <div className={cls.modal}>
+        <div onClick={onClose} className={cls.close}></div>
+        {children}
+      </div>
     </div>
   );
 };

@@ -12,7 +12,7 @@ interface RatingFilterProps {
 export const RatingFilter = ({ setFilterRating, filterRating }: RatingFilterProps) => {
   const [isViewFilters, setIsViewFilters] = useState(false);
 
-  const ratings = [1, 2, 3, 4, 5];
+  const ratings = [5, 4, 3, 2, 1];
   return (
     <div className={`${cls.dropdown} ${isViewFilters ? cls.viewFilters : ''}`}>
       <button
