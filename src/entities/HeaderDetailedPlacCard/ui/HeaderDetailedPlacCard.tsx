@@ -23,7 +23,7 @@ export const HeaderDetailedPlacCard = ({
           ) : (
             <p className={cls.noRatingText}>This place has not been rated yet</p>
           )}
-          <div className={cls.ratingNumber}>
+          <div className={`${cls.ratingNumber} ${averageRating === 0 && cls.notActiveRating}`}>
             {averageRating}
             <span>/5</span>
           </div>
