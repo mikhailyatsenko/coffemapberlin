@@ -133,7 +133,6 @@ const DetailedPaceCard: React.FC = () => {
           <HeaderDetailedPlacCard
             averageRating={averageRating}
             description={description}
-            placeId={placeId}
             isHeaderVisible={isHeaderVisible}
           />
           <RateNow placeId={placeId} reviews={reviews} />

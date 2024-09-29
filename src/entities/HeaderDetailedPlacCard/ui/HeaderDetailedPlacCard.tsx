@@ -3,7 +3,7 @@ import cls from './HeaderDetailedPlacCard.module.scss';
 
 interface HeaderDetailedPlacCardProps {
   isHeaderVisible: boolean;
-  placeId: string;
+
   description: string;
   averageRating: number;
 }
@@ -12,7 +12,6 @@ export const HeaderDetailedPlacCard = ({
   isHeaderVisible,
   averageRating,
   description,
-  placeId,
 }: HeaderDetailedPlacCardProps) => {
   return (
     <div className={`${cls.detailsHeader} ${!isHeaderVisible && cls.hideDetailsHeader}`}>
@@ -27,7 +26,7 @@ export const HeaderDetailedPlacCard = ({
             {averageRating}
             <span>/5</span>
           </div>
-          <RatingWidget isClickable={false} id={placeId} rating={averageRating} />
+          <RatingWidget isClickable={false} rating={averageRating} />
         </div>
         {description && <div className={cls.description}>{description}</div>}
       </div>
