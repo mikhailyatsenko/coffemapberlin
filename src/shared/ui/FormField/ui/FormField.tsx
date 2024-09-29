@@ -14,6 +14,7 @@ export const FormField: React.FC<FormFieldProps> = ({ fieldName, type, value, er
     placeholder: fieldName,
     type,
     value,
+
     id: fieldName,
     ...register(fieldName),
   };

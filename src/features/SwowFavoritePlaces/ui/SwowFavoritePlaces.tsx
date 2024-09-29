@@ -2,7 +2,7 @@ import { usePlaces } from 'app/providers/PlacesDataProvider/ui/PlacesDataProvide
 import { FavoritesIndicator } from 'entities/FavoritesIndicator';
 import { useAuth } from 'shared/lib/reactContext/Auth/useAuth';
 
-export const SwitchFavoritePlaces = () => {
+export const SwowFavoritePlaces = () => {
   const { user } = useAuth();
   const { setShowFavorite, favoritePlaces } = usePlaces();
 

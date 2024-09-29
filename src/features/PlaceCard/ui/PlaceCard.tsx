@@ -73,7 +73,7 @@ export const PlaceCard = ({ properties, coordinates }: PlaceCardProps) => {
             </div>
           </div>
           <div className={cls.rating}>
-            <RatingWidget isClickable={false} rating={properties.averageRating} id={properties.id} />{' '}
+            <RatingWidget isClickable={false} rating={properties.averageRating} />{' '}
             {Boolean(properties.averageRating) && properties.averageRating}
           </div>
           <div className={cls.description}>{properties.description}</div>

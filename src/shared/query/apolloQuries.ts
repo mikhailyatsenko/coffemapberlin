@@ -134,3 +134,40 @@ export const GET_PLACE_DETAILS = gql`
     }
   }
 `;
+
+export const GET_USER_PROFILE = gql`
+  query GetUserProfile($userId: ID!) {
+    getUserProfile(userId: $userId) {
+      id
+      name
+      avatar
+      email
+      reviewedLocations {
+        id
+        name
+      }
+    }
+  }
+`;
+
+// query CurrentUser {
+//   currentUser {
+//     id
+//     displayName
+//     email
+//     avatar
+//   }
+// }
+// `;
+
+export const GET_USER_REVIEW_ACTIVITY = gql`
+  query getUserReviewActivity {
+    getUserReviewActivity {
+      rating
+      review
+      placeId
+      placeName
+      averageRating
+    }
+  }
+`;

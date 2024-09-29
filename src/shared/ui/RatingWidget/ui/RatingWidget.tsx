@@ -4,7 +4,6 @@ import cls from './RatingWidget.module.scss';
 
 interface RatingProps {
   rating?: number;
-  id?: string;
   handleRating?: (_: undefined, rating: number) => void;
   isClickable: boolean;
   userRating?: number;

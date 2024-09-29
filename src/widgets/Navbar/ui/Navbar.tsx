@@ -37,54 +37,55 @@ export const Navbar = () => {
           <Logo />
         </div>
       </NavLink>
-      {location.pathname === '/' && !isBurgerActive && <SearchPlaces />}
-      <ul className={`${cls.navMenu} ${isBurgerActive ? cls.active : ''}`}>
-        <li className={cls.navItem}>
-          <NavLink
-            onClick={() => {
-              setIsBurgerActive(false);
-            }}
-            className={({ isActive }) => (isActive ? cls.active : '')}
-            to={'/'}
-          >
-            Map
-          </NavLink>
-        </li>
-        <li className={cls.navItem}>
-          <NavLink
-            onClick={() => {
-              setIsBurgerActive(false);
-            }}
-            className={({ isActive }) => (isActive ? cls.active : '')}
-            to={'about'}
-          >
-            About
-          </NavLink>
-        </li>
-        <li className={cls.navItem}>
-          <NavLink
-            onClick={() => {
-              setIsBurgerActive(false);
-            }}
-            className={({ isActive }) => (isActive ? cls.active : '')}
-            to={'contacts'}
-          >
-            Contact
-          </NavLink>
-        </li>
-        <li className={cls.navItem}>
-          <AuthIndicator />
-        </li>
-      </ul>
-      <div
-        onClick={() => {
-          setIsBurgerActive((prevState) => !prevState);
-        }}
-        className={`${cls.hamburger} ${isBurgerActive ? cls.active : ''}`}
-      >
-        <span className={cls.bar}></span>
-        <span className={cls.bar}></span>
-        <span className={cls.bar}></span>
+
+      <div className={cls.buttonsRight}>
+        {location.pathname === '/' && !isBurgerActive && <SearchPlaces />}
+        <ul className={`${cls.navMenu} ${isBurgerActive ? cls.active : ''}`}>
+          <li className={cls.navItem}>
+            <NavLink
+              onClick={() => {
+                setIsBurgerActive(false);
+              }}
+              className={({ isActive }) => (isActive ? cls.active : '')}
+              to={'/'}
+            >
+              Map
+            </NavLink>
+          </li>
+          <li className={cls.navItem}>
+            <NavLink
+              onClick={() => {
+                setIsBurgerActive(false);
+              }}
+              className={({ isActive }) => (isActive ? cls.active : '')}
+              to={'about'}
+            >
+              About
+            </NavLink>
+          </li>
+          <li className={cls.navItem}>
+            <NavLink
+              onClick={() => {
+                setIsBurgerActive(false);
+              }}
+              className={({ isActive }) => (isActive ? cls.active : '')}
+              to={'contacts'}
+            >
+              Contact
+            </NavLink>
+          </li>
+        </ul>
+        <AuthIndicator />
+        <div
+          onClick={() => {
+            setIsBurgerActive((prevState) => !prevState);
+          }}
+          className={`${cls.hamburger} ${isBurgerActive ? cls.active : ''}`}
+        >
+          <span className={cls.bar}></span>
+          <span className={cls.bar}></span>
+          <span className={cls.bar}></span>
+        </div>
       </div>
     </nav>
   );

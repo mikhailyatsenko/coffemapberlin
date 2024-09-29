@@ -1,0 +1,55 @@
+.userProfileContainer {
+  padding-left: 60px;
+  padding-right: 60px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1140px;
+  width: 100%;
+  display: flex;
+}
+
+.profileAvatar {
+  width: 60px;
+  height: 60px;
+
+  border-radius: 50%;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+.settingsSection {
+  width: 100%;
+  display: flex;
+  gap: 20px;
+}
+
+.settingsCard {
+  width: 50%;
+
+  padding: 30px;
+  background-color: #fdf7f6;
+  border-radius: 10px;
+}
+.settingsPictureCard {
+  width: 100%;
+
+  padding: 30px;
+}
+
+.settingsPicture {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.pictureRequirements {
+  color: #5c5c5c;
+}
+
+.userForm {
+}

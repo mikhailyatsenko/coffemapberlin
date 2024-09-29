@@ -5,10 +5,10 @@ interface ReviewCardProps {
   id: string;
   userAvatar?: string;
   userName: string;
-  reviewText: string;
+  reviewText?: string;
   rating?: number;
   isOwnReview?: boolean;
-  handleDeleteReview: (id: string) => void;
+  handleDeleteReview?: (id: string) => void;
 }
 
 export const ReviewCard: React.FC<ReviewCardProps> = ({
@@ -40,7 +40,7 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({
 
       <p className={cls.reviewText}>{!reviewText && rating ? `Rated: ${rating}` : reviewText}</p>
 
-      {isOwnReview && (
+      {isOwnReview && handleDeleteReview && (
         <button
           onClick={() => {
             handleDeleteReview(id);
