@@ -50,7 +50,7 @@ export const RateNow = ({ reviews, placeId }: RateNowProps) => {
             <>
               <div className={cls.rateWidget}>
                 <h3>Rate this place:</h3>
-                <RatingWidget isClickable={true} id={placeId} handleRating={handleAddReview} />
+                <RatingWidget isClickable={true} handleRating={handleAddReview} />
               </div>
               {hasReviewWithText && (
                 <div className={cls.itemFullWidth}>
