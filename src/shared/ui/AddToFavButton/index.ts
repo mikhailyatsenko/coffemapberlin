@@ -1,1 +1,1 @@
-export { AddToFavButton } from "./ui/AddToFavButton";
+export { AddToFavButton } from './ui/AddToFavButton';

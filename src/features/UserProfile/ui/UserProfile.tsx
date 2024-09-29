@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client';
 import { useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { usePlaces } from 'app/providers/PlacesDataProvider/ui/PlacesDataProvider';
-import { UserReviewActivity } from 'features/UserReviewActivity';
+// import { UserReviewActivity } from 'features/UserReviewActivity';
 import { useAuth } from 'shared/lib/reactContext/Auth/useAuth';
 import { GET_USER_PROFILE } from 'shared/query/apolloQuries';
 import { FormField } from 'shared/ui/FormField';
@@ -57,7 +57,12 @@ const UserProfile = () => {
 
   if (error) return <p>Error: {error.message}</p>;
 
-  const { reviewedLocations, name, avatar, email } = data.getUserProfile;
+  const {
+    reviewedLocations,
+    name,
+    avatar,
+    // email
+  } = data.getUserProfile;
 
   return (
     <div className="container">

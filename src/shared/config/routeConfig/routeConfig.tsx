@@ -5,7 +5,7 @@ import { ContactPage } from 'pages/ContactPage';
 import { MainPage } from 'pages/MainPage';
 import { MyReviews } from 'pages/MyReviews';
 import { NotFoundPage } from 'pages/NotFoundPage';
-import { UserProfilePage } from 'pages/UserProfilePage';
+// import { UserProfilePage } from 'pages/UserProfilePage';
 
 export enum AppRoutes {
   MAIN = 'main',
