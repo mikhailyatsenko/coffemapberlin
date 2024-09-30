@@ -26,22 +26,30 @@ export const UserReviewActivity = () => {
   if (error) return <p>Error: {error.message}</p>;
   if (!data) return <p>No yet reviews</p>;
 
+  console.log(data);
   return (
     <div className={cls.UserReviewActivity}>
-      <h2 className={cls.header}>My reviews and ratings</h2>
-      <ul>
-        {data.getUserReviewActivity.map((data) => (
-          <ReviewActivityCard
-            key={data.placeId}
-            userRating={data.rating}
-            review={data.review}
-            placeName={data.placeName}
-            averageRating={data.averageRating}
-            createdAt={data.createdAt}
-            placeId={data.placeId}
-          />
-        ))}
-      </ul>
+      <h2 className={cls.header}>My reviews and ratings:</h2>
+
+      {data.getUserReviewActivity.length === 0 ? (
+        <p className={cls.infoNoActivity}>
+          All your reviews and ratings will be displayed here. You haven&apos;t submitted any reviews or ratings yet.
+        </p>
+      ) : (
+        <ul>
+          {data.getUserReviewActivity.map((activityData) => (
+            <ReviewActivityCard
+              key={activityData.placeId}
+              userRating={activityData.rating}
+              review={activityData.review}
+              placeName={activityData.placeName}
+              averageRating={activityData.averageRating}
+              createdAt={activityData.createdAt}
+              placeId={activityData.placeId}
+            />
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
