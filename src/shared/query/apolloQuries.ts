@@ -168,6 +168,7 @@ export const GET_USER_REVIEW_ACTIVITY = gql`
       placeId
       placeName
       averageRating
+      createdAt
     }
   }
 `;

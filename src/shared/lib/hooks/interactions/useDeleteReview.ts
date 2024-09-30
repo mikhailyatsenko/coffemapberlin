@@ -49,7 +49,6 @@ export function useDeleteReview(placeId: string) {
         variables: { placeId },
         data: {
           placeDetails: {
-            // ...existingData.placeDetails,
             id: existingData.placeDetails.id,
             isFavorite: existingData.placeDetails.isFavorite,
             favoriteCount: existingData.placeDetails.favoriteCount,

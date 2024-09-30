@@ -1,3 +1,4 @@
+import { formatDistanceToNow } from 'date-fns';
 import BeanIcon from 'shared/ui/RatingWidget/ui/BeanIcon';
 import cls from './ReviewCard.module.scss';
 
@@ -9,6 +10,7 @@ interface ReviewCardProps {
   rating?: number;
   isOwnReview?: boolean;
   handleDeleteReview?: (id: string) => void;
+  createdAt: string;
 }
 
 export const ReviewCard: React.FC<ReviewCardProps> = ({
@@ -19,6 +21,7 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({
   rating,
   isOwnReview,
   handleDeleteReview,
+  createdAt,
 }) => {
   return (
     <div className={cls.reviewCard}>
@@ -40,16 +43,19 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({
 
       <p className={cls.reviewText}>{!reviewText && rating ? `Rated: ${rating}` : reviewText}</p>
 
-      {isOwnReview && handleDeleteReview && (
-        <button
-          onClick={() => {
-            handleDeleteReview(id);
-          }}
-          className={cls.deleteButton}
-        >
-          Delete
-        </button>
-      )}
+      <div className={cls.dateAndDeleteButton}>
+        <p className={cls.createdAt}>{formatDistanceToNow(new Date(createdAt), { addSuffix: true })}</p>
+        {isOwnReview && handleDeleteReview && (
+          <button
+            onClick={() => {
+              handleDeleteReview(id);
+            }}
+            className={cls.deleteButton}
+          >
+            Delete
+          </button>
+        )}
+      </div>
     </div>
   );
 };

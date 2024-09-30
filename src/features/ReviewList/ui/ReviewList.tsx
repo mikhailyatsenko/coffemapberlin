@@ -107,6 +107,7 @@ export const ReviewList = ({ reviews, placeId, isCompactView, setCompactView }: 
             isOwnReview={review.isOwnReview}
             userAvatar={review.userAvatar}
             handleDeleteReview={handleDeleteReview}
+            createdAt={review.createdAt}
           />
         ))}
       </div>

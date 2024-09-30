@@ -1,9 +1,8 @@
 import { useQuery } from '@apollo/client';
 import { createSearchParams, NavLink } from 'react-router-dom';
+import { ReviewActivityCard } from 'entities/ReviewActivityCard';
 import { useAuth } from 'shared/lib/reactContext/Auth/useAuth';
 import { GET_USER_REVIEW_ACTIVITY } from 'shared/query/apolloQuries';
-import RatingWidget from 'shared/ui/RatingWidget/ui/RatingWidget';
-import { ReviewCard } from 'shared/ui/ReviewCard';
 
 interface UserReviewActivityData {
   rating: number | null;
@@ -11,6 +10,7 @@ interface UserReviewActivityData {
   placeName: string;
   placeId: string;
   averageRating: number | null;
+  createdAt: string;
 }
 
 export const UserReviewActivity = () => {
@@ -38,26 +38,14 @@ export const UserReviewActivity = () => {
                 search: createSearchParams({ id: data.placeId }).toString(),
               }}
             >
-              <div>
-                <h3>{data.placeName}</h3>
-                {data.averageRating && (
-                  <>
-                    <RatingWidget isClickable={false} rating={data.averageRating} />{' '}
-                    {Boolean(data.averageRating) && data.averageRating}
-                  </>
-                )}
-              </div>
+              <ReviewActivityCard
+                userRating={data.rating}
+                review={data.review}
+                placeName={data.placeName}
+                averageRating={data.averageRating}
+                createdAt={data.createdAt}
+              />
             </NavLink>
-            <ReviewCard
-              isOwnReview={true}
-              id="puk"
-              userName={user.displayName}
-              reviewText={data.review ? data.review : undefined}
-              rating={data.rating ? data.rating : undefined}
-              handleDeleteReview={(puk) => {
-                console.log(puk);
-              }}
-            />
           </div>
         ))}
       </ul>

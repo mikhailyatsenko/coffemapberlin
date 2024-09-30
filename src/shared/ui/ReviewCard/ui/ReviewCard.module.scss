@@ -28,7 +28,7 @@
 }
 
 .reviewText {
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   margin-left: 4px;
 }
 
@@ -38,29 +38,40 @@
   margin-bottom: 8px;
 }
 
-.deleteButton {
-  align-self: flex-end;
-  width: fit-content;
-  font-size: 14px;
-  font-weight: 300;
+.dateAndDeleteButton {
   display: flex;
   align-items: center;
-  background-color: #303030;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-
-  &::before {
-    content: url('../../../assets/delete-icon.svg');
-    height: 18px;
-    margin-right: 2px;
+  gap: 20px;
+  justify-content: end;
+  .createdAt {
+    font-size: 12px;
+    color: #a3a3a3;
+    font-style: italic;
   }
+  .deleteButton {
+    align-self: flex-end;
+    width: fit-content;
+    font-size: 14px;
+    font-weight: 300;
+    display: flex;
+    align-items: center;
+    background-color: #303030;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 
-  &:hover {
-    background-color: #0b0b0b;
+    &::before {
+      content: url('../../../assets/delete-icon.svg');
+      height: 18px;
+      margin-right: 2px;
+    }
+
+    &:hover {
+      background-color: #0b0b0b;
+    }
   }
 }
 
