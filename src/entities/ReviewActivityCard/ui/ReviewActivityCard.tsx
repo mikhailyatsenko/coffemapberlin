@@ -1,6 +1,6 @@
 import { formatDistanceToNow } from 'date-fns';
 import { createSearchParams, NavLink } from 'react-router-dom';
-import RatingWidget from 'shared/ui/RatingWidget/ui/RatingWidget';
+// import RatingWidget from 'shared/ui/RatingWidget/ui/RatingWidget';
 import { RegularButton } from 'shared/ui/RegularButton';
 import cls from './ReviewActivityCard.module.scss';
 
