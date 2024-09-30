@@ -1,25 +1,27 @@
 import React, { useState, useEffect, useRef } from 'react';
-// import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useAuth } from 'shared/lib/reactContext/Auth/useAuth';
 import { RegularButton } from 'shared/ui/RegularButton';
 import cls from './AuthIndicator.module.scss';
 
 export const AuthIndicator: React.FC = () => {
   const { user, logout, setIsAuthPopup } = useAuth();
-  const [isProfileVisible, setProfileVisible] = useState(false);
+  const [isProfileCardVisible, setIsProfileCardVisible] = useState(false);
 
   const authIndicatorRef = useRef<HTMLDivElement>(null); // Создаем реф для profileCard
 
   const toggleProfileCard = () => {
-    setProfileVisible((prev) => !prev);
-    console.log('click avatar');
+    setIsProfileCardVisible((prev) => !prev);
   };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (isProfileVisible && authIndicatorRef.current && !authIndicatorRef.current.contains(event.target as Node)) {
-        console.log('click outside');
-        setProfileVisible(false);
+      if (
+        isProfileCardVisible &&
+        authIndicatorRef.current &&
+        !authIndicatorRef.current.contains(event.target as Node)
+      ) {
+        setIsProfileCardVisible(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -27,7 +29,7 @@ export const AuthIndicator: React.FC = () => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [isProfileVisible]);
+  }, [isProfileCardVisible]);
 
   if (!user) {
     return (
@@ -53,16 +55,22 @@ export const AuthIndicator: React.FC = () => {
         <img src={user?.avatar || './user-default-icon.svg'} alt="User avatar" referrerPolicy="no-referrer" />
       </div>
 
-      <div className={`${cls.profileCard} ${isProfileVisible ? cls.visible : ''}`}>
+      <div className={`${cls.profileCard} ${isProfileCardVisible ? cls.visible : ''}`}>
         <div className={cls.profileCardAvatar}>
           <img src={user?.avatar || './user-default-icon.svg'} alt="User avatar" referrerPolicy="no-referrer" />
         </div>
         <p className={cls.profileName}>{user?.displayName}</p>
         <p className={cls.profileEmail}>{user?.email}</p>
 
-        {/* <NavLink to={'my-reviews'} className={cls.profileButton}>
+        <NavLink
+          onClick={() => {
+            setIsProfileCardVisible(false);
+          }}
+          to={'my-reviews'}
+          className={cls.profileButton}
+        >
           My Reviews
-        </NavLink> */}
+        </NavLink>
         {/* <NavLink to={'./profile'} className={cls.profileButton}>
           My Account
         </NavLink> */}

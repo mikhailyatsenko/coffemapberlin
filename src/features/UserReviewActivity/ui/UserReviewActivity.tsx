@@ -1,8 +1,8 @@
 import { useQuery } from '@apollo/client';
-import { createSearchParams, NavLink } from 'react-router-dom';
 import { ReviewActivityCard } from 'entities/ReviewActivityCard';
 import { useAuth } from 'shared/lib/reactContext/Auth/useAuth';
 import { GET_USER_REVIEW_ACTIVITY } from 'shared/query/apolloQuries';
+import cls from './UserReviewActivity.module.scss';
 
 interface UserReviewActivityData {
   rating: number | null;
@@ -27,26 +27,19 @@ export const UserReviewActivity = () => {
   if (!data) return <p>No yet reviews</p>;
 
   return (
-    <div className="container">
-      <h2>My reviews</h2>
+    <div className={cls.UserReviewActivity}>
+      <h2 className={cls.header}>My reviews and ratings</h2>
       <ul>
         {data.getUserReviewActivity.map((data) => (
-          <div key={data.placeId}>
-            <NavLink
-              to={{
-                pathname: '/details',
-                search: createSearchParams({ id: data.placeId }).toString(),
-              }}
-            >
-              <ReviewActivityCard
-                userRating={data.rating}
-                review={data.review}
-                placeName={data.placeName}
-                averageRating={data.averageRating}
-                createdAt={data.createdAt}
-              />
-            </NavLink>
-          </div>
+          <ReviewActivityCard
+            key={data.placeId}
+            userRating={data.rating}
+            review={data.review}
+            placeName={data.placeName}
+            averageRating={data.averageRating}
+            createdAt={data.createdAt}
+            placeId={data.placeId}
+          />
         ))}
       </ul>
     </div>

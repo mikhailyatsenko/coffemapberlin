@@ -3,7 +3,7 @@ import BeanIcon from './BeanIcon';
 import cls from './RatingWidget.module.scss';
 
 interface RatingProps {
-  rating?: number;
+  rating?: number | null;
   handleRating?: (_: undefined, rating: number) => void;
   isClickable: boolean;
   userRating?: number;
