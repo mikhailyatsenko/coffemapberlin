@@ -13,7 +13,7 @@ interface ReviewActivityCardProps {
   placeId: string;
 }
 export const ReviewActivityCard = ({
-  averageRating,
+  // averageRating,
   placeName,
   review,
   userRating,
