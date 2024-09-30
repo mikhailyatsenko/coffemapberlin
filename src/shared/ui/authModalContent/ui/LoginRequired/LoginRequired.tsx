@@ -4,9 +4,10 @@ import cls from './LoginRequired.module.scss';
 
 interface LoginRequiredProps {
   onSwitchToSignIn: () => void;
+  onSwitchToSignUp: () => void;
 }
 
-export const LoginRequired = ({ onSwitchToSignIn }: LoginRequiredProps) => {
+export const LoginRequired = ({ onSwitchToSignIn, onSwitchToSignUp }: LoginRequiredProps) => {
   return (
     <div className={cls.LoginRequired}>
       <h2>Login Required</h2>

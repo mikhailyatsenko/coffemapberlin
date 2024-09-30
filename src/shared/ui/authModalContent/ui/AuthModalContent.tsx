@@ -26,7 +26,9 @@ export const AuthModalContent: React.FC<AuthModalContentProps> = ({ initialConte
 
   return (
     <div className={cls.authModalContent}>
-      {currentContent === 'LoginRequired' && <LoginRequired onSwitchToSignIn={handleSwitchToSignIn} />}
+      {currentContent === 'LoginRequired' && (
+        <LoginRequired onSwitchToSignUp={handleSwitchToSignUp} onSwitchToSignIn={handleSwitchToSignIn} />
+      )}
       {currentContent === 'SignUpWithEmail' && (
         <SignUpWithEmail onSwitchToSignIn={handleSwitchToSignIn} onSuccessfulSignUp={handleSuccessfulSignUp} />
       )}
