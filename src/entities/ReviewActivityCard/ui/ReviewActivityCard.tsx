@@ -41,7 +41,7 @@ export const ReviewActivityCard = ({
 
       {userRating && (
         <div className={cls.rate}>
-          <h4>My rate: {userRating}</h4>
+          <h4>My rating: {userRating}</h4>
         </div>
       )}
 
