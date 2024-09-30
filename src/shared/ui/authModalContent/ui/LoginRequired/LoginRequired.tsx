@@ -17,7 +17,7 @@ export const LoginRequired = ({ onSwitchToSignIn, onSwitchToSignUp }: LoginRequi
         <RegularButton clickHandler={onSwitchToSignIn}>Sign in</RegularButton>
       </div>
       <div className={cls.noAccount}>
-        No account? <span onClick={onSwitchToSignIn}>Create one</span>
+        No account? <span onClick={onSwitchToSignUp}>Create one</span>
       </div>
     </div>
   );
