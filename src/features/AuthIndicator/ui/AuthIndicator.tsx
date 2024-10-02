@@ -8,7 +8,7 @@ export const AuthIndicator: React.FC = () => {
   const { user, logout, setIsAuthPopup } = useAuth();
   const [isProfileCardVisible, setIsProfileCardVisible] = useState(false);
 
-  const authIndicatorRef = useRef<HTMLDivElement>(null); // Создаем реф для profileCard
+  const authIndicatorRef = useRef<HTMLDivElement>(null);
 
   const toggleProfileCard = () => {
     setIsProfileCardVisible((prev) => !prev);
@@ -62,8 +62,14 @@ export const AuthIndicator: React.FC = () => {
         <p className={cls.profileName}>{user?.displayName}</p>
         <p className={cls.profileEmail}>{user?.email}</p>
 
+        {/* <NavLink to={'./profile'} className={cls.profileButton}>
+          My Account
+        </NavLink> */}
         <NavLink
           onClick={() => {
+            setIsProfileCardVisible(false);
+          }}
+          onTouchEnd={() => {
             setIsProfileCardVisible(false);
           }}
           to={'my-reviews'}
@@ -71,9 +77,6 @@ export const AuthIndicator: React.FC = () => {
         >
           My Reviews
         </NavLink>
-        {/* <NavLink to={'./profile'} className={cls.profileButton}>
-          My Account
-        </NavLink> */}
 
         <div className={cls.divider}></div>
         <div

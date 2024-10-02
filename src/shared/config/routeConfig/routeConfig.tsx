@@ -5,14 +5,14 @@ import { ContactPage } from 'pages/ContactPage';
 import { MainPage } from 'pages/MainPage';
 import { MyReviews } from 'pages/MyReviews';
 import { NotFoundPage } from 'pages/NotFoundPage';
-// import { UserProfilePage } from 'pages/UserProfilePage';
+import { UserProfilePage } from 'pages/UserProfilePage';
 
 export enum AppRoutes {
   MAIN = 'main',
   BLOG = 'blog',
   ABOUT = 'about',
   CONTACTS = 'contacts',
-  // PROFILE = 'profile',
+  PROFILE = 'profile',
   MY_REVIEWS = 'myReviews',
   NOT_FOUND = 'not_found',
 }
@@ -23,7 +23,7 @@ export const RoutePaths: Record<AppRoutes, string> = {
   [AppRoutes.ABOUT]: 'about',
   [AppRoutes.CONTACTS]: 'contacts',
   [AppRoutes.MY_REVIEWS]: 'my-reviews',
-  // [AppRoutes.PROFILE]: 'profile',
+  [AppRoutes.PROFILE]: 'profile',
 
   [AppRoutes.NOT_FOUND]: '*',
 };
@@ -50,10 +50,10 @@ export const routeConfig: Record<AppRoutes, RouteProps> = {
     element: <MyReviews />,
   },
 
-  // [AppRoutes.PROFILE]: {
-  //   path: RoutePaths.profile,
-  //   element: <UserProfilePage />,
-  // },
+  [AppRoutes.PROFILE]: {
+    path: RoutePaths.profile,
+    element: <UserProfilePage />,
+  },
 
   [AppRoutes.NOT_FOUND]: {
     path: RoutePaths.not_found,

@@ -59,8 +59,27 @@
     text-align: center;
   }
 }
-.rate {
+
+.ratingInfo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
+.userRate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 8px 4px;
+  background-color: #fff1ed;
+  border-radius: 4px;
+  width: fit-content;
+}
+
+.userRateNumber {
+  font-size: 18px;
+  margin-left: 1px;
+}
+
 .review {
   display: flex;
   flex-direction: column;

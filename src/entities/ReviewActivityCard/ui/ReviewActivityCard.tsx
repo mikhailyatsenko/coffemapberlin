@@ -1,6 +1,7 @@
 import { formatDistanceToNow } from 'date-fns';
 import { createSearchParams, NavLink } from 'react-router-dom';
 // import RatingWidget from 'shared/ui/RatingWidget/ui/RatingWidget';
+import BeanIcon from 'shared/ui/RatingWidget/ui/BeanIcon';
 import { RegularButton } from 'shared/ui/RegularButton';
 import cls from './ReviewActivityCard.module.scss';
 
@@ -40,14 +41,18 @@ export const ReviewActivityCard = ({
       </div> */}
 
       {userRating && (
-        <div className={cls.rate}>
-          <h4>My rating: {userRating}</h4>
+        <div className={cls.ratingInfo}>
+          <h3>My rating: </h3>
+          <div className={cls.userRate}>
+            <BeanIcon filled />
+            <div className={cls.userRateNumber}>{userRating}</div>
+          </div>
         </div>
       )}
 
       {review && (
         <div className={cls.review}>
-          <h4>My review:</h4>
+          <h3>My review:</h3>
           <p className={cls.reviewText}>&quot;{review.trim()}&quot;</p>
         </div>
       )}

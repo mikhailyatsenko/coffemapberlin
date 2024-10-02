@@ -18,8 +18,9 @@ export interface User {
   id: string;
   displayName: string;
   email: string;
-  avatar: string;
-  createdAt?: Date;
+  avatar: string | null;
+  createdAt: Date | null;
+  isGoogleUserUserWithoutPassword: boolean;
 }
 export interface PlaceResponse {
   type: 'Feature';

@@ -5,9 +5,11 @@ export const LOGIN_WITH_GOOGLE_MUTATION = gql`
     loginWithGoogle(code: $code) {
       user {
         id
-        email
         displayName
+        email
         avatar
+        createdAt
+        isGoogleUserUserWithoutPassword
       }
       isFirstLogin
     }
@@ -19,8 +21,11 @@ export const SIGN_IN_WITH_EMAIL = gql`
     signInWithEmail(email: $email, password: $password) {
       user {
         id
-        email
         displayName
+        email
+        avatar
+        createdAt
+        isGoogleUserUserWithoutPassword
       }
     }
   }
@@ -33,6 +38,16 @@ export const CURRENT_USER_QUERY = gql`
       displayName
       email
       avatar
+      createdAt
+      isGoogleUserUserWithoutPassword
+    }
+  }
+`;
+
+export const SET_NEW_PASSWORD = gql`
+  mutation SetNewPassword($userId: ID!, $oldPassword: String, $newPassword: String!) {
+    setNewPassword(userId: $userId, oldPassword: $oldPassword, newPassword: $newPassword) {
+      success
     }
   }
 `;
