@@ -74,9 +74,9 @@ export const AccountSettings = () => {
     return <p>Please log in to view your profile.</p>;
   }
 
-  const isDisplayNameChanged = watchPersonalData('displayName') !== user?.displayName;
+  const isDisplayNameChanged = watchPersonalData('displayName').trim() !== user?.displayName;
 
-  const isEmailChanged = watchPersonalData('email') !== user?.email;
+  const isEmailChanged = watchPersonalData('email').trim() !== user?.email;
 
   const isButtonPersonalFormDisabled = !isDisplayNameChanged && !isEmailChanged;
 
@@ -85,8 +85,8 @@ export const AccountSettings = () => {
       const response = await updatePersonalData({
         variables: {
           userId: user.id,
-          displayName: data.displayName,
-          email: data.email,
+          displayName: data.displayName.trim(),
+          email: data.email.trim(),
         },
       });
       if (response) {
@@ -209,7 +209,7 @@ export const AccountSettings = () => {
         </FormProvider>
         <p className={cls.errorMessage}>{errorPassword?.message}</p>
       </div>
-      {toastMessage && <Toast message={toastMessage} />}
+      {toastMessage && <Toast message={toastMessage} theme="green" />}
     </div>
   );
 };

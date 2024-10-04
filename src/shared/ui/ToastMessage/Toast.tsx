@@ -4,9 +4,11 @@ import cls from './ToastMessage.module.scss';
 
 interface ToastProps {
   message?: string;
+  theme?: 'default' | 'green';
+  // from?: 'top' | 'bottom';
 }
 
-const Toast = ({ message }: ToastProps) => {
+const Toast = ({ message, theme = 'default' }: ToastProps) => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -23,7 +25,7 @@ const Toast = ({ message }: ToastProps) => {
     }
   }, [message]);
   return createPortal(
-    <div className={`${cls.ToastMessage} ${isVisible ? cls.show : ''}`} data-testid="toast">
+    <div className={`${cls.ToastMessage} ${cls[theme]} ${isVisible ? cls.show : ''}`} data-testid="toast">
       <div>{message}</div>
     </div>,
     document.body,
