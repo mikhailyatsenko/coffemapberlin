@@ -1,14 +1,15 @@
 import { useMutation } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form';
 import { useAuth } from 'shared/lib/reactContext/Auth/useAuth';
-import { SET_NEW_PASSWORD } from 'shared/query/apolloQuries';
+import { SET_NEW_PASSWORD, UPDATE_PERSONAL_DATA } from 'shared/query/apolloQuries';
 import { FormField } from 'shared/ui/FormField';
 import { Loader } from 'shared/ui/Loader';
 import { RegularButton } from 'shared/ui/RegularButton';
+import Toast from 'shared/ui/ToastMessage/Toast';
 import { passwordValidationSchema, personalDataValidationSchema } from '../lib/validationSchema';
-import cls from './UserProfile.module.scss';
+import cls from './AccountSettings.module.scss';
 
 interface SetNewPasswordFormData {
   oldPassword?: string;
@@ -21,10 +22,10 @@ interface PersonalDataFormData {
   email: string;
 }
 
-const UserProfile = () => {
-  // const [showPassword, setShowPassword] = useState(false);
+export const AccountSettings = () => {
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  const { user, loading: loadingUserData } = useAuth();
+  const { user, checkAuth, loading: loadingUserData } = useAuth();
 
   const passwordForm = useForm<SetNewPasswordFormData>({
     mode: 'onBlur',
@@ -44,30 +45,60 @@ const UserProfile = () => {
   const {
     handleSubmit: handlePasswordSubmit,
     formState: { errors: passwordErrors, isValid: isPasswordValid },
+    reset: resetPasswordValues,
   } = passwordForm;
 
   const {
     handleSubmit: handlePersonalDataSubmit,
-    // formState: { errors: personalDataErrors, isValid: isPersonalDataValid },
-    reset,
+    formState: { errors: personalDataErrors, isValid: isPersonalDataValid },
+    reset: resetPersonalData,
+    watch: watchPersonalData,
   } = personalDataForm;
 
-  const [setNewPassword] = useMutation(SET_NEW_PASSWORD);
+  const [setNewPassword, { loading: loadingPassword, error: errorPassword }] = useMutation(SET_NEW_PASSWORD);
+  const [updatePersonalData, { loading: loadingPersonalData, error: errorPersonalData }] =
+    useMutation(UPDATE_PERSONAL_DATA);
 
   useEffect(() => {
     if (user) {
-      reset({
+      resetPersonalData({
         displayName: user.displayName,
         email: user.email,
       });
     }
-  }, [user, reset]);
+  }, [user, resetPersonalData]);
 
-  if (loadingUserData) return <Loader />;
+  if (loadingUserData || loadingPassword || loadingPersonalData) return <Loader />;
 
   if (!user) {
     return <p>Please log in to view your profile.</p>;
   }
+
+  const isDisplayNameChanged = watchPersonalData('displayName') !== user?.displayName;
+
+  const isEmailChanged = watchPersonalData('email') !== user?.email;
+
+  const isButtonPersonalFormDisabled = !isDisplayNameChanged && !isEmailChanged;
+
+  const onUpdatePersonalDataSubmit: SubmitHandler<PersonalDataFormData> = async (data) => {
+    try {
+      const response = await updatePersonalData({
+        variables: {
+          userId: user.id,
+          displayName: data.displayName,
+          email: data.email,
+        },
+      });
+      if (response) {
+        checkAuth();
+        setToastMessage('Profile updated successfully');
+      }
+    } catch (err) {
+      const errorMessage = (err as Error).message || 'Unknown error';
+
+      console.error('Registration error:', errorMessage);
+    }
+  };
 
   const onSetNewPasswordSubmit: SubmitHandler<SetNewPasswordFormData> = async (data) => {
     try {
@@ -79,26 +110,9 @@ const UserProfile = () => {
         },
       });
       if (response) {
-        console.log('password success');
-      }
-    } catch (err) {
-      const errorMessage = (err as Error).message || 'Unknown error';
-
-      console.error('Registration error:', errorMessage);
-    }
-  };
-
-  const onChangePersonalDataSubmit: SubmitHandler<PersonalDataFormData> = async (data) => {
-    try {
-      const response = await setNewPassword({
-        variables: {
-          userId: user.id,
-          displayName: data.displayName,
-          email: data.email,
-        },
-      });
-      if (response) {
-        console.log('password success');
+        resetPasswordValues();
+        checkAuth();
+        setToastMessage('Password updated successfully');
       }
     } catch (err) {
       const errorMessage = (err as Error).message || 'Unknown error';
@@ -108,8 +122,8 @@ const UserProfile = () => {
   };
 
   return (
-    <div className="container">
-      <div className={cls.settingsPictureCard}>
+    <div className={cls.settingsSection}>
+      {/* <div className={cls.settingsPictureCard}>
         <div className={cls.settingsPicture}>
           <div className={cls.profileAvatar}>
             <img src={user.avatar || './user-default-icon.svg'} alt={`${user.displayName}'s avatar`} />
@@ -123,21 +137,30 @@ const UserProfile = () => {
             <RegularButton theme="blank">Delete</RegularButton>
           </div>
         </div>
-      </div>
-      <div className={cls.settingsCard}>
-        <h2>Personal data</h2>
-        <FormProvider {...personalDataForm}>
-          <form className={cls.userForm} onSubmit={handlePersonalDataSubmit(onChangePersonalDataSubmit)}>
-            <FormField fieldName="displayName" type="text" labelText="Name" />
-            <FormField fieldName="email" type="email" labelText="E-mail" />
+      </div> */}
 
-            <RegularButton>Save changes</RegularButton>
+      <div className={cls.settingsCard}>
+        <h2 className={cls.settingsTitle}>Personal data</h2>
+        <FormProvider {...personalDataForm}>
+          <form className={cls.userForm} onSubmit={handlePersonalDataSubmit(onUpdatePersonalDataSubmit)}>
+            <FormField
+              fieldName="displayName"
+              type="text"
+              labelText="Name"
+              error={personalDataErrors.displayName?.message}
+            />
+            <FormField fieldName="email" type="email" labelText="E-mail" error={personalDataErrors.email?.message} />
+
+            <RegularButton className={cls.submitButton} disabled={!isPersonalDataValid || isButtonPersonalFormDisabled}>
+              Save changes
+            </RegularButton>
           </form>
         </FormProvider>
+        <p className={cls.errorMessage}>{errorPersonalData?.message}</p>
       </div>
-      <div className={cls.settingsCard}>
-        <h2>Password</h2>
 
+      <div className={cls.settingsCard}>
+        <h2 className={cls.settingsTitle}>Password</h2>
         <FormProvider {...passwordForm}>
           <form className={cls.userForm} onSubmit={handlePasswordSubmit(onSetNewPasswordSubmit)}>
             <input
@@ -148,12 +171,7 @@ const UserProfile = () => {
               style={{ display: 'none' }}
               readOnly
             />
-            {user.isGoogleUserUserWithoutPassword ? (
-              <p className={cls.warn}>
-                You&apos;re logged in with Google and don&apos;t have a password yet. Set one here to enable logging in
-                with your email and password.
-              </p>
-            ) : (
+            {!user.isGoogleUserUserWithoutPassword && (
               <FormField
                 fieldName="oldPassword"
                 type="password"
@@ -177,14 +195,21 @@ const UserProfile = () => {
               error={passwordErrors.repeatPassword?.message}
             />
 
-            <RegularButton type="submit" disabled={!isPasswordValid}>
+            <RegularButton className={cls.submitButton} type="submit" disabled={!isPasswordValid}>
               Save changes
             </RegularButton>
           </form>
+
+          {user.isGoogleUserUserWithoutPassword && (
+            <div className={cls.noPasswordInfo}>
+              You&apos;re logged in with Google and don&apos;t have a password yet. Set one here to enable logging in
+              with your email and password.
+            </div>
+          )}
         </FormProvider>
+        <p className={cls.errorMessage}>{errorPassword?.message}</p>
       </div>
+      {toastMessage && <Toast message={toastMessage} />}
     </div>
   );
 };
-
-export default UserProfile;

@@ -5,7 +5,7 @@ import { ContactPage } from 'pages/ContactPage';
 import { MainPage } from 'pages/MainPage';
 import { MyReviews } from 'pages/MyReviews';
 import { NotFoundPage } from 'pages/NotFoundPage';
-import { UserProfilePage } from 'pages/UserProfilePage';
+import { AccountSettingsPage } from 'pages/UserProfilePage';
 
 export enum AppRoutes {
   MAIN = 'main',
@@ -52,7 +52,7 @@ export const routeConfig: Record<AppRoutes, RouteProps> = {
 
   [AppRoutes.PROFILE]: {
     path: RoutePaths.profile,
-    element: <UserProfilePage />,
+    element: <AccountSettingsPage />,
   },
 
   [AppRoutes.NOT_FOUND]: {

@@ -6,13 +6,21 @@ interface RegularButtonProps extends PropsWithChildren {
   type?: 'submit' | 'reset' | 'button' | undefined;
   disabled?: boolean;
   theme?: 'blank' | 'error' | 'success';
+  className?: string;
 }
 
-export const RegularButton = ({ clickHandler, type, disabled, theme, children }: RegularButtonProps) => {
+export const RegularButton = ({
+  clickHandler,
+  type,
+  disabled,
+  theme,
+  className = '',
+  children,
+}: RegularButtonProps) => {
   return (
     <button
       disabled={disabled}
-      className={`${cls.RegularButton} ${theme ? cls[theme] : ''}`}
+      className={`${cls.RegularButton} ${className} ${theme ? cls[theme] : ''}`}
       onClick={clickHandler}
       type={type}
     >

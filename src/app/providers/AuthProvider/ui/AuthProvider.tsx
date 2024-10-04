@@ -103,8 +103,6 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
     }
   };
 
-  console.log(user);
-
   return (
     <AuthContext.Provider
       value={{

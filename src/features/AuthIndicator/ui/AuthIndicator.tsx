@@ -62,9 +62,10 @@ export const AuthIndicator: React.FC = () => {
         <p className={cls.profileName}>{user?.displayName}</p>
         <p className={cls.profileEmail}>{user?.email}</p>
 
-        {/* <NavLink to={'./profile'} className={cls.profileButton}>
-          My Account
-        </NavLink> */}
+        <NavLink to={'./profile'} className={cls.profileButton}>
+          Account Settings
+        </NavLink>
+
         <NavLink
           onClick={() => {
             setIsProfileCardVisible(false);

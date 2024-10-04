@@ -21,18 +21,30 @@
     object-fit: cover;
   }
 }
+
 .settingsSection {
+  margin: 30px 0;
   width: 100%;
   display: flex;
+  flex-wrap: wrap;
   gap: 20px;
 }
 
 .settingsCard {
   display: block;
   padding: 30px;
+  width: calc(50% - 10px);
   background-color: #fdf7f6;
   border-radius: 10px;
+  .settingsTitle {
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  @media (max-width: 767px) {
+    width: 100%;
+  }
 }
+
 .settingsPictureCard {
   display: block;
   padding: 30px;
@@ -49,5 +61,23 @@
   color: #5c5c5c;
 }
 
-.userForm {
+.submitButton {
+  display: block;
+  margin: 0 auto;
+}
+
+.noPasswordInfo {
+  font-size: 12px;
+  background-color: bisque;
+  color: #8c4c17;
+  padding: 10px;
+  margin-top: 10px;
+  line-height: 1.5;
+  border-radius: 6px;
+}
+
+.errorMessage {
+  color: #fd5353;
+  padding-top: 10px;
+  font-size: 12px;
 }

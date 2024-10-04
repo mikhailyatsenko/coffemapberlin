@@ -44,6 +44,14 @@ export const CURRENT_USER_QUERY = gql`
   }
 `;
 
+export const UPDATE_PERSONAL_DATA = gql`
+  mutation UpdatePersonalData($userId: ID!, $displayName: String, $email: String) {
+    updatePersonalData(userId: $userId, displayName: $displayName, email: $email) {
+      success
+    }
+  }
+`;
+
 export const SET_NEW_PASSWORD = gql`
   mutation SetNewPassword($userId: ID!, $oldPassword: String, $newPassword: String!) {
     setNewPassword(userId: $userId, oldPassword: $oldPassword, newPassword: $newPassword) {
@@ -164,16 +172,6 @@ export const GET_USER_PROFILE = gql`
     }
   }
 `;
-
-// query CurrentUser {
-//   currentUser {
-//     id
-//     displayName
-//     email
-//     avatar
-//   }
-// }
-// `;
 
 export const GET_USER_REVIEW_ACTIVITY = gql`
   query getUserReviewActivity {
