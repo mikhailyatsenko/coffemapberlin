@@ -107,7 +107,7 @@ export const TooltipCardOnMap = ({ properties, coordinates }: TooltipCardOnMapPr
           </div>
         </div>
       </div>
-      {toastMessage && <Toast message={toastMessage} />}
+      <Toast message={toastMessage} />
     </div>
   );
 };

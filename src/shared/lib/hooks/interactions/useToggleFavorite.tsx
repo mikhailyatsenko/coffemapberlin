@@ -1,7 +1,7 @@
 import { type ApolloCache, useMutation } from '@apollo/client';
 import { useState } from 'react';
 import { useAuth } from 'shared/lib/reactContext/Auth/useAuth';
-import { TOGGLE_FAVORITE, GET_ALL_PLACES } from 'shared/query/apolloQuries';
+import { TOGGLE_FAVORITE, GET_ALL_PLACES } from 'shared/query/apolloQueries';
 import { type PlaceResponse } from 'shared/types';
 
 interface PlacesData {
@@ -10,7 +10,7 @@ interface PlacesData {
 
 export const useToggleFavorite = (placeId: string | null) => {
   const { user, setIsAuthPopup } = useAuth();
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [toastMessage, setToastMessage] = useState<string>('');
 
   const [toggleFavoriteMutation] = useMutation<{ toggleFavorite: boolean }>(TOGGLE_FAVORITE, {
     update(cache, { data }) {

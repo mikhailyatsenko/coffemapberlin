@@ -185,3 +185,11 @@ export const GET_USER_REVIEW_ACTIVITY = gql`
     }
   }
 `;
+
+export const UPLOAD_AVATAR = gql`
+  mutation UploadAvatar($userId: ID!, $fileUrl: String!) {
+    uploadAvatar(userId: $userId, fileUrl: $fileUrl) {
+      success
+    }
+  }
+`;

@@ -5,7 +5,7 @@ import { useGoogleLogin } from '@react-oauth/google';
 import { useCallback, type FC, type PropsWithChildren } from 'react';
 import { useState, useEffect } from 'react';
 import { AuthContext } from 'shared/lib/reactContext/Auth/AuthContext';
-import { LOGIN_WITH_GOOGLE_MUTATION, CURRENT_USER_QUERY, LOGOUT_MUTATION } from 'shared/query/apolloQuries';
+import { LOGIN_WITH_GOOGLE_MUTATION, CURRENT_USER_QUERY, LOGOUT_MUTATION } from 'shared/query/apolloQueries';
 import { type User } from 'shared/types';
 import { type AuthModalContentProps } from 'shared/ui/authModalContent/ui/AuthModalContent';
 

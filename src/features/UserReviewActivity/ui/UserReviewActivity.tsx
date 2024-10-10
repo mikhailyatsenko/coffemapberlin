@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { ReviewActivityCard } from 'entities/ReviewActivityCard';
 import { useAuth } from 'shared/lib/reactContext/Auth/useAuth';
-import { GET_USER_REVIEW_ACTIVITY } from 'shared/query/apolloQuries';
+import { GET_USER_REVIEW_ACTIVITY } from 'shared/query/apolloQueries';
 import cls from './UserReviewActivity.module.scss';
 
 interface UserReviewActivityData {

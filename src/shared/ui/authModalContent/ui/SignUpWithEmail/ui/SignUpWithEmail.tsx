@@ -3,7 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { FormProvider, useForm, type SubmitHandler } from 'react-hook-form';
 import { useAuth } from 'shared/lib/reactContext/Auth/useAuth';
-import { REGISTER_USER } from 'shared/query/apolloQuries';
+import { REGISTER_USER } from 'shared/query/apolloQueries';
 import { RegularButton } from 'shared/ui/RegularButton';
 import { FormField } from '../../../../FormField';
 import { GoogleLoginButton } from '../../../../GoogleLoginButton';

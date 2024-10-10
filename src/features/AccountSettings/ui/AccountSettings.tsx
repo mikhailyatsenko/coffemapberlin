@@ -3,7 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect, useState } from 'react';
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form';
 import { useAuth } from 'shared/lib/reactContext/Auth/useAuth';
-import { SET_NEW_PASSWORD, UPDATE_PERSONAL_DATA } from 'shared/query/apolloQuries';
+import { SET_NEW_PASSWORD, UPDATE_PERSONAL_DATA } from 'shared/query/apolloQueries';
 import { FormField } from 'shared/ui/FormField';
 import { Loader } from 'shared/ui/Loader';
 import { RegularButton } from 'shared/ui/RegularButton';
@@ -23,7 +23,7 @@ interface PersonalDataFormData {
 }
 
 export const AccountSettings = () => {
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [toastMessage, setToastMessage] = useState<string>('');
 
   const { user, checkAuth, loading: loadingUserData } = useAuth();
 
@@ -123,22 +123,6 @@ export const AccountSettings = () => {
 
   return (
     <div className={cls.settingsSection}>
-      {/* <div className={cls.settingsPictureCard}>
-        <div className={cls.settingsPicture}>
-          <div className={cls.profileAvatar}>
-            <img src={user.avatar || './user-default-icon.svg'} alt={`${user.displayName}'s avatar`} />
-          </div>
-          <div className={cls.pictureRequirements}>
-            <h4>Profile picture</h4>
-            <p>PNG, JPEG under 15MB</p>
-          </div>
-          <div className={cls.pictureButtons}>
-            <RegularButton>Upload new picture</RegularButton>
-            <RegularButton theme="blank">Delete</RegularButton>
-          </div>
-        </div>
-      </div> */}
-
       <div className={cls.settingsCard}>
         <h2 className={cls.settingsTitle}>Personal data</h2>
         <FormProvider {...personalDataForm}>
@@ -209,7 +193,7 @@ export const AccountSettings = () => {
         </FormProvider>
         <p className={cls.errorMessage}>{errorPassword?.message}</p>
       </div>
-      {toastMessage && <Toast message={toastMessage} theme="green" />}
+      <Toast message={toastMessage} theme="green" />
     </div>
   );
 };

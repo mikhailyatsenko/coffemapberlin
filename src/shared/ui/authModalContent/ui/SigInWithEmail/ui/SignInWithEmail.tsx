@@ -2,7 +2,7 @@ import { useMutation } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FormProvider, useForm, type SubmitHandler } from 'react-hook-form';
 import { useAuth } from 'shared/lib/reactContext/Auth/useAuth';
-import { SIGN_IN_WITH_EMAIL } from 'shared/query/apolloQuries';
+import { SIGN_IN_WITH_EMAIL } from 'shared/query/apolloQueries';
 import { RegularButton } from 'shared/ui/RegularButton';
 import { FormField } from '../../../../FormField';
 import { GoogleLoginButton } from '../../../../GoogleLoginButton';

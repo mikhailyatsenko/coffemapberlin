@@ -125,7 +125,7 @@ export const PlaceCard = ({ properties, coordinates }: PlaceCardProps) => {
           </div>
         </div>
       </div>
-      {toastMessage && <Toast message={toastMessage} />}
+      <Toast message={toastMessage} />
     </>
   );
 };

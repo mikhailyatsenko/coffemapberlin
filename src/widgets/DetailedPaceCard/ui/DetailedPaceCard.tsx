@@ -6,7 +6,7 @@ import { RateNow } from 'features/RateNow';
 import { ReviewList } from 'features/ReviewList';
 import { HeaderDetailedPlacCard } from 'entities/HeaderDetailedPlacCard';
 import { useToggleFavorite } from 'shared/lib/hooks/interactions/useToggleFavorite';
-import { GET_ALL_PLACES, GET_PLACE_DETAILS } from 'shared/query/apolloQuries';
+import { GET_ALL_PLACES, GET_PLACE_DETAILS } from 'shared/query/apolloQueries';
 import { type PlaceResponse } from 'shared/types';
 import { AddToFavButton } from 'shared/ui/AddToFavButton';
 import { InstagramEmbedProfile } from 'shared/ui/InstagramEmbed';
@@ -71,10 +71,10 @@ const DetailedPaceCard: React.FC = () => {
   }, [onClose]);
 
   useEffect(() => {
-    document.title = place?.properties.name ?? 'Berlin Coffee Map';
+    document.title = place?.properties.name + ' | Berlin Coffee Map';
 
     return () => {
-      document.title = 'Berlin Coffee Map';
+      document.title = place?.properties.name + ' | Berlin Coffee Map';
     };
   }, [place?.properties.name]);
 
@@ -144,7 +144,7 @@ const DetailedPaceCard: React.FC = () => {
           />
         </div>
       </div>
-      {toastMessage && <Toast message={toastMessage} />}
+      <Toast message={toastMessage} />
     </PortalToBody>
   );
 };

@@ -1,6 +1,6 @@
 import { type ApolloCache, useMutation } from '@apollo/client';
 import { useAuth } from 'shared/lib/reactContext/Auth/useAuth';
-import { ADD_REVIEW, GET_PLACE_DETAILS, GET_ALL_PLACES } from 'shared/query/apolloQuries';
+import { ADD_REVIEW, GET_PLACE_DETAILS, GET_ALL_PLACES } from 'shared/query/apolloQueries';
 import { type PlaceResponse, type Review } from 'shared/types';
 
 export interface PlaceDetailsData {
