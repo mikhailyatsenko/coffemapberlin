@@ -43,7 +43,7 @@ export const AvatarUpload: React.FC = () => {
     formData.append('userId', user.id);
     formData.append('avatar', file);
 
-    const response = await fetch('https://yatsenko.site/upload-avatar', {
+    const response = await fetch('http://localhost:3000/upload-avatar', {
       method: 'POST',
       body: formData,
       credentials: 'include',
