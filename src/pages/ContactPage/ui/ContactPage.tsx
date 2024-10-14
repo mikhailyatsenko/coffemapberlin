@@ -1,7 +1,11 @@
+import { useEffect } from 'react';
 import { SendContactForm } from 'features/SendContactForm/ui/SendContactForm';
 import cls from './ContactPage.module.scss';
 
 const ContactPage = () => {
+  useEffect(() => {
+    document.title = 'Contact | Berlin Coffee Map';
+  }, []);
   return (
     <div className={cls.ContactPage}>
       <div className={cls.textContainer}>

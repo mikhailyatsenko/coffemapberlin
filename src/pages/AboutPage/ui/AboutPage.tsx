@@ -1,7 +1,11 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import cls from './AboutPage.module.scss';
 
 export const AboutPage = () => {
+  useEffect(() => {
+    document.title = 'About | Berlin Coffee Map';
+  }, []);
   return (
     <section className={`${cls.AboutPage} container`} style={{ textAlign: 'center' }}>
       <h1>Who are we?</h1>

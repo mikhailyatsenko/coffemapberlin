@@ -74,7 +74,7 @@ const DetailedPaceCard: React.FC = () => {
     document.title = place?.properties.name + ' | Berlin Coffee Map';
 
     return () => {
-      document.title = place?.properties.name + ' | Berlin Coffee Map';
+      document.title = 'Berlin Coffee Map';
     };
   }, [place?.properties.name]);
 
