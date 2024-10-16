@@ -1,15 +1,20 @@
-.settingsPictureCard {
+.settingsPictureSection {
   display: block;
   padding: 30px 0;
 }
 
 .settingsPicture {
   width: 100%;
+  background-color: #fdf7f6;
+  min-height: 120px;
+  border-radius: 10px;
+  padding: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 24px;
+  column-gap: 24px;
+  row-gap: 18px;
 }
 
 .pictureRequirements {
@@ -19,7 +24,7 @@
 .profileAvatar {
   width: 60px;
   height: 60px;
-
+  flex-shrink: 0;
   border-radius: 50%;
   overflow: hidden;
 
@@ -30,6 +35,38 @@
   }
 }
 
-.buttons {
+.buttons,
+.image {
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+
+.hiddenInput {
+  display: none;
+}
+
+.customFileUpload {
+  display: inline-block;
+  padding: 8px 12px;
+  cursor: pointer;
+  color: #fff;
+  background-color: #ff4b34;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.buttonIcon {
+  height: 14px;
+  width: 14px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: -4px; /*visually centering */
+}
+.uploadError {
+  width: 100%;
+  font-size: 12px;
+  color: #fd5353;
+  text-align: center;
 }

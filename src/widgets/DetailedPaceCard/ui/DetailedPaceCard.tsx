@@ -71,12 +71,12 @@ const DetailedPaceCard: React.FC = () => {
   }, [onClose]);
 
   useEffect(() => {
-    document.title = place?.properties.name + ' | Berlin Coffee Map';
+    document.title = place?.properties?.name ? `${place.properties.name} | Berlin Coffee Map` : 'Berlin Coffee Map';
 
     return () => {
       document.title = 'Berlin Coffee Map';
     };
-  }, [place?.properties.name]);
+  }, [place?.properties?.name]);
 
   if (!placeId) return null;
   if (!place?.properties || loading) return <Loader />;

@@ -62,15 +62,18 @@ export const AuthIndicator: React.FC = () => {
         <p className={cls.profileName}>{user?.displayName}</p>
         <p className={cls.profileEmail}>{user?.email}</p>
 
-        <NavLink to={'./profile'} className={cls.profileButton}>
+        <NavLink
+          onClick={() => {
+            setIsProfileCardVisible(false);
+          }}
+          to={'./profile'}
+          className={cls.profileButton}
+        >
           Account Settings
         </NavLink>
 
         <NavLink
           onClick={() => {
-            setIsProfileCardVisible(false);
-          }}
-          onTouchEnd={() => {
             setIsProfileCardVisible(false);
           }}
           to={'my-reviews'}

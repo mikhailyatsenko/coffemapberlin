@@ -44,6 +44,18 @@ export const CURRENT_USER_QUERY = gql`
   }
 `;
 
+export const REGISTER_USER = gql`
+  mutation RegisterUser($email: String!, $displayName: String!, $password: String!) {
+    registerUser(email: $email, displayName: $displayName, password: $password) {
+      user {
+        id
+        displayName
+        email
+      }
+    }
+  }
+`;
+
 export const UPDATE_PERSONAL_DATA = gql`
   mutation UpdatePersonalData($userId: ID!, $displayName: String, $email: String) {
     updatePersonalData(userId: $userId, displayName: $displayName, email: $email) {
@@ -98,18 +110,6 @@ export const TOGGLE_FAVORITE = gql`
   }
 `;
 
-export const REGISTER_USER = gql`
-  mutation RegisterUser($email: String!, $displayName: String!, $password: String!) {
-    registerUser(email: $email, displayName: $displayName, password: $password) {
-      user {
-        id
-        displayName
-        email
-      }
-    }
-  }
-`;
-
 export const ADD_REVIEW = gql`
   mutation AddReview($placeId: ID!, $text: String, $rating: Float) {
     addReview(placeId: $placeId, text: $text, rating: $rating) {
@@ -158,21 +158,6 @@ export const GET_PLACE_DETAILS = gql`
   }
 `;
 
-export const GET_USER_PROFILE = gql`
-  query GetUserProfile($userId: ID!) {
-    getUserProfile(userId: $userId) {
-      id
-      name
-      avatar
-      email
-      reviewedLocations {
-        id
-        name
-      }
-    }
-  }
-`;
-
 export const GET_USER_REVIEW_ACTIVITY = gql`
   query getUserReviewActivity {
     getUserReviewActivity {
@@ -189,6 +174,14 @@ export const GET_USER_REVIEW_ACTIVITY = gql`
 export const UPLOAD_AVATAR = gql`
   mutation UploadAvatar($userId: ID!, $fileUrl: String!) {
     uploadAvatar(userId: $userId, fileUrl: $fileUrl) {
+      success
+    }
+  }
+`;
+
+export const DELETE_AVATAR = gql`
+  mutation DeleteAvatar {
+    deleteAvatar {
       success
     }
   }
