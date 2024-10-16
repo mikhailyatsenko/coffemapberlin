@@ -66,6 +66,9 @@ export const AuthIndicator: React.FC = () => {
           onClick={() => {
             setIsProfileCardVisible(false);
           }}
+          onTouchEnd={() => {
+            setIsProfileCardVisible(false);
+          }}
           to={'./profile'}
           className={cls.profileButton}
         >
@@ -74,6 +77,9 @@ export const AuthIndicator: React.FC = () => {
 
         <NavLink
           onClick={() => {
+            setIsProfileCardVisible(false);
+          }}
+          onTouchEnd={() => {
             setIsProfileCardVisible(false);
           }}
           to={'my-reviews'}
