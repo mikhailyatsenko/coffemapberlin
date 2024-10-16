@@ -28,6 +28,10 @@ export const AvatarUpload: React.FC = () => {
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement> | null) => {
     if (event?.target.files && event.target.files.length > 0) {
+      if (event.target.files[0].size > 200 * 1024) {
+        seIsError('File size exceeds 200KB. Please upload a smaller file.');
+        return;
+      }
       setFile(event.target.files[0]);
     }
     seIsError(null);

@@ -86,7 +86,7 @@ export const UploadAvatarForm = ({
                   <img className={cls.buttonIcon} src={fileIcon} alt="" /> Choose file
                 </label>
               ) : (
-                <RegularButton clickHandler={handleUpload} disabled={!selectedFile}>
+                <RegularButton clickHandler={handleUpload} disabled={!selectedFile || !!isError}>
                   <img className={cls.buttonIcon} src={uploadIcon} alt="" /> Upload now
                 </RegularButton>
               )}
