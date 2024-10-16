@@ -56,8 +56,8 @@ export const AvatarUpload: React.FC = () => {
     const responseData: UploadResponse = await response.json();
 
     if (responseData.error) {
-      seIsError(responseData.error);
       setIsUploading(false);
+      seIsError(responseData.error);
       return;
     }
 
@@ -71,6 +71,7 @@ export const AvatarUpload: React.FC = () => {
     if (uloadError?.message) {
       setIsUploading(false);
       seIsError(uloadError.message);
+      return;
     }
 
     if (data?.uploadAvatar.success) {

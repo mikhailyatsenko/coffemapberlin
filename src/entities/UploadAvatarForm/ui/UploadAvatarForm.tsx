@@ -39,7 +39,7 @@ export const UploadAvatarForm = ({
       handleFileChange(event);
     }
   };
-  if (isUploading) return <Loader />;
+
   return (
     <div className={cls.settingsPictureSection}>
       <div className={cls.settingsPicture}>
@@ -99,6 +99,7 @@ export const UploadAvatarForm = ({
         </div>
         {isError && <div className={cls.uploadError}>{isError}</div>}
       </div>
+      {isUploading && <Loader />}
     </div>
   );
 };
