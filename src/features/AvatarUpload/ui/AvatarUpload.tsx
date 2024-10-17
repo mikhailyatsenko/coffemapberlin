@@ -13,12 +13,12 @@ interface UploadResponse {
 
 export const AvatarUpload: React.FC = () => {
   const { user, checkAuth, loading: authLoading } = useAuth();
-  const [isError, seIsError] = useState<string | null>(null);
+  const [isError, setIsError] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
 
   const [toastMessage, setToastMessage] = useState<string>('');
 
-  const [uploadAvatar, { error: uloadError }] = useMutation<{ uploadAvatar: { success: boolean } }>(UPLOAD_AVATAR);
+  const [uploadAvatar, { error: uploadError }] = useMutation<{ uploadAvatar: { success: boolean } }>(UPLOAD_AVATAR);
   const [deleteAvatar, { error: deleteError }] = useMutation<{ deleteAvatar: { success: boolean } }>(DELETE_AVATAR);
 
   const [isUploading, setIsUploading] = useState<boolean>(false);
@@ -29,12 +29,12 @@ export const AvatarUpload: React.FC = () => {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement> | null) => {
     if (event?.target.files && event.target.files.length > 0) {
       if (event.target.files[0].size > 200 * 1024) {
-        seIsError('File size exceeds 200KB. Please upload a smaller file.');
+        setIsError('File size exceeds 200KB. Please upload a smaller file.');
         return;
       }
       setFile(event.target.files[0]);
     }
-    seIsError(null);
+    setIsError(null);
   };
 
   const handleUploadAvatar = async () => {
@@ -46,43 +46,46 @@ export const AvatarUpload: React.FC = () => {
     formData.append('userId', user.id);
     formData.append('avatar', file);
 
-    const response = await fetch(
-      process.env.VITE_ENV === 'development'
-        ? 'http://localhost:3000/upload-avatar'
-        : 'https://yatsenko.site/upload-avatar',
-      {
-        method: 'POST',
-        body: formData,
-        credentials: 'include',
-      },
-    );
+    try {
+      const response = await fetch(
+        process.env.VITE_ENV === 'development'
+          ? 'http://localhost:3000/upload-avatar'
+          : 'https://yatsenko.site/upload-avatar',
+        {
+          method: 'POST',
+          body: formData,
+          credentials: 'include',
+        },
+      );
 
-    const responseData: UploadResponse = await response.json();
+      const responseData: UploadResponse = await response.json();
 
-    if (responseData.error) {
+      if (responseData.error) {
+        setIsError(responseData.error); // Устанавливаем сообщение об ошибке
+        setIsUploading(false);
+        return;
+      }
+
+      const { data } = await uploadAvatar({
+        variables: {
+          userId: user.id,
+          fileUrl: responseData.fileUrl,
+        },
+      });
+
+      if (uploadError?.message) {
+        setIsUploading(false);
+        setIsError(uploadError.message);
+      }
+
+      if (data?.uploadAvatar.success) {
+        checkAuth();
+        setIsUploading(false);
+        setToastMessage('Avatar uploaded successfully');
+      }
+    } catch (error) {
+      setIsError('An unexpected error occurred during avatar upload.');
       setIsUploading(false);
-      seIsError(responseData.error);
-      return;
-    }
-
-    const { data } = await uploadAvatar({
-      variables: {
-        userId: user.id,
-        fileUrl: responseData.fileUrl,
-      },
-    });
-
-    if (uloadError?.message) {
-      setIsUploading(false);
-      seIsError(uloadError.message);
-      return;
-    }
-
-    if (data?.uploadAvatar.success) {
-      checkAuth();
-      setIsUploading(false);
-      setToastMessage('Avatar uploaded successfully');
-      console.log('Avatar uploaded successfully');
     }
   };
 
@@ -91,15 +94,25 @@ export const AvatarUpload: React.FC = () => {
     if (!isConfirmed) return;
 
     setIsUploading(true);
-    const { data } = await deleteAvatar();
-    if (deleteError?.message) {
-      seIsError(deleteError.message);
-    }
-    if (data?.deleteAvatar.success) {
-      checkAuth();
 
-      setToastMessage('Avatar deleted successfully');
+    try {
+      const { data } = await deleteAvatar();
+
+      if (deleteError?.message) {
+        setIsError(deleteError.message);
+        setIsUploading(false);
+        return;
+      }
+
+      if (data?.deleteAvatar.success) {
+        checkAuth();
+        setToastMessage('Avatar deleted successfully');
+      }
+    } catch (error) {
+      // Обработка неожиданных ошибок (например, проблемы с сетью)
+      setIsError('An unexpected error occurred during avatar deletion.');
     }
+
     setIsUploading(false);
   };
 

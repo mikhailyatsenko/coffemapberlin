@@ -27,6 +27,9 @@
     }
   }
   &:hover {
+    img {
+      filter: invert(100%);
+    }
     color: #fff;
     background-color: #303030;
   }
