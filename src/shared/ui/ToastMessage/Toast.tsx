@@ -24,6 +24,9 @@ const Toast = ({ message, theme = 'default' }: ToastProps) => {
       };
     }
   }, [message]);
+
+  if (!isVisible) return null;
+
   return createPortal(
     <div className={`${cls.ToastMessage} ${cls[theme]} ${isVisible ? cls.show : ''}`} data-testid="toast">
       <div>{message}</div>

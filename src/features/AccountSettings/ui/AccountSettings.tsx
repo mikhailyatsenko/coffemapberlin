@@ -10,9 +10,7 @@ import {
 } from 'entities/AccountSettingsForm';
 import { useAuth } from 'shared/lib/reactContext/Auth/useAuth';
 import { SET_NEW_PASSWORD, UPDATE_PERSONAL_DATA } from 'shared/query/apolloQueries';
-// import { FormField } from 'shared/ui/FormField';
 import { Loader } from 'shared/ui/Loader';
-// import { RegularButton } from 'shared/ui/RegularButton';
 import Toast from 'shared/ui/ToastMessage/Toast';
 import { passwordValidationSchema, personalDataValidationSchema } from '../lib/validationSchema';
 import cls from './AccountSettings.module.scss';

@@ -7,6 +7,7 @@ import { useToggleFavorite } from 'shared/lib/hooks/interactions/useToggleFavori
 import LazyImage from 'shared/lib/LazyImage/LazyImage';
 import { type PlaceProperties } from 'shared/types';
 import { AddToFavButton } from 'shared/ui/AddToFavButton';
+import { Loader } from 'shared/ui/Loader';
 import RatingWidget from 'shared/ui/RatingWidget/ui/RatingWidget';
 import Toast from 'shared/ui/ToastMessage/Toast';
 import instagram from '../../../shared/assets/instagram.svg';
@@ -47,7 +48,11 @@ export const PlaceCard = ({ properties, coordinates }: PlaceCardProps) => {
     <>
       <div onClick={handleClickDetails} className={`${cls.placeCard} `}>
         <div className={cls.image}>
-          <LazyImage src={`./places-images/${properties.image || 'default-place.jpg'}`} alt="Place image" />
+          <LazyImage
+            src={`./places-images/${properties.image || 'default-place.jpg'}`}
+            // loader={<Loader />}
+            alt="Place image"
+          />
         </div>
         <div className={cls.content}>
           <div className={cls.cardHeader}>
