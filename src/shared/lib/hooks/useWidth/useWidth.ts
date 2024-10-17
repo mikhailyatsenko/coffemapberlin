@@ -4,14 +4,14 @@ export default function useWidth(debounceTime: number = 200): number {
   const [width, setWidth] = useState<number>(typeof window !== 'undefined' ? window.innerWidth : 0);
 
   useEffect(() => {
-    if (typeof window === 'undefined') return; // Проверка на существование window
+    if (typeof window === 'undefined') return;
 
     let timeoutId: ReturnType<typeof setTimeout>;
 
     const handleResize = () => {
-      clearTimeout(timeoutId); // Очищаем предыдущий таймаут
+      clearTimeout(timeoutId);
       timeoutId = setTimeout(() => {
-        setWidth(window.innerWidth); // Устанавливаем новое значение ширины с задержкой
+        setWidth(window.innerWidth);
       }, debounceTime);
     };
 
@@ -19,7 +19,7 @@ export default function useWidth(debounceTime: number = 200): number {
 
     return () => {
       window.removeEventListener('resize', handleResize);
-      clearTimeout(timeoutId); // Чистим таймаут при размонтировании компонента
+      clearTimeout(timeoutId);
     };
   }, [debounceTime]);
 

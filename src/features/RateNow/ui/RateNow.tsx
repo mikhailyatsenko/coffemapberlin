@@ -1,4 +1,3 @@
-// import { RegularButton } from 'shared/ui/RegularButton';
 import { useState } from 'react';
 import { ReviewForm } from 'entities/ReviewForm';
 import { type Review } from 'shared/types';
@@ -22,7 +21,6 @@ export const RateNow = ({ reviews, placeId }: RateNowProps) => {
 
   const onSubmitTextReview = async (reviewText: string) => {
     await handleAddReview(reviewText);
-    // setShowReviewForm(false);
   };
 
   if (hasRating && hasReviewWithText) return null;

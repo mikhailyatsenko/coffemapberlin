@@ -109,7 +109,6 @@ export const AvatarUpload: React.FC = () => {
         setToastMessage('Avatar deleted successfully');
       }
     } catch (error) {
-      // Обработка неожиданных ошибок (например, проблемы с сетью)
       setIsError('An unexpected error occurred during avatar deletion.');
     }
 

@@ -13,10 +13,6 @@ export const SendContactForm = () => {
   const [formState, setFormState] = useState<FormState>(null);
 
   const onSubmit: SubmitHandler<ContactFormData> = async (data) => {
-    // if (!data.recaptcha) {
-    //   alert('Please complete the CAPTCHA');
-    //   return;
-    // }
     setFormState('loading');
     try {
       await emailjs.send(

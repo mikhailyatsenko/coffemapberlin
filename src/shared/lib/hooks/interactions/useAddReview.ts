@@ -105,6 +105,5 @@ export function useAddReview(placeId: string) {
     handleAddReview,
     loading: addReviewLoading,
     error: addReviewError,
-    // placeData: allPlacesData?.places.find((place) => place.properties.id === placeId),
   };
 }

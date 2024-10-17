@@ -46,11 +46,6 @@ export const LoadMap = ({ placesGeo }: LoadMapProps) => {
       return;
     }
 
-    // const {
-    //   properties,
-    //   geometry: { coordinates },
-    // } = feature;
-
     switch (featureFromEvent?.layer?.id) {
       case 'clusters': {
         const clusterId: number = featureFromEvent.properties?.cluster_id;

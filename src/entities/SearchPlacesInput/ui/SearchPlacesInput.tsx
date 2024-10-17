@@ -1,4 +1,3 @@
-// import searchIcon from '../../../shared/assets/search-icon.svg';
 import filterIcon from '../../../shared/assets/filter-icon.svg';
 
 import cls from './SearchPlacesInput.module.scss';

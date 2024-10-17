@@ -21,7 +21,6 @@ export const Modal = ({ children, onClose }: LoginPopupProps) => {
   }, [onClose]);
 
   const handleOverlayClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    // Проверяем, был ли клик именно на оверлее
     if (event.currentTarget === event.target) {
       onClose();
     }

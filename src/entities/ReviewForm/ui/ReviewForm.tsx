@@ -23,7 +23,6 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({ onSubmit, isLoading, onB
   const {
     handleSubmit,
     formState: { errors, isValid },
-    // reset,
   } = form;
 
   const handleFormSubmit: SubmitHandler<ReviewFormData> = (data) => {

@@ -23,7 +23,6 @@ export const PasswordSettingsForm = ({
   const {
     handleSubmit: handlePasswordSubmit,
     formState: { errors: passwordErrors, isValid: isPasswordValid },
-    // reset: resetPasswordValues,
   } = passwordForm;
   return (
     <div className={cls.settingsCard}>
