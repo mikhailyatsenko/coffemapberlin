@@ -25,9 +25,9 @@ const CoffeeShopSchema = ({ name, averageRating, reviewCount, address, image }: 
   };
 
   if (image) {
-    schemaData.image = image;
+    schemaData.image = `${window.location.origin}/places-images/${image}`;
   }
-
+  console.log(schemaData.image);
   return <script type="application/ld+json">{JSON.stringify(schemaData)}</script>;
 };
 
