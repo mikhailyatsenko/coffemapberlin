@@ -81,7 +81,7 @@ const DetailedPaceCard: React.FC = () => {
   if (!placeId) return null;
   if (!place?.properties || loading) return <Loader />;
 
-  const { averageRating, description, name, address, instagram, ratingCount } = place.properties;
+  const { averageRating, description, name, address, instagram, ratingCount, image } = place.properties;
   return (
     <>
       <div className={cls.addressCopmactView}>{address}</div>
@@ -139,7 +139,13 @@ const DetailedPaceCard: React.FC = () => {
             isCompactView={isHeaderVisible}
             setCompactView={setIsHeaderVisible}
           />
-          <CoffeeShopSchema address={address} averageRating={averageRating} reviewCount={ratingCount} name={name} />
+          <CoffeeShopSchema
+            address={address}
+            averageRating={averageRating}
+            reviewCount={ratingCount}
+            name={name}
+            image={image}
+          />
           {/* for Google Rich Results */}
         </div>
       </div>

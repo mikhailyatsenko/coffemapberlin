@@ -3,10 +3,11 @@ interface CoffeeShopSchemaProps {
   averageRating: number;
   reviewCount: number;
   address: string;
+  image?: string;
 }
 
-const CoffeeShopSchema = ({ name, averageRating, reviewCount, address }: CoffeeShopSchemaProps) => {
-  const schemaData = {
+const CoffeeShopSchema = ({ name, averageRating, reviewCount, address, image }: CoffeeShopSchemaProps) => {
+  const schemaData: Record<string, unknown> = {
     '@context': 'https://schema.org',
     '@type': 'CafeOrCoffeeShop',
     name,
@@ -22,6 +23,10 @@ const CoffeeShopSchema = ({ name, averageRating, reviewCount, address }: CoffeeS
       addressCountry: 'DE',
     },
   };
+
+  if (image) {
+    schemaData.image = image;
+  }
 
   return <script type="application/ld+json">{JSON.stringify(schemaData)}</script>;
 };
