@@ -5,7 +5,6 @@ import cls from './ToastMessage.module.scss';
 interface ToastProps {
   message?: string;
   theme?: 'default' | 'green';
-  // from?: 'top' | 'bottom';
 }
 
 const Toast = ({ message, theme = 'default' }: ToastProps) => {

@@ -11,9 +11,9 @@ import { type PlaceResponse } from 'shared/types';
 import { AddToFavButton } from 'shared/ui/AddToFavButton';
 import { InstagramEmbedProfile } from 'shared/ui/InstagramEmbed';
 import { Loader } from 'shared/ui/Loader';
-import { PortalToBody } from 'shared/ui/Portals/PortalToBody';
 import Toast from 'shared/ui/ToastMessage/Toast';
 import { type PlaceDetailsData } from '../../../shared/lib/hooks/interactions/useAddReview';
+import CoffeeShopSchema from '../lib/CoffeeShopSchema';
 import cls from './DetailedPaceCard.module.scss';
 
 const DetailedPaceCard: React.FC = () => {
@@ -81,9 +81,9 @@ const DetailedPaceCard: React.FC = () => {
   if (!placeId) return null;
   if (!place?.properties || loading) return <Loader />;
 
-  const { averageRating, description, name, address, instagram } = place.properties;
+  const { averageRating, description, name, address, instagram, ratingCount } = place.properties;
   return (
-    <PortalToBody>
+    <>
       <div className={cls.addressCopmactView}>{address}</div>
       <div
         onClick={() => {
@@ -99,9 +99,7 @@ const DetailedPaceCard: React.FC = () => {
           className={cls.detailsContainer}
         >
           <p className={cls.address}>{address}</p>
-
           <InstagramEmbedProfile normalView={isViewInstProfile} username={instagram} />
-
           <button
             className={cls.closeButton}
             onClick={() => {
@@ -128,7 +126,6 @@ const DetailedPaceCard: React.FC = () => {
               {isViewInstProfile ? 'Back to place info' : 'View Instagram'}
             </button>
           </div>
-
           <h2 className={cls.name}>{name}</h2>
           <HeaderDetailedPlacCard
             averageRating={averageRating}
@@ -142,10 +139,12 @@ const DetailedPaceCard: React.FC = () => {
             isCompactView={isHeaderVisible}
             setCompactView={setIsHeaderVisible}
           />
+          <CoffeeShopSchema address={address} averageRating={averageRating} reviewCount={ratingCount} name={name} />
+          {/* for Google Rich Results */}
         </div>
       </div>
       <Toast message={toastMessage} />
-    </PortalToBody>
+    </>
   );
 };
 
