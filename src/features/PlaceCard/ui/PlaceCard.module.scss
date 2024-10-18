@@ -23,6 +23,10 @@
     min-height: 100%;
     position: relative;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     img {
       position: absolute;
       top: 50%;

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { LoaderJustIcon } from 'shared/ui/Loader';
 
 interface LazyImageProps {
   src: string;
@@ -6,9 +7,10 @@ interface LazyImageProps {
   alt?: string;
 }
 
-const LazyImage: React.FC<LazyImageProps> = ({ src, alt, className }) => {
+const LazyImage: React.FC<LazyImageProps> = ({ src, alt }) => {
   const imgRef = useRef<HTMLImageElement | null>(null);
   const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => {
@@ -31,7 +33,26 @@ const LazyImage: React.FC<LazyImageProps> = ({ src, alt, className }) => {
     };
   }, []);
 
-  return <img className={className} ref={imgRef} src={isVisible ? src : undefined} alt={alt} />;
+  const handleLoad = () => {
+    setIsLoading(false);
+  };
+
+  return (
+    <>
+      {isLoading && <LoaderJustIcon />}
+      <img
+        ref={imgRef}
+        src={isVisible ? src : undefined}
+        alt={alt}
+        onLoad={handleLoad}
+        style={{
+          opacity: isLoading ? 0 : 1,
+          visibility: isLoading ? 'hidden' : 'visible',
+          transition: 'opacity 0.3s ease-in-out',
+        }}
+      />
+    </>
+  );
 };
 
 export default LazyImage;

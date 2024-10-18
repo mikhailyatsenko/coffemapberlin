@@ -2,6 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { FormProvider, useForm, type SubmitHandler } from 'react-hook-form';
 import { FormField } from 'shared/ui/FormField';
+import { Loader } from 'shared/ui/Loader';
 import { WhiteButton } from 'shared/ui/WhiteButton';
 import { validationSchema } from '../lib/validationSchema';
 import cls from './ContactForm.module.scss';

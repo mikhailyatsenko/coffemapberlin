@@ -1,8 +1,8 @@
 import cls from './Loader.module.scss';
 
-export const Loader = () => {
+export const LoaderJustIcon = () => {
   return (
-    <div className={cls.Loader}>
+    <>
       <ul className={cls.wawes}>
         <li className={cls.wave}></li>
         <li className={cls.wave}></li>
@@ -66,6 +66,6 @@ export const Loader = () => {
         />
         <path d="M266.622 705.906m-30 0a30 30 0 1 0 60 0 30 30 0 1 0-60 0Z" fill="#8C4C17" />
       </svg>
-    </div>
+    </>
   );
 };
