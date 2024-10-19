@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom';
-import { usePlaces } from 'app/providers/PlacesDataProvider/ui/PlacesDataProvider';
 import { PlaceCard } from 'features/PlaceCard';
+import { usePlaces } from 'shared/lib/reactContext/PlacesData/usePlaces';
 import cls from './PlacesList.module.scss';
 
 export function PlacesList() {

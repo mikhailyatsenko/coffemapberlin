@@ -11,7 +11,7 @@ module.exports = {
     'prettier',
     '@feature-sliced/eslint-config/rules/import-order',
     // '@feature-sliced/eslint-config/rules/public-api',
-    // '@feature-sliced/eslint-config/rules/layers-slices',
+    '@feature-sliced/eslint-config/rules/layers-slices',
   ],
   overrides: [
     {
@@ -27,6 +27,7 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
+    project: './tsconfig.json',
   },
   plugins: ['@typescript-eslint', 'react', 'react-hooks'],
   rules: {

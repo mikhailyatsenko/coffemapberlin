@@ -1,12 +1,8 @@
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { usePlaces } from 'app/providers/PlacesDataProvider/ui/PlacesDataProvider';
 import { LoadMap } from 'features/LoadMap';
-import { type PlaceProperties, type PlaceResponse } from 'shared/types';
+import { type PlacesDataWithGeo } from 'features/LoadMap/ui/LoadMap';
+import { usePlaces } from 'shared/lib/reactContext/PlacesData/usePlaces';
 import { Loader } from 'shared/ui/Loader';
-
-export interface PlacesDataWithGeo extends GeoJSON.FeatureCollection<GeoJSON.Geometry, PlaceProperties> {
-  features: PlaceResponse[];
-}
 
 export const MainMap = () => {
   const { filterablePlaces, favoritePlaces, showFavorites, loading } = usePlaces();
@@ -17,11 +13,10 @@ export const MainMap = () => {
 
   if (!filterablePlaces) return null;
 
-  const placesGeo: PlacesDataWithGeo =
-    {
-      type: 'FeatureCollection',
-      features: showFavorites && favoritePlaces?.length ? favoritePlaces : filterablePlaces,
-    } || [];
+  const placesGeo: PlacesDataWithGeo = {
+    type: 'FeatureCollection',
+    features: (showFavorites && favoritePlaces?.length ? favoritePlaces : filterablePlaces) || [],
+  };
 
   return (
     <>

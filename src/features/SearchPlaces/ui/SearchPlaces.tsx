@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { createSearchParams, useNavigate } from 'react-router-dom';
-import { usePlaces } from 'app/providers/PlacesDataProvider/ui/PlacesDataProvider';
 import { RatingFilter } from 'entities/RatingFilter';
 import { SearchPlacesInput } from 'entities/SearchPlacesInput';
 import { SearchResultsTab } from 'entities/SearchResultsTab';
+import { usePlaces } from 'shared/lib/reactContext/PlacesData/usePlaces';
 import cls from './SearchPlaces.module.scss';
 
 export const SearchPlaces = () => {

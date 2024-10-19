@@ -1,11 +1,11 @@
 import { useQuery } from '@apollo/client';
 import React, { useContext, useEffect, useState, useRef, useCallback } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { LocationContext } from 'app/providers/LocationProvider/lib/LocationContext';
 import { RateNow } from 'features/RateNow';
 import { ReviewList } from 'features/ReviewList';
 import { HeaderDetailedPlacCard } from 'entities/HeaderDetailedPlacCard';
 import { useToggleFavorite } from 'shared/lib/hooks/interactions/useToggleFavorite';
+import { LocationContext } from 'shared/lib/reactContext/Location/LocationContext';
 import { GET_ALL_PLACES, GET_PLACE_DETAILS } from 'shared/query/apolloQueries';
 import { type PlaceResponse } from 'shared/types';
 import { AddToFavButton } from 'shared/ui/AddToFavButton';

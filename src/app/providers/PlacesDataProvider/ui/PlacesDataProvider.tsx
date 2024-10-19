@@ -1,26 +1,12 @@
 import { useQuery } from '@apollo/client';
-import React, { createContext, useContext, useState } from 'react';
+import React, { useState } from 'react';
+import { PlacesDataContext } from 'shared/lib/reactContext/PlacesData/PlacesContext';
 import { GET_ALL_PLACES } from 'shared/query/apolloQueries';
 import { type PlaceResponse } from 'shared/types';
-
-interface PlacesContextType {
-  places?: PlaceResponse[];
-  filterablePlaces: PlaceResponse[];
-  favoritePlaces: PlaceResponse[] | null;
-  setSearchTerm: (term: string) => void;
-  setMinRating: (rating: number) => void;
-  setShowFavorite: React.Dispatch<React.SetStateAction<boolean>>;
-  searchTerm: string;
-  minRating: number;
-  loading: boolean;
-  showFavorites: boolean;
-}
 
 interface PlacesData {
   places: PlaceResponse[];
 }
-
-const PlacesDataContext = createContext<PlacesContextType | undefined>(undefined);
 
 export const PlacesDataProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { data, loading } = useQuery<PlacesData>(GET_ALL_PLACES);
@@ -55,12 +41,4 @@ export const PlacesDataProvider: React.FC<{ children: React.ReactNode }> = ({ ch
       {children}
     </PlacesDataContext.Provider>
   );
-};
-
-export const usePlaces = () => {
-  const context = useContext(PlacesDataContext);
-  if (context === undefined) {
-    throw new Error('usePlaces must be used within a PlacesProvider');
-  }
-  return context;
 };

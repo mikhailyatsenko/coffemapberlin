@@ -1,4 +1,4 @@
-import { usePlaces } from 'app/providers/PlacesDataProvider/ui/PlacesDataProvider';
+import { usePlaces } from 'shared/lib/reactContext/PlacesData/usePlaces';
 import cls from './FavoritesIndicator.module.scss';
 
 interface FavoritesIndicatorProps {

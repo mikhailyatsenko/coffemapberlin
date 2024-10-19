@@ -1,14 +1,17 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import { Map, Source, Layer, Popup, GeolocateControl, NavigationControl } from 'react-map-gl';
 import type { MapRef, GeoJSONSource, MapLayerMouseEvent, LngLatLike, MapboxGeoJSONFeature } from 'react-map-gl';
-import { LocationContext } from 'app/providers/LocationProvider/lib/LocationContext';
-import { type PlacesDataWithGeo } from 'widgets/Map/ui/MainMap';
-import { TooltipCardOnMap } from 'features/TooltipCardOnMap';
+import { TooltipCardOnMap } from 'entities/TooltipCardOnMap';
 import useWidth from 'shared/lib/hooks/useWidth/useWidth';
+import { LocationContext } from 'shared/lib/reactContext/Location/LocationContext';
 import { type PlaceResponse, type PlaceProperties } from 'shared/types';
 import { clusterLayer, clusterCountLayer, unclusteredPointLayer, namesLayer } from '../model/layers/layers';
 
 const MAPBOX_TOKEN = process.env.MAPBOX_API;
+
+export interface PlacesDataWithGeo extends GeoJSON.FeatureCollection<GeoJSON.Geometry, PlaceProperties> {
+  features: PlaceResponse[];
+}
 
 interface LoadMapProps {
   placesGeo: PlacesDataWithGeo;
