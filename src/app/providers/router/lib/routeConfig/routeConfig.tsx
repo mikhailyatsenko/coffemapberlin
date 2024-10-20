@@ -6,13 +6,12 @@ import { ContactPage } from 'pages/ContactPage';
 import { MainPage } from 'pages/MainPage';
 import { MyReviews } from 'pages/MyReviews';
 import { NotFoundPage } from 'pages/NotFoundPage';
-import { DetailedPaceCard } from 'widgets/DetailedPaceCard'; // Ваше вложенное содержимое
+import { DetailedPaceCard } from 'widgets/DetailedPaceCard';
 
-// Новый тип конфигурации маршрутов
 export interface AppRouteConfig {
   path: string;
   element: ReactNode;
-  children?: AppRouteConfig[]; // Для вложенных маршрутов
+  children?: AppRouteConfig[];
 }
 
 export enum AppRoutes {
@@ -35,13 +34,11 @@ export const RoutePaths: Record<AppRoutes, string> = {
   [AppRoutes.NOT_FOUND]: '*',
 };
 
-// Теперь используем AppRouteConfig для типизации конфигурации маршрутов
 export const routeConfig: Record<AppRoutes, AppRouteConfig> = {
   [AppRoutes.MAIN]: {
     path: RoutePaths.main,
     element: <MainPage />,
     children: [
-      // Вложенные маршруты
       {
         path: 'details',
         element: <DetailedPaceCard />,

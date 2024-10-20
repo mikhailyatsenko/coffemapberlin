@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom';
 import { Footer } from 'widgets/Footer';
 import { Navbar } from 'widgets/Navbar';
-import { SwowFavoritePlaces } from 'features/SwowFavoritePlaces';
+import { ShowFavoritePlaces } from 'features/ShowFavoritePlaces';
 import { useAuth } from 'shared/lib/reactContext/Auth/useAuth';
 import { AuthModalContent } from 'shared/ui/authModalContent/ui/AuthModalContent';
 import { Modal } from 'shared/ui/Modal';
@@ -30,7 +30,7 @@ const App = () => {
           </Modal>
         )}
 
-        {location.pathname === '/' && <SwowFavoritePlaces />}
+        {location.pathname === '/' && <ShowFavoritePlaces />}
       </PortalToBody>
     </>
   );
